@@ -39,7 +39,7 @@
 #question-body {
 	font-family: sans-serif;
 	background-color:black;
-	max-width: 80vw;
+	/* max-width: 80vw; */
 
 	margin: 0 auto;
 }
