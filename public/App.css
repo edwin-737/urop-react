@@ -36,10 +36,11 @@
     transform: rotate(360deg);
   }
 }
-body {
+#question-body {
 	font-family: sans-serif;
 	background-color:black;
 	max-width: 80vw;
+
 	margin: 0 auto;
 }
 #title-font{
@@ -97,12 +98,12 @@ body {
 	align-items: stretch;
 	justify-content: space-between;
 
-	h1 {
+	/* h1 {
 		box-sizing: border-box;
 		padding-left: 1.5em;
 		padding-right: 1.5em;
 
-	}
+	} */
 }
 
 .l-article {

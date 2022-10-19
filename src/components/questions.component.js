@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-export const Urop1Tab = function () {
+const studentUrl = 'https://urop-react-backend.azurewebsites.net/student';
+function Questions() {
     function alertUpdate() {
         alert("updated");
     }
@@ -42,3 +43,4 @@ export const Urop1Tab = function () {
         </div>
     );
 };
+export default Questions;
