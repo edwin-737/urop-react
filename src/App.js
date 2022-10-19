@@ -1,24 +1,21 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './components/home.component';
+import Questions from './components/questions.component';
 import logo from './logo.svg';
 import './App.css';
 
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          hello from static web app
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <Navbar />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} exact />
+        <Route path="/questions" element={<Questions />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/9299f7d0-0748-4d39-afa8-f8e7a14150eb/microsoft.web/sites/subscriptions/9299f7d0-0748-4d39-afa8-f8e7a14150eb/resourceGroups/urop-react_group/providers/Microsoft.Web/sites/urop-react-backend",
+    "appService.deploySubpath": "backend"
+}
