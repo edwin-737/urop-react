@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 const studentUrl = 'https://urop-react-backend.azurewebsites.net/student';
 function Questions() {
-    function alertUpdate() {
-        alert("updated");
-    }
+    // function alertUpdate() {
+    //     alert("updated");
+    // }
 
     /*----- Added code ----*/
     const [studentData, setStudentData] = useState([]);
@@ -15,10 +15,10 @@ function Questions() {
                 setStudentData(res.data.map(k => k.username));
             });
     }, []);
-    const [questionCardArray, setQuestionCardArray] = useState([]);
+    // const [questionCardArray, setQuestionCardArray] = useState([]);
 
-    var studentUsernameArr = [];
-    var cardsArr = [];
+    // var studentUsernameArr = [];
+    // var cardsArr = [];
     return (
         <div id="title-div">
             <p id="title-font">Questions</p>
