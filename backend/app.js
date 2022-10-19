@@ -11,6 +11,9 @@ var studentRouter = require("./routes/student");
 var optionRouter = require("./routes/option");
 var app = express();
 const mongoose = require("mongoose");
+var cors = require("cors");
+app.use(cors());
+app.use(express.json());
 
 const URI = "mongodb+srv://Cluster27837:UHVJdGZWa0Zb@cluster27837.1kv0ktx.mongodb.net/?retryWrites=true&w=majority";
 const options = {

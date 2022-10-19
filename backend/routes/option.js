@@ -1,4 +1,4 @@
-var router = require('express').Router();
+const router = require('express').Router();
 let option = require('../models/option.model');
 const { Schema, default: mongoose } = require('mongoose');
 router.route('/').get((req, res) => {
@@ -18,9 +18,9 @@ router.route('/add').post((req, res) => {
         .catch((err) => (res.status(400).json(`Error:${err}`)));
 
 });
-// router.route('/populate').get((req, res) => {
-//     option.find()
-//         .populate("chosenBy")
-//         .then(() => res.json('Option populated!'));
-// });
+router.route('/populate').get((req, res) => {
+    option.find()
+        .populate("chosenBy")
+        .then(() => res.json('Option populated!'));
+});
 module.exports = router;
