@@ -54,6 +54,18 @@
 	height:4vmax;
 	color:white;
 }
+.button-add-question{
+	background-color:rgb(64, 64, 196);
+	width:9rem;
+	height:3rem;
+	margin-left:2rem;
+	margin-top:1rem;
+	border:none;
+}
+.button-text{
+	color:white;
+	font-family:sans-serif;
+}
 #questions-container{
 	background-color: #3f0606;
 	width:50rem;
@@ -85,6 +97,7 @@
 .question-card-username{
 	font:3pt;
 	font-weight: bold;
+	text-decoration: underline;
 }
 .l-header {
 	display: flex;

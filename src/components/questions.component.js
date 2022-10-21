@@ -3,10 +3,6 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 const studentUrl = 'https://urop-react-backend.azurewebsites.net/student';
 function Questions() {
-    // function alertUpdate() {
-    //     alert("updated");
-    // }
-
     /*----- Added code ----*/
     const [studentData, setStudentData] = useState([]);
     useEffect(() => {
@@ -15,10 +11,6 @@ function Questions() {
                 setStudentData(res.data.map(k => k.username));
             });
     }, []);
-    // const [questionCardArray, setQuestionCardArray] = useState([]);
-
-    // var studentUsernameArr = [];
-    // var cardsArr = [];
     return (
         <div id="title-div">
             <p id="title-font">Questions</p>
@@ -26,7 +18,11 @@ function Questions() {
                 <div id="question-title-div">
                     <p id="question-title-font"> Student Queries</p>
                 </div>
+
+                <button className='button-add-question'><span className='button-text'>Add Question</span></button>
+                <button className='button-add-question'><span className='button-text'>Select</span></button>
                 <div className="question-card">
+
                     <p className='question-body'>
                         Lorem ipsum dolor sit amet,
                         consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
@@ -36,7 +32,10 @@ function Questions() {
                         nulla parilorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit,
                         sed quia non numquam [do] eius m
                         <br />
-                        by:{studentData}
+                        by:
+                        <span className='question-card-username'>{studentData}
+                        </span>
+                        {/* */}
                     </p>
                 </div>
             </div>
