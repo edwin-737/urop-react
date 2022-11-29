@@ -10,7 +10,7 @@ export default class Navbar extends Component {
                     <div className='icon-bar'></div>
 
                 </button>
-                <Link to='/' className="navbar-brand" >Employee Portal</Link>
+                <Link to='/' className="navbar-brand" >SUTD Portal</Link>
                 {/* <div style={{ backgroundColor: 'black' }}> */}
 
                 {/* </div > */}
