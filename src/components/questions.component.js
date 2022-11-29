@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getSuggestedQuery } from '@testing-library/react';
 // import forumPost from '../../backend/models/forumPost.model';
 // const forumPostUrl = 'https://urop-react-backend.azurewebsites.net/forumPost';
 const forumPostUrl = 'http://localhost:3001/forumPost';
@@ -62,6 +61,7 @@ export default class Questions extends Component {
                 response.data.map(forumPost => {
                     console.log('bodies length', this.state.bodies.length);
                     processForumPost(forumPost);
+                    return 1;
                 });
                 // console.log(response.data.length);
                 // var ke = 0
