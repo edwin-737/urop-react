@@ -3,6 +3,10 @@ const { question } = require("readline-sync");
 const Schema = mongoose.Schema;
 const forumPostSchema = new Schema({
     body: String,      //post body
+    isReply: {
+        type: Boolean,
+        default: false,
+    },
     posterType: {
         type: Number,
         default: 0,
@@ -26,7 +30,10 @@ const forumPostSchema = new Schema({
     responses: [{
         type: Schema.Types.ObjectId,
         ref: "forumPost",
-    }]
+    }],
+    schema_version: {
+        type: Number,
+    },
 }, {
     timestamps: true
 });

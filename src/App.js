@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/home.component';
-import Questions from './components/questions.component';
+import Topics from './components/topics.component';
 import Navbar from './components/navbar.component';
 // import logo from './logo.svg';
 
@@ -14,7 +14,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} exact ></Route>
-        <Route path="/questions" element={<Questions />}></Route>
+        <Route path="/topics" element={<Topics />}></Route>
+        {/* <Route path='/replies' element={<Replies />}></Route> */}
       </Routes>
     </Router>
   );
