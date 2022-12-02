@@ -1,0 +1,17 @@
+{
+  "name": "graph-tutorial",
+  "version": "1.0.0",
+  "description": "using microsoft graph api for the first time",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Edwin Wongso",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/identity": "^2.1.0",
+    "@microsoft/microsoft-graph-client": "^3.0.2",
+    "isomorphic-fetch": "^3.0.0",
+    "readline-sync": "^1.4.10"
+  }
+}
