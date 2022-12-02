@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import axios from 'axios';
-import Replies from './replies.component';
+// import Replies from './replies.component';
 // import forumPost from '../../backend/models/forumPost.model';
 // const host='https://urop-react-backend.azurewebsites.net/';
 const host = 'http://localhost:3001/';
@@ -9,11 +9,11 @@ const forumPostUrl = host + 'forumPost';
 const userUrl = host + 'user';
 function ZoomIntoTopic(props) {
     var cards = [];
-    props.forumPostResponseCards.map((i) => {
-        if (i.key === props.forumPostKey)
-            cards.push(i.card);
-    })
-    // const p = cards;
+    props.forumPostResponseCards.map((item) => {
+        if (item.key === props.forumPostKey)
+            cards.push(item.card);
+        return 1;
+    });
     return (
 
         <div id="questions-container">
@@ -60,10 +60,9 @@ export default class Topics extends Component {
             postKey: 0,
             replyButton: false,
         };
-        // this.retrieveResponses = this.retrieveResponses.bind(this);
     }
     componentDidMount() {
-        var masterKey = -1;
+        var masterKey = 0;
         var k = 0;
         const processForumPost = (forumPost, postKey) => {
             axios.post(userUrl + '/findOne', {
@@ -82,7 +81,6 @@ export default class Topics extends Component {
                                             by: {u}
                                         </span>
                                     </p>
-                                    {/* <div style={hide}> */}
                                     <button id="show-replies"
                                         className='btn btn-primary'
                                         onClick={() => {
@@ -91,7 +89,6 @@ export default class Topics extends Component {
                                             });
                                         }}> show replies
                                     </button>
-                                    {/* </div> */}
                                     <button className='upvote-button'></button>
                                     <button className='downvote-button'></button>
                                 </div>
@@ -128,13 +125,23 @@ export default class Topics extends Component {
                                                             <p className='reply-body' key={k}>
                                                                 {postKey}   {k}   {reply.body}
                                                             </p>
+                                                            <button id="show-replies"
+                                                                className='btn btn-primary'
+                                                                onClick={() => {
+                                                                    this.setState({
+                                                                        focusOn: postKey,
+                                                                    });
+                                                                }}> show replies
+                                                            </button>
+                                                            <button className='upvote-button'></button>
+                                                            <button className='downvote-button'></button>
                                                         </div>
                                                     </li>
                                             }
                                         ]
                                 }));
-
-                            })
+                            });
+                        return 1;
                     });
                 })
         }
@@ -147,28 +154,12 @@ export default class Topics extends Component {
                 response.data.map(forumPost => {
                     if (forumPost.isReply === true)
                         return 0;
-                    masterKey += 1;
                     processForumPost(forumPost, masterKey);
-                    // postKey += 1;
-                    // .then(() => postKey += 1);
-                    // postKey += 1;
+                    masterKey += 1;
                     return 1;
                 });
 
             }));
-
-        // this.setState({
-        //     renderZoomIntoTopic: [this.ZoomIntoTopic({
-        //         forumPostCard: this.state.forumPostCards[this.state.focusOn],
-        //         forumPostKey: this.state.focusOn,
-        //         forumPostResponseCards: this.state.forumPostResponseCards,
-        //     })]
-        // });
-        // this.setState({
-        //     renderListOfTopics: [this.ListOfTopics({
-        //         forumPostCards: this.state.forumPostCards
-        //     })]
-        // });
     }
     render() {
         if (this.state.focusOn != -1) {
@@ -182,7 +173,6 @@ export default class Topics extends Component {
                     })}>back to topics</button>
                     <div className='grid-container'>
                         <div className='grid-item grid-item-1'>
-                            {/* {this.state.ZoomIntoTopic} */}
                             <ZoomIntoTopic
                                 forumPostCard={this.state.forumPostCards[this.state.focusOn]}
                                 forumPostKey={this.state.focusOn}
