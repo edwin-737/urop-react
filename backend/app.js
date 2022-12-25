@@ -7,9 +7,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var emailRouter = require('./routes/email');
 var optionRouter = require("./routes/option");
-
 var userRouter = require("./routes/user");
-var forumPostRouter = require('./routes/forumPost')
+var forumPostRouter = require('./routes/forumPost');
+var bulkRouter = require('./routes/bulk');
 // const professorRouter = require("./urop1Tab/routes/professor");
 var app = express();
 const mongoose = require("mongoose");
@@ -44,7 +44,7 @@ app.use('/email', emailRouter);
 app.use('/forumPost', forumPostRouter);
 app.use('/option', optionRouter);
 app.use('/user', userRouter);
-
+app.use('/bulk', bulkRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

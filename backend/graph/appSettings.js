@@ -7,10 +7,7 @@ const settings = {
   'tenantId': '8e46ed74-357d-4717-8dff-512d29d26531',
   'authTenant': '8e46ed74-357d-4717-8dff-512d29d26531',
   'graphUserScopes': [
-    // 'User.Read.All',
-    // 'Mail.ReadWrite',
-    // 'Mail.Read',
-    // 'Mail.Send',
+
     'User.Read',
     'User.Read.All',
   ]

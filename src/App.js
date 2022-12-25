@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/home.component';
-import Topics from './components/topics.component';
 import Navbar from './components/navbar.component';
+import Topics from './components/forum/topics.component';
 // import logo from './logo.svg';
 
 

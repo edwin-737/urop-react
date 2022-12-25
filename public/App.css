@@ -118,6 +118,9 @@
 	color:white;
 	margin-top:0;
 }
+.reply-list-item{
+	margin:10px;
+}
 .topic-card{
 	background-color:rgb(70, 61, 61);
 	overflow:auto;
@@ -148,7 +151,6 @@
 	width: 100%;
 	min-height: 5em;
 	padding: 1em;
-
 	align-content: space-between;
 	align-items: stretch;
 	justify-content: space-between;

@@ -4,114 +4,35 @@ const graphHelper = require('./graphHelper');
 
 var express = require('express');
 var path = require('path');
-const port = process.env.PORT || 3003;
+const { UsernamePasswordCredential } = require('@azure/identity');
+const port = process.env.PORT || 3002;
 
-initializeGraph(settings);
 
-// Greet the user by name
-async function getUser() {
-  await greetUserAsync();
-}
-async function listUsersAsync() {
-  try {
-    const users = await graphHelper.getUserAsync();
-    // const userEmail = user?.mail ?? user?.userPrincipalName;
-    console.log(users);
-    return users;
-  } catch (err) {
-    console.log(`Error getting users: ${err}`);
-  }
-}
-getUser().then(() => {
+async function main() {
+  console.log('JavaScript Graph Tutorial');
+
+  // Initialize Graph
+  initializeGraph(settings);
+  //sign in service principal
+  ensureAppOnly();
   var app = express();
 
   var cors = require("cors");
   app.use(cors());
   app.use(express.json());
   /* GET home page. */
-  app.get('/users', async (req, res, next) => {
+  app.get('/users', async (req, res) => {
     await listUsersAsync()
-      .then((users) => {
-        console.log(users)
-
-        res.send(users);
-      });
+      .then(users => res.send(users));
   });
 
   app.listen(port, () => {
     console.log(`server running on port ${port}`);
   });
 
-});
-// var app = express();
-
-// var cors = require("cors");
-// app.use(cors());
-// app.use(express.json());
-
-// // app.use('/', indexRouter);
-// var router = express.Router();
-// /* GET home page. */
-// router.get('/users', (req, res, next) => {
-//   //   res.render('index', { title: 'Express' });
-//   console.log(listUsersAsync())
-//   // res.json(listUsersAsync());
-//   // next();
-// });
-async function main() {
-  console.log('JavaScript Graph Tutorial');
-
-  let choice = 0;
-
-  // Initialize Graph
-  initializeGraph(settings);
-
-  // Greet the user by name
-  await greetUserAsync();
-
-  const choices = [
-    'Display access token',
-    'List my inbox',
-    'Send mail',
-    'List users (requires app-only)',
-    'Make a Graph call'
-  ];
-
-  while (choice != -1) {
-    choice = readline.keyInSelect(choices, 'Select an option', { cancel: 'Exit' });
-
-    switch (choice) {
-      case -1:
-        // Exit
-        console.log('Goodbye...');
-        break;
-      case 0:
-        // Display access token
-        await displayAccessTokenAsync();
-        break;
-      case 1:
-        // List emails from user's inbox
-        await listInboxAsync();
-        break;
-      case 2:
-        // Send an email message
-        await sendMailAsync();
-        break;
-      case 3:
-        // List users
-        await listUsersAsync();
-        break;
-      case 4:
-        // Run any Graph code
-        await makeGraphCallAsync();
-        break;
-      default:
-        console.log('Invalid choice! Please try again.');
-    }
-  }
 }
 
-// main();
+main();
 function initializeGraph(settings) {
   graphHelper.initializeGraphForUserAuth(settings, (info) => {
     // Display the device code message to
@@ -121,7 +42,9 @@ function initializeGraph(settings) {
     console.log(info.message);
   });
 }
-
+function ensureAppOnly() {
+  graphHelper.ensureGraphForAppOnlyAuth();
+}
 async function greetUserAsync() {
   try {
     const user = await graphHelper.getUserAsync();
@@ -171,22 +94,30 @@ async function listInboxAsync() {
   }
 }
 
-/*async function listUsersAsync() {
+async function listUsersAsync() {
   try {
-    // Send mail to the signed-in user
-    // Get the user for their email address
-    const users = await graphHelper.getUserAsync();
-    // const userEmail = user?.mail ?? user?.userPrincipalName;
-    console.log(users);
-    // if (!userEmail) {
-    //   console.log('Couldn\'t get your email address, canceling...');
-    //   return;
-    // }
-
-    // await graphHelper.sendMailAsync('Testing Microsoft Graph',
-    //   'Hello world!', userEmail);
-    // console.log('Mail sent.');
+    const userPage = await graphHelper.getUsersAsync();
+    const users = userPage.value;
+    var userArr = []
+    var userEmailArr = []
+    // Output each user's details
+    for (const user of users) {
+      //user's general data
+      userArr.push(user);
+      //user's email retrieved separately
+      await graphHelper.getUserEmail(user.id)
+        .then(userEmail => userEmailArr.push(userEmail));
+      // console.log(`User: ${user.displayName ?? 'NO NAME'}`);
+      // console.log(`  ID: ${user.id}`);
+      // console.log(`  Email: ${user.userPrincipalName ?? 'NO EMAIL'}`);
+    }
+    console.log(userEmailArr);
+    // If @odata.nextLink is not undefined, there are more users
+    // available on the server
+    const moreAvailable = userPage['@odata.nextLink'] != undefined;
+    console.log(`\nMore users available? ${moreAvailable}`);
+    return userArr;
   } catch (err) {
     console.log(`Error getting users: ${err}`);
   }
-}*/
+}

@@ -50,6 +50,7 @@ router.route('/update').post((req, res) => {
             let responses = null || req.body.responses;
             let addToResponses = null || req.body.addToResponses;
             let isReply = null || req.body.isReply;
+            // console.log(forumPost);
             if (body != null)
                 forumPost.body = body;
             if (upvotes != null)

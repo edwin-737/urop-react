@@ -17,13 +17,13 @@ const forumPostSchema = new Schema({
     },
     anonymous: {
         type: Boolean,
-        default: false,
+        default: true,
     },
     edited: {
         type: Boolean,
         default: false,
     },
-    postedBy: {              //Use this if posterType == 0
+    postedBy: {
         type: Schema.Types.ObjectId,
         ref: "user",
     },
@@ -31,6 +31,11 @@ const forumPostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "forumPost",
     }],
+    title: {
+        type: String,
+        required: false,
+        default: "A forum Post by someone"
+    },
     schema_version: {
         type: Number,
     },

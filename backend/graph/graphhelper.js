@@ -9,6 +9,32 @@ let _settings = undefined;
 let _deviceCodeCredential = undefined;
 let _userClient = undefined;
 
+function ensureGraphForAppOnlyAuth() {
+  // Ensure settings isn't null
+  if (!_settings)
+    throw new Error('Settings cannot be undefined');
+
+  if (!_clientSecretCredential) {
+    _clientSecretCredential = new azure.ClientSecretCredential(
+      _settings.tenantId,
+      _settings.clientId,
+      _settings.clientSecret
+    );
+  }
+
+  if (!_appClient) {
+    const authProvider = new authProviders.TokenCredentialAuthenticationProvider(
+      _clientSecretCredential, {
+      scopes: ['https://graph.microsoft.com/.default']
+    });
+
+    _appClient = graph.Client.initWithMiddleware({
+      authProvider: authProvider
+    });
+  }
+}
+module.exports.ensureGraphForAppOnlyAuth = ensureGraphForAppOnlyAuth;
+//Functions below are for scopes using delegated permissions 
 function initializeGraphForUserAuth(settings, deviceCodePrompt) {
   // Ensure settings isn't null
   if (!settings) {
@@ -109,3 +135,25 @@ async function sendMailAsync(subject, body, recipient) {
     });
 }
 module.exports.sendMailAsync = sendMailAsync;
+//Functions below are for scopes using application permissions 
+
+let _clientSecretCredential = undefined;
+let _appClient = undefined;
+
+
+async function getUsersAsync() {
+  // ensureGraphForAppOnlyAuth();
+
+  return _appClient?.api('/users')
+    .select(['displayName', 'id', 'mail'])
+    .top(25)
+    .orderby('displayName')
+    .get();
+}
+module.exports.getUsersAsync = getUsersAsync;
+async function getUserEmail(id) {
+  return _appClient?.api('/users/' + id)
+    .select(['userPrincipalName'])
+    .get();
+}
+module.exports.getUserEmail = getUserEmail;
