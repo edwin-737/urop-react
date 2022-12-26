@@ -2,8 +2,8 @@ import React, { Component, useEffect, useState } from 'react';
 import axios from 'axios';
 import ListOfTopics from './ListOfTopics.component';
 import FocusOnTopic from './FocusOnTopic.component';
-// const host='https://urop-react-backend.azurewebsites.net/';
-const host = 'http://localhost:3001/';
+const host = 'https://urop-react-backend.azurewebsites.net/';
+// const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
 const userUrl = host + 'user';
 export default class Topics extends Component {
@@ -22,7 +22,7 @@ export default class Topics extends Component {
         };
     }
     componentDidMount() {
-        const createCard = (forumPost, index, body, username) => {
+        const createCard = (forumPost, body, username) => {
             this.setState(previousState => ({
                 forumPostData: [...previousState.forumPostData,
                 {
@@ -56,14 +56,14 @@ export default class Topics extends Component {
                 ]
             }));
         }
-        const processForumPost = async (forumPost, index) => {
+        const processForumPost = async (forumPost) => {
             await axios.post(userUrl + '/findOne', {
                 _id: forumPost.postedBy,
             })
                 .then((response) => {
                     const user = response.data;
                     if (user.username !== null && forumPost.body !== null)
-                        createCard(forumPost, index, forumPost.body, user.username);
+                        createCard(forumPost, forumPost.body, user.username);
                 })
         }
         axios({
@@ -71,10 +71,11 @@ export default class Topics extends Component {
             url: forumPostUrl,
         })
             .then(response => {
-                response.data.map(async (forumPost, index) => {
+                response.data.map(async (forumPost) => {
                     if (forumPost.isReply === true)
                         return 0;
-                    await processForumPost(forumPost, index);
+                    await processForumPost(forumPost);
+                    return 0;
                 });
 
             })

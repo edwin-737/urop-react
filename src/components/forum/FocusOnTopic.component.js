@@ -1,8 +1,8 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import CreatePost from './CreatePost.component';
-// const host='https://urop-react-backend.azurewebsites.net/';
-const host = 'http://localhost:3001/';
+const host = 'https://urop-react-backend.azurewebsites.net/';
+// const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
 const userUrl = host + 'user';
 export default function FocusOnTopic(props) {
@@ -10,7 +10,6 @@ export default function FocusOnTopic(props) {
     const [responseCards, setResponseCards] = useState([]);
     const [dataIsUpdated, setDataIsUpdated] = useState(0);
     const [cardsAreUpdated, setCardsAreUpdated] = useState(false)
-    const [users, setUsers] = useState([]);
     const itime = new Date().getTime() / 1000;
     var forumPostPromiseArr = [];
     var userPromiseArr = [];
@@ -21,36 +20,8 @@ export default function FocusOnTopic(props) {
                     forumPostUrl + '/findOne',
                     { _id: id }
                 ))
+            return 0;
         })
-    }
-    const getUserData = async () => {
-        if (dataIsUpdated >= 2)
-            return dataIsUpdated;
-        await getResponseCardData();
-        setDataIsUpdated(2);
-        await Promise.all(userPromiseArr)
-            .then((responses) => {
-                var users = responses;
-                // console.log('users data', users);
-                users.map((user, index) =>
-                    console.log('each user ', index, ' ', user.data)
-                );
-                for (var i; i < users.length; i++) {
-                    console.log('iter over user', users[i]);
-                }
-                cardData.map((curCardData, index) => {
-                    const setShow = (prev) => prev.map(curCard => {
-                        if (curCard.key === curCardData.key) {
-                            if (!curCard.showReplies)
-                                return { ...curCard, username: users[index].data.username };
-                        } else {
-                            return curCard;
-                        }
-                    })
-                    setCardData(setShow);
-                })
-
-            })
     }
     const getResponseCardData = async () => {
         if (dataIsUpdated >= 1)
@@ -60,26 +31,26 @@ export default function FocusOnTopic(props) {
             .then(async (responses) => {
                 responses.map(async curResponse => {
                     curResponse = curResponse.data;
+                    console.log('curResponse', curResponse);
                     userPromiseArr.push(
-                        await axios.post(userUrl + '/findOne', {
+                        axios.post(userUrl + '/findOne', {
                             _id: curResponse.postedBy,
                         }));
-                    // const curUser = await axios.post(userUrl + '/findOne', {
-                    //     _id: curResponse.postedBy,
-                    // })
-                    //     .then((response) => {
-                    //         const user = response.data;
-                    //         console.log('each user', user);
-                    //         return user;
-                    //         // console.log('user list in then',users)
-                    //     })
-                    //     .catch(err => console.log(err));
+                    console.log('postedBy', curResponse.postedBy, (new Date().getTime() / 1000) - itime);
+                    const curUser = await axios.post(userUrl + '/findOne', {
+                        _id: curResponse.postedBy,
+                    })
+                        .then((response) => {
+                            const user = response.data;
+                            console.log('each user', user);
+                            return user;
+                        })
+                        .catch(err => console.log(err));
                     var curCardData = {
                         key: curResponse._id,
                         body: curResponse.body,
                         responses: curResponse.responses,
-                        // username: 'p',
-                        // username: curUser.username,
+                        username: curUser.username,
                         showReplies: false,
                         showReplyBox: false,
                         upvotes: curResponse.upvotes,
@@ -87,11 +58,37 @@ export default function FocusOnTopic(props) {
                     setCardData(((prev) =>
                         [...prev, curCardData]
                     ));
+                    return 0;
                 })
             });
 
         return dataIsUpdated;
     };
+    const getUserData = async () => {
+        if (dataIsUpdated >= 2)
+            return dataIsUpdated;
+        setDataIsUpdated(2);
+        Promise.all(userPromiseArr)
+            .then((responses) => {
+                const users = responses;
+                console.log('users as list', users, (new Date().getTime() / 1000) - itime);
+                console.log('size of cardData', cardData.length, (new Date().getTime() / 1000) - itime)
+                cardData.map((curCardData, index) => {
+                    const data = cardData.map(curCard => {
+                        if (curCard.key === curCardData.key) {
+                            curCard.username = users[index].data.username
+                        } else {
+                            return curCard;
+                        }
+                    })
+                    console.log('each data', data);
+                    setCardData(data);
+                    return 0;
+                })
+
+            })
+    }
+
     const makeResponseCards = () => {
         if (cardsAreUpdated === true)
             return null;
@@ -100,6 +97,7 @@ export default function FocusOnTopic(props) {
         console.log('cardData in if', cardData, (new Date().getTime() / 1000) - itime);
         cardData.map((curCardData) => {
             const keyToMatch = curCardData.key;
+            console.log('in make response cards', curCardData.username);
             setResponseCards((prev) => [
                 ...prev,
                 <li key={curCardData.key} >
@@ -155,16 +153,17 @@ export default function FocusOnTopic(props) {
                     {curCardData.showReplies && <FocusOnTopic rootCard={curCardData} />}
                     {curCardData.showReplyBox && <CreatePost rootCard={curCardData} />}
                 </li>
-            ])
+            ]);
+            return 0;
         });
     }
     getPromises();
-    console.log(forumPostPromiseArr.length);
-    // getResponseCardData();
-    // setTimeout(getUserData, 1000);
-    getUserData();
+    console.log('forumPostPromiseArr length', forumPostPromiseArr.length);
+    getResponseCardData();
+    setTimeout(getUserData, 1000);
+    // getUserData();
     if (!cardsAreUpdated)
-        setTimeout(makeResponseCards, 1030);
+        setTimeout(makeResponseCards, 1300);
     return (
         <div id="questions-container">
             {props.rootCard.cardToDisplay}

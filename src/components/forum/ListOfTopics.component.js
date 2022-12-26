@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+// import axios from 'axios';
 // const host='https://urop-react-backend.azurewebsites.net/';
-const host = 'http://localhost:3001/';
-const forumPostUrl = host + 'forumPost';
-const userUrl = host + 'user';
+// const host = 'http://localhost:3001/';
+// const forumPostUrl = host + 'forumPost';
+// const userUrl = host + 'user';
 export default function ListOfTopics(props) {
     return (
         <div id="questions-container">

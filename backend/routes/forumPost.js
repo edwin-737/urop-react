@@ -19,6 +19,7 @@ router.route('/add').post((req, res) => {
     const edited = req.body.edited;
     const responses = req.body.responses;
     const isReply = req.body.isReply;
+    const title = req.body.title;
     const newforumPost = new forumPost({
         body,
         upvotes,
@@ -26,16 +27,17 @@ router.route('/add').post((req, res) => {
         postedBy,
         edited,
         responses,
-        isReply
+        isReply,
+        title,
     });
     newforumPost.save()
-        .then(() => res.json('forum post Added!'))
+        .then((response) => res.json(response))
         .catch((err) => (res.status(400).json(`Error:${err}`)));
 });
 router.route('/delete').post((req, res) => {
     var id = req.body._id;
     forumPost.findByIdAndDelete(id)
-        .then(forumPost => res.json(forumPost))
+        .then(() => res.json('forum post deleted'))
         .catch(err => res.status(400).json('error:' + err));
 });
 router.route('/update').post((req, res) => {
@@ -68,7 +70,7 @@ router.route('/update').post((req, res) => {
             if (isReply != null)
                 forumPost.isReply = isReply;
             forumPost.save()
-                .then(() => res.json('forum post Updated.'))
+                .then((response) => res.json(response))
                 .catch((err) => res.status(400).json(err));
         });
 });
