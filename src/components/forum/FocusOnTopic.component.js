@@ -77,9 +77,9 @@ export default function FocusOnTopic(props) {
                     const data = cardData.map(curCard => {
                         if (curCard.key === curCardData.key) {
                             curCard.username = users[index].data.username
-                        } else {
                             return curCard;
                         }
+                        return curCard;
                     })
                     console.log('each data', data);
                     setCardData(data);

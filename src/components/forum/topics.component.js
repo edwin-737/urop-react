@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import ListOfTopics from './ListOfTopics.component';
 import FocusOnTopic from './FocusOnTopic.component';
