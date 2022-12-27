@@ -6,13 +6,13 @@ import React from 'react';
 // const userUrl = host + 'user';
 export default function ListOfTopics(props) {
     return (
-        <div id="questions-container">
+        <div id="forumPost-container">
             <div id="forumPost-title-div">
                 <p id="topic-title-font">Forum Posts</p>
             </div>
 
-            <button className='button-add-question'><span className='button-text'>Add Question</span></button>
-            <button className='button-add-question' ><span className='button-text'>Select</span></button>
+            <button className='btn btn-primary m-2 btn-lg'><span className='button-text'>Add Question</span></button>
+            <button className='btn btn-primary m-2 btn-lg' ><span className='button-text'>Select</span></button>
             <ul>
                 {props.forumPostCards}
             </ul>

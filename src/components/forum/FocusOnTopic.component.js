@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import CreatePost from './CreatePost.component';
+import CreateResponse from './CreateResponse.component';
 const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
@@ -12,7 +12,7 @@ export default function FocusOnTopic(props) {
     const [cardsAreUpdated, setCardsAreUpdated] = useState(false)
     const itime = new Date().getTime() / 1000;
     var forumPostPromiseArr = [];
-    var userPromiseArr = [];
+    // var userPromiseArr = [];
     const getPromises = () => {
         props.rootCard.responses.map((id) => {
             forumPostPromiseArr.push(
@@ -27,22 +27,22 @@ export default function FocusOnTopic(props) {
         if (dataIsUpdated >= 1)
             return dataIsUpdated;
         setDataIsUpdated(1);
-        await Promise.all(forumPostPromiseArr)
-            .then(async (responses) => {
-                responses.map(async curResponse => {
+        console.log('time at start of getResponseCardData', (new Date().getTime() / 1000) - itime);
+
+        props.rootCard.responses.map(async (id) => {
+            await axios.post(
+                forumPostUrl + '/findOne',
+                { _id: id }
+            )
+                .then(async curResponse => {
                     curResponse = curResponse.data;
-                    console.log('curResponse', curResponse);
-                    userPromiseArr.push(
-                        axios.post(userUrl + '/findOne', {
-                            _id: curResponse.postedBy,
-                        }));
-                    console.log('postedBy', curResponse.postedBy, (new Date().getTime() / 1000) - itime);
+                    console.log('curResponse', curResponse, (new Date().getTime() / 1000) - itime);
                     const curUser = await axios.post(userUrl + '/findOne', {
                         _id: curResponse.postedBy,
                     })
                         .then((response) => {
                             const user = response.data;
-                            console.log('each user', user);
+                            console.log('each user', user, (new Date().getTime() / 1000) - itime);
                             return user;
                         })
                         .catch(err => console.log(err));
@@ -51,6 +51,7 @@ export default function FocusOnTopic(props) {
                         body: curResponse.body,
                         responses: curResponse.responses,
                         username: curUser.username,
+                        // username: 'need to fill in',
                         showReplies: false,
                         showReplyBox: false,
                         upvotes: curResponse.upvotes,
@@ -60,48 +61,101 @@ export default function FocusOnTopic(props) {
                     ));
                     return 0;
                 })
-            });
-
+                .catch(err => console.log(err))
+            return 0;
+        })
+        // await Promise.all(forumPostPromiseArr)
+        //     .then((responses) => {
+        //         responses.map(curResponse => {
+        //             curResponse = curResponse.data;
+        //             console.log('curResponse', curResponse);
+        //             userPromiseArr.push(
+        //                 axios.post(userUrl + '/findOne', {
+        //                     _id: curResponse.postedBy,
+        //                 }));
+        //             console.log('postedBy', curResponse.postedBy, (new Date().getTime() / 1000) - itime);
+        //             // const curUser = await axios.post(userUrl + '/findOne', {
+        //             //     _id: curResponse.postedBy,
+        //             // })
+        //             //     .then((response) => {
+        //             //         const user = response.data;
+        //             //         console.log('each user', user);
+        //             //         return user;
+        //             //     })
+        //             //     .catch(err => console.log(err));
+        //             var curCardData = {
+        //                 key: curResponse._id,
+        //                 body: curResponse.body,
+        //                 responses: curResponse.responses,
+        //                 // username: curUser.username,
+        //                 username: 'need to fill in',
+        //                 showReplies: false,
+        //                 showReplyBox: false,
+        //                 upvotes: curResponse.upvotes,
+        //             };
+        //             setCardData(((prev) =>
+        //                 [...prev, curCardData]
+        //             ));
+        //             return 0;
+        //         })
+        //     });
+        console.log('time at end of getResponseCardData', (new Date().getTime() / 1000) - itime)
+        console.log('at end of getResponseCardData size of CardData', cardData.length, (new Date().getTime() / 1000) - itime)
         return dataIsUpdated;
     };
-    const getUserData = async () => {
-        if (dataIsUpdated >= 2)
-            return dataIsUpdated;
-        setDataIsUpdated(2);
-        Promise.all(userPromiseArr)
-            .then((responses) => {
-                const users = responses;
-                console.log('users as list', users, (new Date().getTime() / 1000) - itime);
-                console.log('size of cardData', cardData.length, (new Date().getTime() / 1000) - itime)
-                cardData.map((curCardData, index) => {
-                    const data = cardData.map(curCard => {
-                        if (curCard.key === curCardData.key) {
-                            curCard.username = users[index].data.username
-                            return curCard;
-                        }
-                        return curCard;
-                    })
-                    console.log('each data', data);
-                    setCardData(data);
-                    return 0;
-                })
+    // const getUserData = async () => {
+    //     if (dataIsUpdated >= 2)
+    //         return dataIsUpdated;
+    //     // await getResponseCardData();
+    //     setDataIsUpdated(2);
+    //     await Promise.all(userPromiseArr)
+    //         .then((responses) => {
+    //             var users = responses;
+    //             console.log('size of users', users.length, (new Date().getTime() / 1000) - itime);
+    //             console.log('size of cardData', cardData.length, (new Date().getTime() / 1000) - itime)
 
-            })
-    }
+    //             users.map((curUserData, uIndex) => {
+    //                 var newCardData = cardData;
+    //                 console.log('newCardData[uindex[.username: ', newCardData[uIndex].username)
+    //                 console.log('curUserData.data.username: ', curUserData.data.username)
+    //                 newCardData[uIndex].username = curUserData.data.username;
+    //                 setCardData(newCardData);
+    //                 return curUserData;
+    //             })
+    //             // cardData.map((curCardData, index) => {
+    //             //     const data = cardData.map(curCard => {
+    //             //         if (curCard.key === curCardData.key) {
+    //             //             curCard.username = users[index].data.username
+    //             //         }
+    //             //         return curCard;
+    //             //     })
+    //             //     console.log('each data', data);
+    //             //     setCardData(data);
+    //             //     return 0;
+    //             // })
+
+    //         })
+    // }
 
     const makeResponseCards = () => {
         if (cardsAreUpdated === true)
             return null;
         setResponseCards([]);
         setCardsAreUpdated(true);
-        console.log('cardData in if', cardData, (new Date().getTime() / 1000) - itime);
+        console.log('called makeResponseCards', cardData, (new Date().getTime() / 1000) - itime);
         cardData.map((curCardData) => {
             const keyToMatch = curCardData.key;
             console.log('in make response cards', curCardData.username);
             setResponseCards((prev) => [
                 ...prev,
-                <li key={curCardData.key} >
+                <li className=".reply-list-item" key={curCardData.key} >
+
                     <div className='reply-card'>
+                        <div className='reply-username'>
+                            <span className='reply-username-font'>
+                                {curCardData.username}
+                            </span>
+                        </div>
                         <p className='reply-body' >
                             {curCardData.key}      {curCardData.body}
                         </p>
@@ -146,33 +200,47 @@ export default function FocusOnTopic(props) {
                             }
                         >add reply
                         </button>
-                        {curCardData.username}
-                        <button className='upvote-button'></button>
-                        <button className='downvote-button'></button>
+                        <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '45vmax', bottom: '6vmax' }}>
+                            <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
+                        </button>
+                        <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '40.8vmax', bottom: '1vmax' }}>
+                            <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
+                        </button>
                     </div>
                     {curCardData.showReplies && <FocusOnTopic rootCard={curCardData} />}
-                    {curCardData.showReplyBox && <CreatePost rootCard={curCardData} />}
+                    {curCardData.showReplyBox && <CreateResponse rootCard={curCardData} />}
                 </li>
             ]);
             return 0;
         });
     }
+
     getPromises();
     console.log('forumPostPromiseArr length', forumPostPromiseArr.length);
     getResponseCardData();
-    setTimeout(getUserData, 1000);
+    // setTimeout(getUserData, 1000);
     // getUserData();
+    // setTimeout(getUserData, 2900);
+
     if (!cardsAreUpdated)
-        setTimeout(makeResponseCards, 1300);
+        setTimeout(makeResponseCards, 1800);
+    // const myPromise = new Promise(function (myResolve, myReject) {
+    //     setTimeout(() => { myReject("value was returned"); }, 3000);
+    // });
+    // myPromise
+    //     .then(value => {
+    //         console.log('demo value', value);
+    //     })
+    //     .catch(value => {
+    //         console.log('demo error', value)
+    //     });
     return (
-        <div id="questions-container">
+        <div >
             {props.rootCard.cardToDisplay}
-            <div id="reply-card">
-                <div id="reply-title-div">
-                    <ul>
-                        {responseCards}
-                    </ul>
-                </div>
+            <div id="reply-card" style={{ width: '70rem' }}>
+                <ul>
+                    {responseCards}
+                </ul>
             </div>
         </div>
     );

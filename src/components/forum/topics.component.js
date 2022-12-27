@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ListOfTopics from './ListOfTopics.component';
 import FocusOnTopic from './FocusOnTopic.component';
+import 'bootstrap/dist/css/bootstrap.min.css';
 const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
@@ -48,8 +49,12 @@ export default class Topics extends Component {
                                     });
                                 }}> see thread
                             </button>
-                            <button className='upvote-button'></button>
-                            <button className='downvote-button'></button>
+                            <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '45vmax', bottom: '6vmax' }}>
+                                <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
+                            </button>
+                            <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '40.8vmax', bottom: '1vmax' }}>
+                                <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
+                            </button>
                         </div>
                     </li >
                 }
@@ -89,23 +94,37 @@ export default class Topics extends Component {
         return (
             <div>
                 <div id="title-div">
-                    <p id="title-font">Questions</p>
+                    <p id="title-font">Forum</p>
                 </div>
-                <button className='btn btn-primary' onClick={(e) => {
+                {this.state.focusOn !== -1 && <button className='btn btn-primary' onClick={(e) => {
                     // e.preventDefault();
                     e.stopPropagation();
                     this.setState({
                         focusOn: -1
                     });
-                }}>back to topics</button>
-                <div className='grid-container'>
-                    <div className='grid-item grid-item-1'>
-                        {this.state.focusOn !== -1 && <FocusOnTopic
-                            rootCard={cardToFocusOn}
-                        />}
-                        {this.state.focusOn === -1 && <ListOfTopics
-                            forumPostCards={this.state.forumPostData.map(card => card.cardToDisplay)}
-                        />}
+                }}>back to topics</button>}
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-sm'>
+                            {this.state.focusOn !== -1 &&
+                                <div id="forumPost-container">
+                                    <FocusOnTopic
+                                        rootCard={cardToFocusOn}
+                                    />
+                                </div>
+                            }
+                            {this.state.focusOn === -1 &&
+                                <ListOfTopics
+                                    forumPostCards={this.state.forumPostData.map(card => card.cardToDisplay)}
+                                />}
+                        </div>
+                        <div className='col-sm'>
+                            <div className='searchbar-container'>
+                                <input className='searchbar'>
+                                </input>
+                            </div>
+
+                        </div>
                     </div>
                 </div >
             </div>

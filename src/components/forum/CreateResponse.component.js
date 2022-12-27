@@ -4,7 +4,7 @@ const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
 // const userUrl = host + 'user';
-export default function CreatePost(props) {
+export default function CreateResponse(props) {
     const ref = useRef();
     return (
         <form>
@@ -27,7 +27,7 @@ export default function CreatePost(props) {
                             body: responseBody,
                             schema_version: 2,
                             isReply: true,
-                            postedBy: "63861e4f1ad80b98e92289f7",
+                            postedBy: "63861e4f1ad80b98e92289f7", //replace with actual signed in user later
                             title: "how to post from the webdite?",
 
                         }
