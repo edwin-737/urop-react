@@ -96,6 +96,11 @@ ul{
 	color:white;
 	margin:4px;
 	border-radius: 1rem;
+	width:100%;
+}
+.reply-list{
+	/* margin:1px; */
+	padding-left:20px;
 }
 .reply-list-item{
 	margin:1rem;
@@ -110,9 +115,16 @@ ul{
 	color:white;
 	margin:20px;
 }
-.reply-username{
-	background-color:#3d3f45;
-	height:2rem;
+.vl{
+	border-left: 2px solid white;
+	height: 100%;
+	width:0%;
+	padding:0;
+}
+.padding-1{
+    padding-left:1px;
+	padding-right:1px;
+
 }
 .searchbar-container{
 	background-color:#3d3f45;
@@ -128,7 +140,15 @@ ul{
 	top:0px;
 	left:0px;
 }
-
+.focused-topic{
+	background-color:rgb(164, 33, 33);
+	width:62vmax;
+	height:20vmax;
+}
+.focused-topic-title{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10vw;
+}
 
 
 

@@ -1,5 +1,4 @@
 var router = require('express').Router();
-// const { keyboard } = require('@testing-library/user-event/dist/keyboard');
 const { Schema, default: mongoose, Mongoose } = require('mongoose');
 let User = require('../models/user.model');
 router.route('/').get((req, res) => {
@@ -21,13 +20,13 @@ router.route('/add').post((req, res) => {
     const enrollmentPeriod = req.body.enrollmentPeriod;
     const schema_version = req.body.schema_version;
     const newUser = new User({
-        username,
-        participation,
-        user_id,
-        email,
-        type,
-        enrollmentPeriod,
-        schema_version,
+        username: username,
+        participation: participation,
+        user_id: user_id,
+        email: email,
+        type: type,
+        enrollmentPeriod: enrollmentPeriod,
+        schema_version: schema_version,
     });
     newUser.save()
         .then(() => res.json('user Added!'))

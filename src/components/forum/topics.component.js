@@ -87,9 +87,10 @@ export default class Topics extends Component {
             .catch(err => console.log(err));
     }
     render() {
-        var cardToFocusOn = '';
+        var cardToFocusOn = {};
         if (this.state.focusOn !== -1) {
-            cardToFocusOn = this.state.forumPostData.filter(card => (card.key === this.state.focusOn))[0]
+            cardToFocusOn = this.state.forumPostData.filter(card => (card.key === this.state.focusOn))[0];
+            cardToFocusOn.layer = 0;
         }
         return (
             <div>
@@ -104,7 +105,7 @@ export default class Topics extends Component {
                     });
                 }}>back to topics</button>}
                 <div className='container'>
-                    <div className='row'>
+                    <div className='row no-gutters'>
                         <div className='col-sm'>
                             {this.state.focusOn !== -1 &&
                                 <div id="forumPost-container">
@@ -115,8 +116,12 @@ export default class Topics extends Component {
                             }
                             {this.state.focusOn === -1 &&
                                 <ListOfTopics
-                                    forumPostCards={this.state.forumPostData.map(card => card.cardToDisplay)}
-                                />}
+                                    forumPostCards={{
+                                        cards: this.state.forumPostData.map(card => card.cardToDisplay),
+                                        creatingTopic: false,
+                                    }}
+                                />
+                            }
                         </div>
                         <div className='col-sm'>
                             <div className='searchbar-container'>

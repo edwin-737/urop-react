@@ -55,6 +55,7 @@ export default function FocusOnTopic(props) {
                         showReplies: false,
                         showReplyBox: false,
                         upvotes: curResponse.upvotes,
+                        layer: props.rootCard.layer + 1,
                     };
                     setCardData(((prev) =>
                         [...prev, curCardData]
@@ -149,13 +150,10 @@ export default function FocusOnTopic(props) {
             setResponseCards((prev) => [
                 ...prev,
                 <li className=".reply-list-item" key={curCardData.key} >
-
-                    <div className='reply-card'>
-                        <div className='reply-username'>
-                            <span className='reply-username-font'>
-                                {curCardData.username}
-                            </span>
-                        </div>
+                    <div className='reply-card' >
+                        <span className='reply-username-font'>
+                            {curCardData.username}
+                        </span>
                         <p className='reply-body' >
                             {curCardData.key}      {curCardData.body}
                         </p>
@@ -200,10 +198,10 @@ export default function FocusOnTopic(props) {
                             }
                         >add reply
                         </button>
-                        <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '45vmax', bottom: '6vmax' }}>
+                        <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '33vmax', bottom: '6vmax' }}>
                             <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
                         </button>
-                        <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '40.8vmax', bottom: '1vmax' }}>
+                        <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '29vmax', bottom: '1vmax' }}>
                             <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
                         </button>
                     </div>
@@ -236,12 +234,31 @@ export default function FocusOnTopic(props) {
     //     });
     return (
         <div >
-            {props.rootCard.cardToDisplay}
-            <div id="reply-card" style={{ width: '70rem' }}>
-                <ul>
-                    {responseCards}
-                </ul>
-            </div>
+            {
+                props.rootCard.layer === 0 &&
+                <div className='focused-topic'>
+                    {props.rootCard.cardToDisplay}
+                </div>
+            }
+            {
+                props.rootCard.layer > 0 &&
+                props.rootCard.cardToDisplay
+            }
+            <ul className='reply-list'>
+                {responseCards}
+                {/* <div className='container'>
+                    <div className='row'>
+                        <div className='col-1 padding-1'>
+
+                            <div className='vl'>
+                            </div>
+                        </div>
+                        <div className='col-10 padding-1'>
+                            {responseCards}
+                        </div>
+                    </div>
+                </div> */}
+            </ul>
         </div>
     );
 }

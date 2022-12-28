@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const { question } = require("readline-sync");
 const Schema = mongoose.Schema;
 const forumPostSchema = new Schema({
     body: String,      //post body
     isReply: {
         type: Boolean,
         default: false,
+        required: true
     },
     posterType: {
         type: Number,
@@ -17,7 +17,7 @@ const forumPostSchema = new Schema({
     },
     anonymous: {
         type: Boolean,
-        default: true,
+        default: false,
     },
     edited: {
         type: Boolean,
@@ -38,6 +38,14 @@ const forumPostSchema = new Schema({
     },
     schema_version: {
         type: Number,
+    },
+    tags: [{
+        type: String,
+    }],
+    parent: {
+        type: Schema.Types.ObjectId,
+        ref: "forumPost",
+        required: false,
     },
 }, {
     timestamps: true
