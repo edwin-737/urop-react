@@ -43,7 +43,6 @@ router.route('/update').post((req, res) => {
     const id = req.body._id;
     User.findByIdAndUpdate(id)
         .then(User => {
-
             username = null || req.body.username;
             participation = null || req.body.participation;
             email = null || req.body.email;

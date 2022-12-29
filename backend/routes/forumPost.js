@@ -78,7 +78,6 @@ router.route('/update').post(async (req, res) => {
     forumPost.findOneAndUpdate(
         filter,
         update,
-        { rawResult: true }
     )
         .then((response) => res.json(response))
         .catch(err => console.log(err));

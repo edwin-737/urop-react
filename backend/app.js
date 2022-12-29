@@ -9,6 +9,7 @@ var emailRouter = require('./routes/email');
 var optionRouter = require("./routes/option");
 var userRouter = require("./routes/user");
 var forumPostRouter = require('./routes/forumPost');
+var questionRouter = require('./routes/question');
 var bulkRouter = require('./routes/bulk');
 // const professorRouter = require("./urop1Tab/routes/professor");
 var app = express();
@@ -45,6 +46,7 @@ app.use('/forumPost', forumPostRouter);
 app.use('/option', optionRouter);
 app.use('/user', userRouter);
 app.use('/bulk', bulkRouter);
+app.use('/question', questionRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

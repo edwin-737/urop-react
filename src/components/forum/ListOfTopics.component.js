@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CreateTopic from './CreateTopic.component';
+import ChapterMenu from './ChapterMenu.component';
 // import axios from 'axios';
 // const host='https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
@@ -17,11 +18,14 @@ export default function ListOfTopics(props) {
             <button className='btn btn-primary m-2 btn-lg'
                 onClick={() => setCreatingTopic(true)}
             >
-                <span className='button-text'>Add Question</span>
+                Add Question
             </button>
             <button className='btn btn-primary m-2 btn-lg' >
-                <span className='button-text'>Select</span>
+                Select
             </button>
+            <div style={{ position: 'relative', left: '19vmax', bottom: '4vmax' }}>
+                {<ChapterMenu />}
+            </div>
             {creatingTopic && <CreateTopic />}
             <ul>
                 {props.forumPostCards.cards}

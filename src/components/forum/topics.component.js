@@ -105,7 +105,7 @@ export default class Topics extends Component {
                     });
                 }}>back to topics</button>}
                 <div className='container'>
-                    <div className='row no-gutters'>
+                    <div className='row'>
                         <div className='col-sm'>
                             {this.state.focusOn !== -1 &&
                                 <div id="forumPost-container">
