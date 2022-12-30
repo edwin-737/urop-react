@@ -196,12 +196,14 @@ export default function FocusOnTopic(props) {
                             }
                         >add reply
                         </button>
-                        <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '33vmax', bottom: '6vmax' }}>
-                            <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
-                        </button>
-                        <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '29vmax', bottom: '1vmax' }}>
-                            <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
-                        </button>
+                        <div className='vote-container'>
+                            <button style={{ backgroundColor: 'transparent', border: 0 }}>
+                                <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
+                            </button>
+                            <button style={{ backgroundColor: 'transparent', border: 0 }}>
+                                <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
+                            </button>
+                        </div>
                     </div>
                     {curCardData.showReplies && <FocusOnTopic rootCard={curCardData} />}
                     {curCardData.showReplyBox && <CreateResponse rootCard={curCardData} />}

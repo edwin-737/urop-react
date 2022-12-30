@@ -33,28 +33,34 @@ export default class Topics extends Component {
                     responses: forumPost.responses,
                     cardToDisplay: <li key={forumPost._id}>
                         <div className="topic-card" >
-                            <p className='topic-body' >
-                                {body}
-                                <br />
-                                <span className='topic-card-username'>
-                                    by: {username}
-                                </span>
-                            </p>
-                            <button id="show-replies"
-                                className='btn btn-primary'
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    this.setState({
-                                        focusOn: forumPost._id,
-                                    });
-                                }}> see thread
-                            </button>
-                            <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '45vmax', bottom: '6vmax' }}>
-                                <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
-                            </button>
-                            <button style={{ backgroundColor: 'transparent', border: 0, position: 'relative', left: '40.8vmax', bottom: '1vmax' }}>
-                                <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
-                            </button>
+                            <div className='topic-card-container'>
+                                <div className='vote-container'>
+                                    <button style={{ backgroundColor: 'transparent', border: 0 }}>
+                                        <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
+                                    </button>
+                                    <button style={{ backgroundColor: 'transparent', border: 0 }}>
+                                        <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
+                                    </button>
+
+                                </div>
+                                <p className='topic-body' >
+                                    {body}
+                                    <br />
+                                    <span className='topic-card-username'>
+                                        by: {username}
+                                    </span>
+                                </p>
+
+                                <button id="show-replies"
+                                    className='btn btn-primary'
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        this.setState({
+                                            focusOn: forumPost._id,
+                                        });
+                                    }}> see thread
+                                </button>
+                            </div>
                         </div>
                     </li >
                 }
