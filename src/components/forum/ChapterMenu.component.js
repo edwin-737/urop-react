@@ -1,24 +1,49 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+const host = 'https://urop-react-backend.azurewebsites.net/';
+const chapterUrl = host + 'chapter';
 export default function ChapterMenu(props) {
-    const example_cards = [1, 2, 3, 4]
     const [cards, setCards] = useState([]);
     const [renders, setRenders] = useState(0)
-    if (renders < 1) {
+    const [chapterData, setChapterData] = useState([]);
+    const [cardsMade, setCardsMade] = useState(0);
+    const getChapterData = async () => {
+        if (renders >= 1)
+            return 0;
         setRenders(1);
-        example_cards.map(num => {
+        await axios.get(chapterUrl)
+            .then((res) => {
+                res.data.map(item => {
+                    setChapterData(prev => [...prev, item]);
+                    return 0;
+                })
+            })
+            .catch(err => console.log(err));
+    }
+    const makeChapterCards = () => {
+        if (cardsMade >= 1)
+            return 0;
+        setCardsMade(1);
+        console.log('makeChapterCards', chapterData);
+        chapterData.map((curChapterData) => {
+            if (curChapterData.isSubchapter === true)
+                return 0;
             setCards(prev =>
                 [
                     ...prev,
-                    <li key={num}>
+                    <li key={curChapterData.key}>
                         <div className='chapter-dropdown-li'>
-                            {num}
+                            {curChapterData.name}
                         </div>
                     </li>
                 ]
             )
-            return num;
+            return 0;
         });
     }
+    getChapterData();
+    if (cardsMade < 1)
+        setTimeout(makeChapterCards, 600);
     return (
         <div className='chapter-dropdown'>
             <label htmlFor='touch'><p className='chapter-dropdown-font'>&nbsp;chapters&nbsp;&nbsp;<i className="arrow down"></i></p> </label>

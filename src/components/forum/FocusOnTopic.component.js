@@ -42,7 +42,6 @@ export default function FocusOnTopic(props) {
                     })
                         .then((response) => {
                             const user = response.data;
-                            console.log('each user', user, (new Date().getTime() / 1000) - itime);
                             return user;
                         })
                         .catch(err => console.log(err));
@@ -51,7 +50,6 @@ export default function FocusOnTopic(props) {
                         body: curResponse.body,
                         responses: curResponse.responses,
                         username: curUser.username,
-                        // username: 'need to fill in',
                         showReplies: false,
                         showReplyBox: false,
                         upvotes: curResponse.upvotes,

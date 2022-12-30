@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const { question } = require("readline-sync");
 const Schema = mongoose.Schema;
 const optionSchema = new Schema({
     body: { type: String, required: true },             //what is the option

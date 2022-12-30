@@ -19,18 +19,22 @@ router.route('/findMany').post((req, res) => {
         .catch(err => res.json(err));
 })
 router.route('/add').post((req, res) => {
+    const code = req.body.code;
     const name = req.body.name;
     const questions = req.body.questions;
     const forumPosts = req.body.forumPosts;
     const url = req.body.url;
-    const sub_chapters = req.body.sub_chapters;
+    const subchapters = req.body.subchapters;
+    const isSubchapter = req.body.isSubchapter;
     const data = {
+        code: code,
         name: name,
         questions: questions,
         forumPosts: forumPosts,
         schema_version: default_schema_version,
         url: url,
-        sub_chapters: sub_chapters
+        subchapters: subchapters,
+        isSubchapter: isSubchapter,
     };
     const newChapter = new Chapter(data);
     newChapter.save()
@@ -46,18 +50,24 @@ router.route('/delete').post((req, res) => {
 router.route('/update').post(async (req, res) => {
     const filter = { _id: req.body._id };
     var update = { $set: {}, $push: {} };
+    if (req.body.code != null)
+        update.$set.code = req.body.code;
+    if (req.body.isSubchapter != null)
+        update.$set.isSubchapter = req.body.isSubchapter;
     if (req.body.name != null)
         update.$set.name = req.body.name;
-    if (req.body.questions != null)
-        update.$set.questions = req.body.questions;
-    if (req.body.forumPosts != null)
-        update.$set.forumPosts = req.body.forumPosts;
     if (req.body.schema_version != null)
         update.$set.schema_version = req.body.schema_version;
     if (req.body.url != null)
         update.$set.url = req.body.url;
-    if (req.body.sub_Chapters != null)
-        update.$push.sub_Chapters = req.body.sub_Chapters;
+    if (req.body.addToSubchapters != null) {
+        console.log(req.body.addToSubchapters);
+        update.$push.subchapters = req.body.addToSubchapters;
+    }
+    if (req.body.addToQuestions != null)
+        update.$push.questions = req.body.addToQuestions;
+    if (req.body.forumPosts != null)
+        update.$push.forumPosts = req.body.addToForumPosts;
     Chapter.findOneAndUpdate(
         filter,
         update,

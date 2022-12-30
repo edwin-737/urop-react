@@ -35,12 +35,13 @@ ul{
 	box-shadow:3px 3px 3px black
 }
 .button-add-question{
-	background-color:rgb(64, 64, 196);
+	background-color:rgb(69, 69, 187);
+	border-radius: 8px;
+	border:0;
 	width:9rem;
-	height:3rem;
-	margin-left:2rem;
-	margin-top:1rem;
-	border:none;
+	height:47px;
+	position:relative;
+	margin-top:8px;
 }
 .button-text{
 	color:white;
@@ -64,13 +65,14 @@ ul{
 #forumPost-title-div{
 	background-color:rgb(164, 33, 33);
 	width:62vw;
-	height:5rem;
+	height:7vmax;
 }
 /*when user clicks show replies*/
 #topic-title-div{
 	background-color:rgb(164, 33, 33);
 	width:100rem;
 	height:16rem;
+	display:flex;
 }
 #topic-title-font{
 	font-size:4vw;
@@ -152,10 +154,11 @@ ul{
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:10vw;
 }
+
 .chapter-dropdown-li{
-	width:90%;
-	height:2rem;
-	background-color:rgb(62, 52, 52);
+	width:100%;
+	height:3rem;
+	background-color:rgb(133, 26, 26);
 	margin:0;
 	border-color:black;
 	border-width:3px;
@@ -165,29 +168,26 @@ ul{
 .chapter-dropdown{
 	background-color:rgb(58, 58, 200);
 	border-radius: 8px;
-	width:109px;
+	width:15rem;
 	height:47px;
-
 	position:relative;
-	top:6px;
+	margin-top:8px;
 }
 .chapter-dropdown-font{
 	position:relative;
 	top:8px;
-
 	color:white;
 	font-size:1.3vw;
-	justify-content: left;
+	justify-content: center;
 }
 .chapter-dropdown:hover{
 	background-color:rgb(65, 65, 153);
 
 }
-/* .chapter-dropdown-ul{
-	background: rgb(0, 0, 0);
-	margin:0;
-	width:100%;
-} */
+.button-add-question:hover{
+	background-color:rgb(65, 65, 153);
+
+}
 .chapter-dropdown .left-icon,
 .chapter-dropdown .right-icon{
 	position:relative;
@@ -206,6 +206,8 @@ ul{
 	text-align: center;
 	transition: height 0.7s;
 	color:white;
+	justify-content: center;
+
 }
   
 .slide li{padding : 0px;margin:0}
@@ -252,6 +254,11 @@ ul{
 	-webkit-transform: rotate(45deg);
 }
 /*----end---*/
+.button-container{
+	display:grid;
+	grid-template-columns:20% 20% 20%;
+	grid-column-gap:20px;
+}
 .l-header {
 	display: flex;
 

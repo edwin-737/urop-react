@@ -14,22 +14,21 @@ export default function ListOfTopics(props) {
             <div id="forumPost-title-div">
                 <p id="topic-title-font">Forum Posts</p>
             </div>
-
-            <button className='btn btn-primary m-2 btn-lg'
-                onClick={() => setCreatingTopic(true)}
-            >
-                Add Question
-            </button>
-            <button className='btn btn-primary m-2 btn-lg' >
-                Select
-            </button>
-            <div style={{ position: 'relative', left: '19vmax', bottom: '4vmax' }}>
+            <div className='button-container'>
+                <button className='button-add-question'
+                    onClick={() => setCreatingTopic(true)}
+                >
+                    <p className='chapter-dropdown-font'>Add Question</p>
+                </button>
+                <button className='button-add-question' >
+                    <p className='chapter-dropdown-font'>Select</p>
+                </button>
                 {<ChapterMenu />}
             </div>
             {creatingTopic && <CreateTopic />}
             <ul>
                 {props.forumPostCards.cards}
             </ul>
-        </div>
+        </div >
     );
 }

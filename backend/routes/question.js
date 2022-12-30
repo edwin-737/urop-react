@@ -4,45 +4,42 @@ const { Schema, default: mongoose } = require('mongoose');
 const default_schema_version = 1;
 router.route('/').get((req, res) => {
     Question.find()
-        .then(op => res.json(op))
+        .then(ch => res.json(ch))
         .catch(err => res.status(400).json(err));
 });
+router.route('/delete').post((req, res) => {
+    const id = req.body._id;
+    Question.findByIdAndDelete(id)
+        .then(() => res.json('Question deleted'))
+        .catch(err => res.status(400).json('error:' + err));
+})
 router.route('/add').post((req, res) => {
     const body = req.body.body;
-    const chosenBy = req.body.chosenBy;
-    const isAnswer = req.body.isAnswer;
     const tags = req.body.tags;
     const question_id = req.body.question_id;
     const type = req.body.type;
+    const options = req.body.options;
     const newQuestion = new Question({
         body: body,
-        chosenBy: chosenBy,
-        isAnswer: isAnswer,
-        schema_version: default_schema_version,
-        tags: tags,
-        question_id: question_id,
         type: type,
+        options: options,
+        tags: tags,
+        schema_version: default_schema_version,
+        question_id: question_id,
     });
     newQuestion.save()
-        .then(() => res.json('Question Added!'))
+        .then((question) => res.json(question))
         .catch((err) => (res.status(400).json(`Error:${err}`)));
-
 });
 router.route('/update').post((req, res) => {
     const filter = { _id: req.body._id };
     var update = { $set: {}, $push: {} };
     if (req.body.body != null)
         update.$set.body = req.body.body;
-    if (req.body.chosenBy != null)
-        update.$set.chosenBy = req.body.chosenBy;
-    if (req.body.isAnswer != null)
-        update.$set.isAnswer = req.body.isAnswer;
-    if (req.body.schema_version != null)
-        update.$set.schema_version = req.body.schema_version;
-    if (req.body.question_id != null)
-        update.$set.question_id = req.body.question_id;
     if (req.body.addToTags != null)
         update.$push.tags = req.body.addToTags;
+    if (req.body.addToOptions != null)
+        update.$push.options = req.body.addToOptions;
     Question.findOneAndUpdate(
         filter,
         update,

@@ -27,16 +27,10 @@ router.route('/add').post((req, res) => {
 router.route('/update').post((req, res) => {
     const filter = { _id: req.body._id };
     var update = { $set: {}, $push: {} };
-    if (req.body.body != null)
-        update.$set.body = req.body.body;
-    if (req.body.chosenBy != null)
-        update.$set.chosenBy = req.body.chosenBy;
-    if (req.body.isAnswer != null)
-        update.$set.isAnswer = req.body.isAnswer;
-    if (req.body.question_id != null)
-        update.$set.question_id = req.body.question_id;
-    if (req.body.schema_version != null)
-        update.$set.schema_version = req.body.schema_version;
+    const properties = ['body', 'chosenBy', 'isAnswer', 'question_id']
+    for (var i = 0; i < properties.length; i++)
+        if (req.body[properties[i]] != null)
+            update.$set[properties[i]] = req.body[properties[i]];
     Option.findOneAndUpdate(
         filter,
         update,

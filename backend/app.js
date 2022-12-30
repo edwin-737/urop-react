@@ -11,6 +11,7 @@ var userRouter = require("./routes/user");
 var forumPostRouter = require('./routes/forumPost');
 var questionRouter = require('./routes/question');
 var bulkRouter = require('./routes/bulk');
+var chapterRouter = require('./routes/chapter');
 // const professorRouter = require("./urop1Tab/routes/professor");
 var app = express();
 const mongoose = require("mongoose");
@@ -47,6 +48,7 @@ app.use('/option', optionRouter);
 app.use('/user', userRouter);
 app.use('/bulk', bulkRouter);
 app.use('/question', questionRouter);
+app.use('/chapter', chapterRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
