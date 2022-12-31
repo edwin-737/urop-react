@@ -30,36 +30,66 @@ export default class Topics extends Component {
                     key: forumPost._id,
                     body: body,
                     username: username,
+                    tags: forumPost.tags,
+                    title: forumPost.title,
                     responses: forumPost.responses,
-                    cardToDisplay: <li key={forumPost._id}>
-                        <div className="topic-card" >
+                    cardToDisplayIfFocus:
+                        <div className='topic-card' style={{ width: "95%", height: "70%" }}>
                             <div className='topic-card-container'>
-                                <div className='vote-container'>
+                                <div className='topic-card-text-container'>
+                                    <span className='response-username-font'>
+                                        {username}
+                                    </span>
+                                    <p className='response-body' >
+                                        {forumPost._id}      {body}
+                                    </p>
+                                </div>
+
+                                <div className='topic-card-button-container'>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
                                     <button style={{ backgroundColor: 'transparent', border: 0 }}>
                                         <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
                                     </button>
                                     <button style={{ backgroundColor: 'transparent', border: 0 }}>
                                         <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
                                     </button>
-
                                 </div>
-                                <p className='topic-body' >
-                                    {body}
-                                    <br />
-                                    <span className='topic-card-username'>
-                                        by: {username}
-                                    </span>
-                                </p>
-
-                                <button id="show-replies"
-                                    className='btn btn-primary'
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        this.setState({
-                                            focusOn: forumPost._id,
-                                        });
-                                    }}> see thread
-                                </button>
+                            </div>
+                        </div>
+                    ,
+                    cardToDisplay: <li key={forumPost._id}>
+                        <div className="topic-card" >
+                            <div className='topic-card-container'>
+                                <div classNmae='topic-card-text-container'>
+                                    <p className='topic-body' >
+                                        {body}
+                                        <br />
+                                        <span className='topic-card-username'>
+                                            by: {username}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div className='topic-card-button-container'>
+                                    <button id="show-replies"
+                                        className='button-add-question'
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            this.setState({
+                                                focusOn: forumPost._id,
+                                            });
+                                        }}> <span className='chapter-dropdown-font'>see thread</span>
+                                    </button>
+                                    <div></div>
+                                    <div></div>
+                                    <button style={{ backgroundColor: 'transparent', border: 0 }}>
+                                        <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
+                                    </button>
+                                    <button style={{ backgroundColor: 'transparent', border: 0 }}>
+                                        <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </li >

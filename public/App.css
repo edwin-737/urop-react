@@ -35,11 +35,11 @@ ul{
 	box-shadow:3px 3px 3px black
 }
 .button-add-question{
-	background-color:rgb(69, 69, 187);
+	background-color:rgb(20, 90, 230);
 	border-radius: 8px;
 	border:0;
 	width:9rem;
-	height:47px;
+	height:40px;
 	position:relative;
 	margin-top:8px;
 }
@@ -50,7 +50,7 @@ ul{
 }
 #forumPost-container{
 	background-color: #3f0606;
-	width:62vmax;
+	width:65vmax;
 	height:70vmax;
 	position:relative;
 	top:2rem;
@@ -65,13 +65,13 @@ ul{
 /*for list of topics*/
 #forumPost-title-div{
 	background-color:rgb(164, 33, 33);
-	width:62vw;
+	width:100%;
 	height:7vmax;
 }
 /*when user clicks show replies*/
 #topic-title-div{
 	background-color:rgb(164, 33, 33);
-	width:100rem;
+	width:100%;
 	height:16rem;
 	display:flex;
 }
@@ -87,7 +87,8 @@ ul{
 	margin:10px;
 	box-shadow: 3px 3px 3px black;
 	border-radius: 1rem;
-	height:19vmax;
+	height:50%;
+	overflow:hidden;
 }
 .topic-body{
 	margin:2rem;
@@ -97,25 +98,25 @@ ul{
 	font-weight: bold;
 	text-decoration: underline;
 }
-.reply-card{
+.response-card{
 	background-color:rgb(0, 0, 0);
 	overflow:auto;
 	color:white;
-	margin:4px;
-	border-radius: 1rem;
+	/* margin:4px; */
 	width:100%;
 }
-.reply-list{
+.response-list{
 	/* margin:1px; */
 	padding-left:20px;
 }
-.reply-list-item{
+.response-list-item{
 	margin:1rem;
 }
-.reply-body{
+.response-body{
 	margin:2rem;
+	color:white;
 }
-.reply-username-font{
+.response-username-font{
 	text-decoration: underline;
 	font-weight:bold;
 	font-size:large;
@@ -149,14 +150,31 @@ ul{
 }
 .focused-topic{
 	background-color:rgb(164, 33, 33);
-	width:62vmax;
-	height:20vmax;
+	width:100%;
+	height:30vmax;
+	list-style-type: none;
 }
 .focused-topic-title{
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:10vw;
+	font:Georgia;
+	font-size:180%;
+	color:white;
+	font-weight:bold;
+	padding-left:190px;
 }
-
+.foocused-topic-card-container{
+	background-color:rgb(0, 0, 0);
+	overflow:auto;
+	color:white;
+	left:1.4vmax;
+	border-radius: 1rem;
+	width:90%;
+	height:70%;
+	position:relative;
+	display:grid;
+	grid-template-columns:2fr 9fr;
+	grid-template-rows:70% 20%;
+	
+}
 .chapter-dropdown-li{
 	width:100%;
 	height:3rem;
@@ -164,20 +182,19 @@ ul{
 	margin:0;
 	border-color:black;
 	border-width:3px;
-	display:block;
+	z-index:1;
 	box-shadow: 3px 3px 3px black;
 }
 .chapter-dropdown{
-	background-color:rgb(58, 58, 200);
+	background-color:rgb(20, 90, 230);
 	border-radius: 8px;
 	width:15rem;
-	height:47px;
+	height:40px;
 	position:relative;
 	margin-top:8px;
 }
 .chapter-dropdown-font{
 	position:relative;
-	top:8px;
 	color:white;
 	font-size:1.7vw;
 	display:block;
@@ -185,12 +202,10 @@ ul{
 	justify-content: center;
 }
 .chapter-dropdown:hover{
-	background-color:rgb(65, 65, 153);
-
+	background-color:rgb(75, 75, 218);
 }
 .button-add-question:hover{
-	background-color:rgb(65, 65, 153);
-
+	background-color:rgb(75, 75, 218);
 }
 .chapter-dropdown .left-icon,
 .chapter-dropdown .right-icon{
@@ -269,14 +284,32 @@ ul{
 	height:100%;
 	display:grid;
 	/* grid-template-columns: 1fr 1fr 6fr; */
-	grid-template-rows:50% 50%;
-	grid-row-gap:10px;
+	grid-template-columns:40% 40%;
+	grid-column-gap:10px;
 }
 .topic-card-container{
 	position:relative;
 	display:grid;
-	grid-template-columns:2fr 9fr;
-	grid-template-rows:4fr 1fr;
+	height:100%;
+	/* grid-template-columns:2fr 9fr 2fr; */
+	grid-template-rows:75% 15%;
+	
+}
+.topic-card-text-container{
+	position:relative;
+	display:grid;
+}
+.topic-card-button-container{
+	position:relative;
+	display:grid;
+	grid-template-columns:2fr 2fr 8fr 1fr 1fr;
+}
+.response-card-button-container{
+	position:relative;
+	display:grid;
+	grid-template-columns:40% 40%;
+	grid-row-gap:30px;
+	margin:0;
 }
 .l-header {
 	display: flex;

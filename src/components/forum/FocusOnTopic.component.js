@@ -9,10 +9,11 @@ export default function FocusOnTopic(props) {
     const [cardData, setCardData] = useState([]);
     const [responseCards, setResponseCards] = useState([]);
     const [dataIsUpdated, setDataIsUpdated] = useState(0);
-    const [cardsAreUpdated, setCardsAreUpdated] = useState(false)
+    const [cardsAreUpdated, setCardsAreUpdated] = useState(false);
     const itime = new Date().getTime() / 1000;
     var forumPostPromiseArr = [];
-    // var userPromiseArr = [];
+    console.log('rootCard title', props.rootCard.title);
+
     const getPromises = () => {
         props.rootCard.responses.map((id) => {
             forumPostPromiseArr.push(
@@ -48,6 +49,8 @@ export default function FocusOnTopic(props) {
                     var curCardData = {
                         key: curResponse._id,
                         body: curResponse.body,
+                        tags: curResponse.tags,
+                        title: curResponse.title,
                         responses: curResponse.responses,
                         username: curUser.username,
                         showReplies: false,
@@ -147,67 +150,76 @@ export default function FocusOnTopic(props) {
             console.log('in make response cards', curCardData.username);
             setResponseCards((prev) => [
                 ...prev,
-                <li className=".reply-list-item" key={curCardData.key} >
-                    <div className='reply-card' >
-                        <span className='reply-username-font'>
-                            {curCardData.username}
-                        </span>
-                        <p className='reply-body' >
-                            {curCardData.key}      {curCardData.body}
-                        </p>
-                        <button id="show-replies"
-                            className='btn btn-primary m-3'
-                            onClick={
-                                (e) => {
-                                    e.stopPropagation();
-                                    setCardsAreUpdated(false);
-                                    const setShow = (prev) => prev.map(curCard => {
-                                        if (curCard.key === keyToMatch) {
-                                            if (!curCard.showReplies)
-                                                return { ...curCard, showReplies: true };
-                                            else
-                                                return { ...curCard, showReplies: false };
-                                        } else {
-                                            return curCard;
+                <li className=".response-list-item" key={curCardData.key} >
+                    <div className='response-card' >
+                        <div className='topic-card-container'>
+
+                            <div className='topic-card-text-container'>
+                                <span className='response-username-font'>
+                                    {curCardData.username}
+                                </span>
+                                <p className='response-body' >
+                                    {curCardData.key}      {curCardData.body}
+                                </p>
+                            </div>
+                            <div className='topic-card-button-container'>
+                                <button id="show-replies"
+                                    className='button-add-question'
+                                    style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
+                                    onClick={
+                                        (e) => {
+                                            e.stopPropagation();
+                                            setCardsAreUpdated(false);
+                                            const setShow = (prev) => prev.map(curCard => {
+                                                if (curCard.key === keyToMatch) {
+                                                    if (!curCard.showReplies)
+                                                        return { ...curCard, showReplies: true };
+                                                    else
+                                                        return { ...curCard, showReplies: false };
+                                                } else {
+                                                    return curCard;
+                                                }
+                                            })
+                                            setCardData(setShow);
+                                        }}
+                                > <span className='chapter-dropdown-font'>replies</span>
+                                </button>
+                                <button
+                                    className='button-add-question'
+                                    style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
+                                    onClick={
+                                        (e) => {
+                                            e.stopPropagation();
+                                            setCardsAreUpdated(false);
+                                            const setShow = (prev) => prev.map(curCard => {
+                                                if (curCard.key === keyToMatch) {
+                                                    if (!curCard.showReplyBox)
+                                                        return { ...curCard, showReplyBox: true };
+                                                    else
+                                                        return { ...curCard, showReplyBox: false };
+                                                } else {
+                                                    return curCard;
+                                                }
+                                            })
+                                            setCardData(setShow);
                                         }
-                                    })
-                                    setCardData(setShow);
-                                }}
-                        > show replies
-                        </button>
-                        <button
-                            className='btn btn-primary m-3'
-                            onClick={
-                                (e) => {
-                                    e.stopPropagation();
-                                    setCardsAreUpdated(false);
-                                    const setShow = (prev) => prev.map(curCard => {
-                                        if (curCard.key === keyToMatch) {
-                                            if (!curCard.showReplyBox)
-                                                return { ...curCard, showReplyBox: true };
-                                            else
-                                                return { ...curCard, showReplyBox: false };
-                                        } else {
-                                            return curCard;
-                                        }
-                                    })
-                                    setCardData(setShow);
-                                }
-                            }
-                        >add reply
-                        </button>
-                        <div className='vote-container'>
-                            <button style={{ backgroundColor: 'transparent', border: 0 }}>
-                                <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
-                            </button>
-                            <button style={{ backgroundColor: 'transparent', border: 0 }}>
-                                <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
-                            </button>
+                                    }
+                                ><span className='chapter-dropdown-font'>add reply</span>
+                                </button>
+
+                                <div></div>
+                                <button style={{ backgroundColor: 'transparent', border: 0 }}>
+                                    <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
+                                </button>
+                                <button style={{ backgroundColor: 'transparent', border: 0 }}>
+                                    <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     {curCardData.showReplies && <FocusOnTopic rootCard={curCardData} />}
                     {curCardData.showReplyBox && <CreateResponse rootCard={curCardData} />}
-                </li>
+                </li >
             ]);
             return 0;
         });
@@ -216,12 +228,9 @@ export default function FocusOnTopic(props) {
     getPromises();
     console.log('forumPostPromiseArr length', forumPostPromiseArr.length);
     getResponseCardData();
-    // setTimeout(getUserData, 1000);
-    // getUserData();
-    // setTimeout(getUserData, 2900);
-
     if (!cardsAreUpdated)
         setTimeout(makeResponseCards, 1800);
+
     // const myPromise = new Promise(function (myResolve, myReject) {
     //     setTimeout(() => { myReject("value was returned"); }, 3000);
     // });
@@ -235,29 +244,20 @@ export default function FocusOnTopic(props) {
     return (
         <div >
             {
+
                 props.rootCard.layer === 0 &&
                 <div className='focused-topic'>
-                    {props.rootCard.cardToDisplay}
+
+                    <span className='focused-topic-title'>{props.rootCard.title}</span>
+                    {props.rootCard.cardToDisplayIfFocus}
                 </div>
             }
             {
                 props.rootCard.layer > 0 &&
                 props.rootCard.cardToDisplay
             }
-            <ul className='reply-list'>
+            <ul className='response-list'>
                 {responseCards}
-                {/* <div className='container'>
-                    <div className='row'>
-                        <div className='col-1 padding-1'>
-
-                            <div className='vl'>
-                            </div>
-                        </div>
-                        <div className='col-10 padding-1'>
-                            {responseCards}
-                        </div>
-                    </div>
-                </div> */}
             </ul>
         </div>
     );
