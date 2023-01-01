@@ -33,7 +33,7 @@ export default class Topics extends Component {
                     tags: forumPost.tags,
                     title: forumPost.title,
                     responses: forumPost.responses,
-                    cardToDisplayIfFocus:
+                    cardToDisplayInfFocus:
                         <div className='topic-card' style={{ width: "95%", height: "70%" }}>
                             <div className='topic-card-container'>
                                 <div className='topic-card-text-container'>
@@ -142,14 +142,11 @@ export default class Topics extends Component {
                 }}>back to topics</button>}
                 <div className='container'>
                     <div className='row'>
-                        <a href="https://developer.mozilla.org/en-US/"><span style={{ color: "rgb(255,255,255)" }}> access mdn</span></a>
                         <div className='col-sm'>
                             {this.state.focusOn !== -1 &&
-                                // <div id="forumPost-container">
                                 <FocusOnTopic
                                     rootCard={cardToFocusOn}
                                 />
-                                // </div>
                             }
                             {this.state.focusOn === -1 &&
                                 <ListOfTopics

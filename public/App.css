@@ -156,10 +156,10 @@ ul{
 }
 .focused-topic-title{
 	font:Georgia;
-	font-size:180%;
+	font-size:20vm;
 	color:white;
 	font-weight:bold;
-	padding-left:190px;
+	padding-left:30px;
 }
 .foocused-topic-card-container{
 	background-color:rgb(0, 0, 0);

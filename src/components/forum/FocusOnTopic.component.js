@@ -10,6 +10,7 @@ export default function FocusOnTopic(props) {
     const [responseCards, setResponseCards] = useState([]);
     const [dataIsUpdated, setDataIsUpdated] = useState(0);
     const [cardsAreUpdated, setCardsAreUpdated] = useState(false);
+
     const itime = new Date().getTime() / 1000;
     var forumPostPromiseArr = [];
     console.log('rootCard title', props.rootCard.title);
@@ -249,7 +250,7 @@ export default function FocusOnTopic(props) {
                 <div className='focused-topic'>
 
                     <span className='focused-topic-title'>{props.rootCard.title}</span>
-                    {props.rootCard.cardToDisplayIfFocus}
+                    {props.rootCard.cardToDisplayInfFocus}
                 </div>
             }
             {
