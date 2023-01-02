@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+// import axios from 'axios';
 import ChapterList from './ChapterList.component'
 export default function Chapters() {
     return (

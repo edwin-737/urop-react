@@ -139,6 +139,16 @@ export default class Topics extends Component {
                 </div>
                 <div className='main'>
                     {this.state.focusOn !== -1 &&
+                        <div style={{ backgroundColor: 'rgb(164, 33, 33)', width: '85.7%' }}>
+                            <button className='btn btn-primary' style={{ margin: "0.2%" }} onClick={(e) => {
+                                // e.preventDefault();
+                                e.stopPropagation();
+                                this.setState({
+                                    focusOn: -1
+                                });
+                            }}>back to topics</button>
+                        </div>}
+                    {this.state.focusOn !== -1 &&
                         <FocusOnTopic
                             rootCard={cardToFocusOn}
                         />
@@ -159,7 +169,7 @@ export default class Topics extends Component {
                     </div>
 
                 </div>
-            </div>
+            </div >
         );
 
     }

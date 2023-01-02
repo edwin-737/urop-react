@@ -248,13 +248,7 @@ export default function FocusOnTopic(props) {
 
                 props.rootCard.layer === 0 &&
                 <div className='focused-topic'>
-                    <button className='btn btn-primary' onClick={(e) => {
-                        // e.preventDefault();
-                        e.stopPropagation();
-                        this.setState({
-                            focusOn: -1
-                        });
-                    }}>back to topics</button>
+
                     <span className='focused-topic-title'>{props.rootCard.title}</span>
                     {props.rootCard.cardToDisplayInfFocus}
                 </div>
