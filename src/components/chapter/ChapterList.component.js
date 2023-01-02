@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 const host = 'https://urop-react-backend.azurewebsites.net/';
+// const host = 'http://localhost:3001/';
 const chapterUrl = host + 'chapter';
-export default function ChapterMenu(props) {
+// const userUrl = host + 'user';
+export default function ChapterList() {
     const [cards, setCards] = useState([]);
     const [uniqueCards, setUniqueCards] = useState([]);
     const [retrieves, setRetrieves] = useState(0)
@@ -33,9 +35,9 @@ export default function ChapterMenu(props) {
                 [...prev, {
                     key: curChapterData._id,
                     card:
-                        <li key={curChapterData._id}>
-                            <div className='chapter-dropdown-li'>
-                                {curChapterData.name}
+                        <li key={curChapterData._id} className='chapter-card-li'>
+                            <div className='chapter-card-div'>
+                                <span className='chapter-card-font'>{curChapterData.name}</span>
                             </div>
                         </li>
                 }]
@@ -64,11 +66,8 @@ export default function ChapterMenu(props) {
         ensureCardsUnique();
     setTimeout(() => console.log('uniqueCards', uniqueCards.length), 1400);
     return (
-        <div className='chapter-dropdown'>
-            <label htmlFor='touch'><p className='chapter-dropdown-font'>&nbsp;chapters&nbsp;&nbsp;<i className="arrow down"></i></p> </label>
-            <button id='touch' className='btn-transparent'>
-            </button>
-            <ul className="slide">
+        <div className='chapter-card-container'>
+            <ul className='chapter-card-ul'>
                 {uniqueCards}
             </ul>
         </div>

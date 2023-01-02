@@ -243,17 +243,24 @@ export default function FocusOnTopic(props) {
     //         console.log('demo error', value)
     //     });
     return (
-        <div >
-            {
+        <div id={props.rootCard.layer === 0 && "forumPost-container"}>
+            {//if this is 0th layer, highlight the root card
 
                 props.rootCard.layer === 0 &&
                 <div className='focused-topic'>
-
+                    <button className='btn btn-primary' onClick={(e) => {
+                        // e.preventDefault();
+                        e.stopPropagation();
+                        this.setState({
+                            focusOn: -1
+                        });
+                    }}>back to topics</button>
                     <span className='focused-topic-title'>{props.rootCard.title}</span>
                     {props.rootCard.cardToDisplayInfFocus}
                 </div>
             }
             {
+                //otherwise, don't highlight it
                 props.rootCard.layer > 0 &&
                 props.rootCard.cardToDisplay
             }

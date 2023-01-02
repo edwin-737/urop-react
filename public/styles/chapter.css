@@ -1,0 +1,30 @@
+.chapter-card-container{
+	height:100%;
+	width:100%;
+}
+.chapter-card-ul{
+	height:100%;
+	width:100%;
+
+	list-style-type:none;
+
+}
+.chapter-card-li{
+	width:94%;
+	height:10vh;
+}
+.chapter-card-font{
+	top:30%;
+	color:white;
+}
+.chapter-card-div{
+	background-color:rgb(53, 51, 51);
+	height:100%;
+	border-style:solid;
+	border-color:black;
+	border-width:1px;
+}
+.subchapter-card-div{
+	background-color:black;
+
+}

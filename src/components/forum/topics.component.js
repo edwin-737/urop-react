@@ -129,43 +129,36 @@ export default class Topics extends Component {
             cardToFocusOn.layer = 0;
         }
         return (
-            <div>
-                <div id="title-div">
-                    <p id="title-font">Forum</p>
-                </div>
-                {this.state.focusOn !== -1 && <button className='btn btn-primary' onClick={(e) => {
-                    // e.preventDefault();
-                    e.stopPropagation();
-                    this.setState({
-                        focusOn: -1
-                    });
-                }}>back to topics</button>}
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-sm'>
-                            {this.state.focusOn !== -1 &&
-                                <FocusOnTopic
-                                    rootCard={cardToFocusOn}
-                                />
-                            }
-                            {this.state.focusOn === -1 &&
-                                <ListOfTopics
-                                    forumPostCards={{
-                                        cards: this.state.forumPostData.map(card => card.cardToDisplay),
-                                        creatingTopic: false,
-                                    }}
-                                />
-                            }
-                        </div>
-                        <div className='col-sm'>
-                            <div className='searchbar-container'>
-                                <input className='searchbar'>
-                                </input>
-                            </div>
-
-                        </div>
+            <div className='component-container'>
+                <div className='header'>
+                    <div id="title-div">
+                        <p id="title-font">Forum</p>
                     </div>
-                </div >
+
+
+                </div>
+                <div className='main'>
+                    {this.state.focusOn !== -1 &&
+                        <FocusOnTopic
+                            rootCard={cardToFocusOn}
+                        />
+                    }
+                    {this.state.focusOn === -1 &&
+                        <ListOfTopics
+                            forumPostCards={{
+                                cards: this.state.forumPostData.map(card => card.cardToDisplay),
+                                creatingTopic: false,
+                            }}
+                        />
+                    }
+                </div>
+                <div className='search'>
+                    <div className='searchbar-container'>
+                        <input className='searchbar' placeholder='Search Posts'>
+                        </input>
+                    </div>
+
+                </div>
             </div>
         );
 

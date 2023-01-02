@@ -1,7 +1,5 @@
 
-ul{
-	list-style-type:none;
-}
+
 .App {
   text-align: center;
 }
@@ -16,6 +14,14 @@ ul{
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.icon-bar{
+	height:1px;
+	width:5px;
+	color:white;
+	background-color:transparent;
+	border:0;
+	margin:5px;
+}
 #question-body {
 	font-family: sans-serif;
 	background-color:black;
@@ -29,8 +35,8 @@ ul{
 }
 #title-div{
 	background-color:rgb(144, 28, 28);
-	width:100vmax;
-	height:4vmax;
+	width:100%;
+	height:98%;
 	color:white;
 	box-shadow:3px 3px 3px black
 }
@@ -50,13 +56,11 @@ ul{
 }
 #forumPost-container{
 	background-color: #3f0606;
-	width:65vmax;
-	height:70vmax;
+	width:87%;
+	height:100%;
 	position:relative;
-	top:2rem;
 	right:1rem;
 	/* margin-top:3rem; */
-	/* margin-left:1rem; */
 	/* margin-bottom:3rem; */
 	overflow:auto;
 	box-shadow:3px 3px 3px black
@@ -66,7 +70,10 @@ ul{
 #forumPost-title-div{
 	background-color:rgb(164, 33, 33);
 	width:100%;
-	height:7vmax;
+	height:100%;
+}
+#container::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
 }
 /*when user clicks show replies*/
 #topic-title-div{
@@ -74,6 +81,7 @@ ul{
 	width:100%;
 	height:16rem;
 	display:flex;
+	box-shadow:2px 2px black;
 }
 #topic-title-font{
 	font-size:4vw;
@@ -136,22 +144,21 @@ ul{
 }
 .searchbar-container{
 	background-color:#3d3f45;
-	width:15vmax;
-	height:50vmax;
-	margin:1rem;
+	width:100%;
+	/* height:50vmax; */
 }
 .searchbar{
 	background-color:white;
 	border-color:black;
-	width:15vmax;
+	width:142%;
+	height:7%;
 	position:relative;
-	top:0px;
-	left:0px;
+
 }
 .focused-topic{
 	background-color:rgb(164, 33, 33);
 	width:100%;
-	height:30vmax;
+	height:30%;
 	list-style-type: none;
 }
 .focused-topic-title{
@@ -223,21 +230,25 @@ ul{
 	height:0%;
 	overflow:hidden;
 	text-align: center;
-	transition: height 0.7s;
+	transition: height 0.3s;
 	color:white;
 	justify-content: center;
-
+	/* pointer-events: none; */
 }
   
-.slide li{padding : 0px;margin:0}
 #touch {
 	position: absolute; 
 	opacity: 0;
 	height: 0px;
+	/* pointer-events:none; */
 }    
-#touch:hover+ .slide {
+#touch:focus +.slide {
 	height:600px;
+	pointer-events:none;
 } 
+/* #touch:focus-within+.slide{
+	height:0px;
+} */
 .slide:hover{
 	height:600px;
 }
@@ -277,6 +288,7 @@ ul{
 	display:grid;
 	grid-template-columns:20% 20% 20%;
 	grid-column-gap:40px;
+	margin-left:4%;
 }
 .vote-container{
 	position:relative;
@@ -311,6 +323,7 @@ ul{
 	grid-row-gap:30px;
 	margin:0;
 }
+
 .l-header {
 	display: flex;
 

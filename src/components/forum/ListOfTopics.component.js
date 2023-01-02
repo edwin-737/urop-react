@@ -10,10 +10,11 @@ export default function ListOfTopics(props) {
     const [creatingTopic, setCreatingTopic] = useState(false)
 
     return (
+
         <div id="forumPost-container">
-            <div id="forumPost-title-div">
+            {/* <div id="forumPost-title-div">
                 <p id="topic-title-font">Forum Posts</p>
-            </div>
+            </div> */}
             <div className='button-container'>
                 <button className='button-add-question'
                     onClick={() => setCreatingTopic(true)}
