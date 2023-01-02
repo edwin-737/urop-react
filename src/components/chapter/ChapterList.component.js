@@ -37,7 +37,7 @@ export default function ChapterList() {
                     card:
                         <li key={curChapterData._id} className='chapter-card-li'>
                             <div className='chapter-card-div'>
-                                <span className='chapter-card-font'>{curChapterData.name}</span>
+                                <span className='chapter-card-font'><br></br>&nbsp;&nbsp;&nbsp;{curChapterData.name}</span>
                             </div>
                         </li>
                 }]
@@ -70,6 +70,9 @@ export default function ChapterList() {
             <ul className='chapter-card-ul'>
                 {uniqueCards}
             </ul>
+
+            <div className="gcse-search">
+            </div>
         </div>
     )
 }

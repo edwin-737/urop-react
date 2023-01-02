@@ -14,8 +14,8 @@
 	height:10vh;
 }
 .chapter-card-font{
-	top:30%;
 	color:white;
+	font-weight:bold;
 }
 .chapter-card-div{
 	background-color:rgb(53, 51, 51);

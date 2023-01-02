@@ -233,6 +233,7 @@
 	transition: height 0.3s;
 	color:white;
 	justify-content: center;
+	list-style-type:none;
 	/* pointer-events: none; */
 }
   

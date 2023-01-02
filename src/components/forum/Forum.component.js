@@ -7,7 +7,7 @@ const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
 const userUrl = host + 'user';
-export default class Topics extends Component {
+export default class Forum extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,7 +62,7 @@ export default class Topics extends Component {
                     cardToDisplay: <li key={forumPost._id}>
                         <div className="topic-card" >
                             <div className='topic-card-container'>
-                                <div classNmae='topic-card-text-container'>
+                                <div className='topic-card-text-container'>
                                     <p className='topic-body' >
                                         {body}
                                         <br />
@@ -135,7 +135,6 @@ export default class Topics extends Component {
                         <p id="title-font">Forum</p>
                     </div>
 
-
                 </div>
                 <div className='main'>
                     {this.state.focusOn !== -1 &&
@@ -163,6 +162,9 @@ export default class Topics extends Component {
                     }
                 </div>
                 <div className='search'>
+
+                    <div className="gcse-search">
+                    </div>
                     <div className='searchbar-container'>
                         <input className='searchbar' placeholder='Search Posts'>
                         </input>

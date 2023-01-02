@@ -13,12 +13,15 @@ export default function Chapters() {
                 </div>
                 <div className='main'>
                     <ChapterList />
+
                 </div>
                 <div className='search'>
                     <div className='searchbar-container'>
                         <input className='searchbar'>
                         </input>
 
+                        <div className="gcse-search">
+                        </div>
                     </div>
                 </div>
             </div>
