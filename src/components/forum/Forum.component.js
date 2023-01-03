@@ -20,6 +20,7 @@ export default class Forum extends Component {
             focusOn: -1,
             postKey: 0,
             replyButton: false,
+            showSearchEngine: false,
         };
     }
     componentDidMount() {
@@ -83,11 +84,11 @@ export default class Forum extends Component {
                                     </button>
                                     <div></div>
                                     <div></div>
-                                    <button style={{ backgroundColor: 'transparent', border: 0 }}>
-                                        <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
+                                    <button onClick={() => alert('upvote')} style={{ backgroundColor: 'transparent', border: 0 }}>
+                                        <img src='images/upvote.png' alt='upvote' style={{ width: '55px', height: '46px' }}></img>
                                     </button>
-                                    <button style={{ backgroundColor: 'transparent', border: 0 }}>
-                                        <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
+                                    <button onClick={() => alert('downvote')} style={{ backgroundColor: 'transparent', border: 0 }}>
+                                        <img src='images/downvote.png' alt='downvote' style={{ width: '55px', height: '46px' }}></img>
                                     </button>
                                 </div>
                             </div>
@@ -121,6 +122,7 @@ export default class Forum extends Component {
 
             })
             .catch(err => console.log(err));
+        setTimeout(this.setState({ showSearchEngine: true }), 1500);
     }
     render() {
         var cardToFocusOn = {};
@@ -162,9 +164,20 @@ export default class Forum extends Component {
                     }
                 </div>
                 <div className='search'>
-
-                    <div className="gcse-search">
+                    <div style={{ border: "1px solid blue;" }}>
+                        Area 1 (for example a sidebar)
+                        <div className="gcse-searchbox"></div>
                     </div>
+
+                    <div style={{ border: "1px solid red;" }}>
+                        {/* Area 2 (for example main area of the page) */}
+                        <div className="gcse-searchresults" style={{ backgroundColor: 'rgb(0,0,0)' }}></div>
+                    </div>
+                    {/* <div className='gcse-search'></div> */}
+                    {/* <div className="gcse-searchbox">
+                    </div>
+
+                    <div className="gcse-searchresults"></div> */}
                     <div className='searchbar-container'>
                         <input className='searchbar' placeholder='Search Posts'>
                         </input>

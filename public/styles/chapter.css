@@ -5,17 +5,23 @@
 .chapter-card-ul{
 	height:100%;
 	width:100%;
-
 	list-style-type:none;
-
 }
 .chapter-card-li{
 	width:94%;
 	height:10vh;
 }
 .chapter-card-font{
-	color:white;
+	color:rgb(230,230,230);
 	font-weight:bold;
+	position:relative;
+	left:3%;
+	top:35%;
+}
+.chapter-card-font:hover{
+	color:rgb(255,255,255);
+	text-decoration:underline;
+	cursor:pointer;
 }
 .chapter-card-div{
 	background-color:rgb(53, 51, 51);
@@ -23,8 +29,34 @@
 	border-style:solid;
 	border-color:black;
 	border-width:1px;
+	display:grid;
+	grid-template-columns:85% 15%;
+}
+.chapter-card-button{
+	position:relative;
+	top:28%;
 }
 .subchapter-card-div{
 	background-color:black;
-
+}
+.chapter-page-title-font{
+	color:rgb(230,230,230);
+	font-weight:bold;
+	position:relative;
+	left:3%;
+	font-size:4vw;
+}
+.chapter-page-title-div{
+	background-color:black;
+	width:100%;
+	height:13vh;
+}
+.chapter-page-post-container{
+	width:100%;
+	height:40vh;
+	background-color:rgb(102,46,46);
+}
+.chapter-page-resources-container{
+	width:100%;
+	height:40vh;
 }

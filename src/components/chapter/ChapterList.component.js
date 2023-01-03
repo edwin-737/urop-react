@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import FocusOnChapter from './FocusOnChapter.compoenent';
 const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 const chapterUrl = host + 'chapter';
@@ -10,6 +11,8 @@ export default function ChapterList() {
     const [retrieves, setRetrieves] = useState(0)
     const [chapterData, setChapterData] = useState([]);
     const [cardsMade, setCardsMade] = useState(0);
+    const [cardToFocusOn, setCardToFocusOn] = useState(-1);
+    const [chapterPage, setChapterPage] = useState(0);
     const getChapterData = async () => {
         if (retrieves >= 1)
             return 0;
@@ -28,7 +31,7 @@ export default function ChapterList() {
             return 0;
         setCardsMade(1);
         console.log('makeChapterCards', chapterData);
-        chapterData.map((curChapterData) => {
+        chapterData.map((curChapterData, index) => {
             if (curChapterData.isSubchapter === true)
                 return 0;
             setCards(prev =>
@@ -37,13 +40,41 @@ export default function ChapterList() {
                     card:
                         <li key={curChapterData._id} className='chapter-card-li'>
                             <div className='chapter-card-div'>
-                                <span className='chapter-card-font'><br></br>&nbsp;&nbsp;&nbsp;{curChapterData.name}</span>
+                                <div>
+                                    <span onClick={() => {
+                                        setCardToFocusOn(index);
+                                        makeChapterPage(index);
+                                    }} className='chapter-card-font'>{curChapterData.name}</span>
+                                </div>
+                                <div className='chapter-card-button'>
+                                    <label htmlFor='touch' ><i className="arrow down"></i></label>
+                                    <button id='touch' className='btn-transparent'>
+                                    </button>
+                                </div>
                             </div>
                         </li>
                 }]
             )
             return 0;
         });
+    }
+    const makeChapterPage = (index) => {
+        setChapterPage(
+            <div>
+                <div className='chapter-page-title-div'>
+                    <span className='chapter-page-title-font'>
+                        {chapterData[index].name}
+                    </span>
+                </div>
+                <div className='chapter-page-post-container'>
+
+                </div>
+                <div className='chapter-page-title-div'>
+                    <span className='chapter-page-title-font'>Related Resources</span>
+                </div>
+                <FocusOnChapter rootChapter={chapterData[index]} />
+            </div>
+        )
     }
     const ensureCardsUnique = () => {
         setCardsMade(2);
@@ -66,13 +97,15 @@ export default function ChapterList() {
         ensureCardsUnique();
     setTimeout(() => console.log('uniqueCards', uniqueCards.length), 1400);
     return (
-        <div className='chapter-card-container'>
-            <ul className='chapter-card-ul'>
-                {uniqueCards}
-            </ul>
 
-            <div className="gcse-search">
-            </div>
+        <div className='chapter-card-container'>
+            {cardToFocusOn !== -1 && chapterPage}
+            {cardToFocusOn === -1 &&
+                <ul className='chapter-card-ul'>
+                    {uniqueCards}
+                </ul>
+            }
+
         </div>
     )
 }
