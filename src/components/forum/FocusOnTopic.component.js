@@ -27,7 +27,7 @@ export default function FocusOnTopic(props) {
                     <div className='response-card' >
                         <div className='topic-card-container' >
 
-                            <div className='topic-card-text-container' style={{ gridTemplateColumns: "80% 10%" }}>
+                            <div className='topic-card-text-container' >
                                 <div>
                                     <p className='topic-body' >
                                         {curCardData.body}
@@ -110,13 +110,12 @@ export default function FocusOnTopic(props) {
     var userPromiseArr = [];
     console.log('rootCard body', props.rootCard.layer);
     const getPromises = () => {
-        props.rootCard.responses.map((id) => {
+        props.rootCard.responses.forEach((id) => {
             forumPostPromiseArr.push(
                 axios.post(
                     forumPostUrl + '/findOne',
                     { _id: id }
                 ))
-            return 0;
         })
     }
     const getResponseCardData = async () => {
@@ -124,10 +123,10 @@ export default function FocusOnTopic(props) {
             return dataIsUpdated;
         // setCardData([]);
         console.log('time at start of getResponseCardData', (new Date().getTime() / 1000) - itime);
-        const rawResponseData = await Promise.all(forumPostPromiseArr)
+        const processedResponseData = await Promise.all(forumPostPromiseArr)
             .then(forumPosts => {
                 var rawData = forumPosts.map(item => item.data);
-                rawData.map(curRawData => {
+                rawData.forEach(curRawData => {
                     userPromiseArr.push(
                         axios.post(userUrl + '/findOne', {
                             _id: curRawData.postedBy
@@ -137,7 +136,7 @@ export default function FocusOnTopic(props) {
                 return rawData;
             })
             .catch(err => console.log(err));
-        const userData = await Promise.all(userPromiseArr)
+        await Promise.all(userPromiseArr)
             .then(users => {
                 console.log('all users', users)
                 var rawUserData = users.map(item => {
@@ -148,41 +147,20 @@ export default function FocusOnTopic(props) {
             })
             .then(userData => {
                 userData.forEach((curUserData, index) => {
-                    rawResponseData[index].username = curUserData.username;
-                    rawResponseData[index].showReplies = false;
-                    rawResponseData[index].showReplyBox = false;
-                    rawResponseData[index].layer = props.rootCard.layer + 1;
-                    // const r = rawResponseData[index];
-                    // setCardData([(prev) => [...prev, r]]);
+                    processedResponseData[index].username = curUserData.username;
+                    processedResponseData[index].showReplies = false;
+                    processedResponseData[index].showReplyBox = false;
+                    processedResponseData[index].layer = props.rootCard.layer + 1;
                 })
-                setCardData(rawResponseData);
-
+                setCardData(processedResponseData);
                 setDataIsUpdated(1);
-                return userData
             })
     };
     console.log('forumPostPromiseArr length', forumPostPromiseArr.length);
     if (!cardsAreUpdated) {
-
         getPromises();
         getResponseCardData();
     }
-    // if (aReplyClicked)
-    //     setTimeout(updateCard, 100)
-    // setTimeout(console.log('cardData after 1s', cardData), 1000);
-    // if (!cardsAreUpdated)
-    //     setTimeout(makeResponseCards, 1800);
-
-    // const myPromise = new Promise(function (myResolve, myReject) {
-    //     setTimeout(() => { myReject("value was returned"); }, 3000);
-    // });
-    // myPromise
-    //     .then(value => {
-    //         console.log('demo value', value);
-    //     })
-    //     .catch(value => {
-    //         console.log('demo error', value)
-    //     });
     return (
         <div id={props.rootCard.layer === 0 && "forumPost-container"}>
             {//if this is 0th layer, highlight the root card
@@ -204,4 +182,21 @@ export default function FocusOnTopic(props) {
             </ul>
         </div>
     );
+
+    // if (aReplyClicked)
+    //     setTimeout(updateCard, 100)
+    // setTimeout(console.log('cardData after 1s', cardData), 1000);
+    // if (!cardsAreUpdated)
+    //     setTimeout(makeResponseCards, 1800);
+
+    // const myPromise = new Promise(function (myResolve, myReject) {
+    //     setTimeout(() => { myReject("value was returned"); }, 3000);
+    // });
+    // myPromise
+    //     .then(value => {
+    //         console.log('demo value', value);
+    //     })
+    //     .catch(value => {
+    //         console.log('demo error', value)
+    //     });
 }
