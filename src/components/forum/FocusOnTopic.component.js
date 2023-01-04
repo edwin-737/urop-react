@@ -156,7 +156,6 @@ export default function FocusOnTopic(props) {
                 setDataIsUpdated(1);
             })
     };
-    console.log('forumPostPromiseArr length', forumPostPromiseArr.length);
     if (!cardsAreUpdated) {
         getPromises();
         getResponseCardData();
