@@ -7,17 +7,17 @@ const forumPostUrl = host + 'forumPost';
 export default function CreateResponse(props) {
     const ref = useRef();
     return (
-        <form>
+        // <div className='createResponse-div'>
+        <form className='createResponse-div'>
             <textarea
                 placeholder='write your reply here'
-                style={{ width: "38rem", height: "20rem" }}
+                className='createResponse-body-textbox'
                 ref={ref}
             >
             </textarea>
             <input
-                style={{ position: 'relative', top: '1.5rem', left: '-38rem' }}
                 type="submit"
-                className="btn btn-primary"
+                className="button-createResponse-submit"
                 onClick={async (e) => {
                     e.preventDefault();
                     const responseBody = ref.current.value;
@@ -41,10 +41,12 @@ export default function CreateResponse(props) {
                             })
 
                         })
-                        .then(response => console.log('response after update', response));
+                        .then(response => console.log('response after update', response))
+                        .catch(err => console.log(err));
                 }}
             >
             </input>
         </form>
+        // </div>
     );
 }

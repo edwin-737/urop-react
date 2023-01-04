@@ -1,0 +1,26 @@
+.createResponse-div{
+    width:100%;
+    /* overflow:infinite; */
+    margin-bottom:4px;
+    height:30vh;
+    display:grid;
+    grid-template-rows:80% 20%
+}
+.createResponse-body-textbox{
+    width:100%;
+    margin-top:4px;
+    background-color:black;
+    color:white;
+    display:grid;
+}
+.button-createResponse-submit{
+    margin-top:4px;
+    margin-bottom:7px;
+    background-color:rgb(20, 90, 230);
+	border-radius: 8px;
+	border:0;
+	width:11.9vw;
+	height:3vw;
+    display:grid;
+    color:white;
+}

@@ -35,27 +35,24 @@ export default class Forum extends Component {
                     title: forumPost.title,
                     responses: forumPost.responses,
                     cardToDisplayInfFocus:
-                        <div className='topic-card' style={{ width: "95%", height: "70%" }}>
+                        <div className='topic-card' style={{ height: '70%' }}>
                             <div className='topic-card-container'>
                                 <div className='topic-card-text-container'>
-                                    <span className='response-username-font'>
-                                        {username}
-                                    </span>
-                                    <p className='response-body' >
-                                        {forumPost._id}      {body}
-                                    </p>
-                                </div>
-
-                                <div className='topic-card-button-container'>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <button style={{ backgroundColor: 'transparent', border: 0 }}>
-                                        <img src='images/upvote.png' alt='upvote' style={{ width: '52px', height: '46px' }}></img>
-                                    </button>
-                                    <button style={{ backgroundColor: 'transparent', border: 0 }}>
-                                        <img src='images/downvote.png' alt='downvote' style={{ width: '52px', height: '46px' }}></img>
-                                    </button>
+                                    <div>
+                                        <p className='topic-body' >
+                                            {body}
+                                            <br />
+                                            <span className='topic-card-username'>
+                                                by: {username}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div className='vote-button-container'>
+                                        <div></div>
+                                        <div className='upvote-button'></div>
+                                        <div></div>
+                                        <div className='downvote-button'></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -64,13 +61,21 @@ export default class Forum extends Component {
                         <div className="topic-card" >
                             <div className='topic-card-container'>
                                 <div className='topic-card-text-container'>
-                                    <p className='topic-body' >
-                                        {body}
-                                        <br />
-                                        <span className='topic-card-username'>
-                                            by: {username}
-                                        </span>
-                                    </p>
+                                    <div>
+                                        <p className='topic-body' >
+                                            {body}
+                                            <br />
+                                            <span className='topic-card-username'>
+                                                by: {username}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div className='vote-button-container'>
+                                        <div></div>
+                                        <div className='upvote-button'></div>
+                                        <div></div>
+                                        <div className='downvote-button'></div>
+                                    </div>
                                 </div>
                                 <div className='topic-card-button-container'>
                                     <button id="show-replies"
@@ -84,12 +89,7 @@ export default class Forum extends Component {
                                     </button>
                                     <div></div>
                                     <div></div>
-                                    <button onClick={() => alert('upvote')} style={{ backgroundColor: 'transparent', border: 0 }}>
-                                        <img src='images/upvote.png' alt='upvote' style={{ width: '55px', height: '46px' }}></img>
-                                    </button>
-                                    <button onClick={() => alert('downvote')} style={{ backgroundColor: 'transparent', border: 0 }}>
-                                        <img src='images/downvote.png' alt='downvote' style={{ width: '55px', height: '46px' }}></img>
-                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@ export default class Forum extends Component {
                 </div>
                 <div className='main'>
                     {this.state.focusOn !== -1 &&
-                        <div style={{ backgroundColor: 'rgb(164, 33, 33)', width: '85.7%' }}>
+                        <div style={{ backgroundColor: 'rgb(164, 33, 33)', width: '87%' }}>
                             <button className='btn btn-primary' style={{ margin: "0.2%" }} onClick={(e) => {
                                 // e.preventDefault();
                                 e.stopPropagation();
@@ -164,15 +164,15 @@ export default class Forum extends Component {
                     }
                 </div>
                 <div className='search'>
-                    <div style={{ border: "1px solid blue;" }}>
+                    {/* <div style={{ border: "1px solid blue;" }}>
                         Area 1 (for example a sidebar)
                         <div className="gcse-searchbox"></div>
                     </div>
 
-                    <div style={{ border: "1px solid red;" }}>
-                        {/* Area 2 (for example main area of the page) */}
+                    <div style={{ border: "1px solid red" }}>
+                         Area 2 (for example main area of the page) 
                         <div className="gcse-searchresults" style={{ backgroundColor: 'rgb(0,0,0)' }}></div>
-                    </div>
+                    </div> */}
                     {/* <div className='gcse-search'></div> */}
                     {/* <div className="gcse-searchbox">
                     </div>
