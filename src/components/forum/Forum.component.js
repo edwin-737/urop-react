@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ListOfTopics from './ListOfTopics.component';
 import FocusOnTopic from './FocusOnTopic.component';
+// import CreateResponse from './CreateResponse.component';
 import 'bootstrap/dist/css/bootstrap.min.css';
 const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
@@ -35,30 +36,27 @@ export default class Forum extends Component {
                     title: forumPost.title,
                     responses: forumPost.responses,
                     cardToDisplayInfFocus:
-                        <div>
-                            <div className='topic-card' style={{ height: '70%' }}>
-                                <div className='topic-card-container'>
-                                    <div className='topic-card-text-container'>
-                                        <div>
-                                            <p className='topic-body' >
-                                                {body}
-                                                <br />
-                                                <span className='topic-card-username'>
-                                                    by: {username}
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div className='vote-button-container'>
-                                            <div></div>
-                                            <div className='upvote-button'></div>
-                                            <div></div>
-                                            <div className='downvote-button'></div>
-                                        </div>
+                        <div className='topic-card' style={{ height: '70%' }}>
+                            <div className='topic-card-container'>
+                                <div className='topic-card-text-container'>
+                                    <div>
+                                        <p className='topic-body' >
+                                            {body}
+                                            <br />
+                                            <span className='topic-card-username'>
+                                                by: {username}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div className='vote-button-container'>
+                                        <div></div>
+                                        <div className='upvote-button'></div>
+                                        <div></div>
+                                        <div className='downvote-button'></div>
                                     </div>
                                 </div>
                             </div>
-                            {cardData[index].showReplyBox && <CreateResponse rootCard={cardData[index]} />}
-                        </div >
+                        </div>
                     ,
                     cardToDisplay: <li key={forumPost._id}>
                         <div className="topic-card" >
