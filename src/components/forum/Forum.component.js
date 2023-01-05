@@ -140,7 +140,7 @@ export default class Forum extends Component {
                 </div>
                 <div className='main'>
                     {this.state.focusOn !== -1 &&
-                        <div style={{ backgroundColor: 'rgb(164, 33, 33)', width: '87%' }}>
+                        <div style={{ width: '87%' }}>
                             <button className='btn btn-primary' style={{ margin: "0.2%" }} onClick={(e) => {
                                 // e.preventDefault();
                                 e.stopPropagation();
@@ -174,10 +174,10 @@ export default class Forum extends Component {
                         <div className="gcse-searchresults" style={{ backgroundColor: 'rgb(0,0,0)' }}></div>
                     </div> */}
                     {/* <div className='gcse-search'></div> */}
-                    {/* <div className="gcse-searchbox">
+                    <div className="gcse-searchbox">
                     </div>
 
-                    <div className="gcse-searchresults"></div> */}
+                    {/* <div className="gcse-searchresults"></div> */}
                     <div className='searchbar-container'>
                         <input className='searchbar' placeholder='Search Posts'>
                         </input>

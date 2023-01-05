@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 // const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
@@ -9,6 +9,27 @@ export default function FocusOnChapter(props) {
     const [retrieves, setRetrieves] = useState(0);
     // const [relatedPosts, setRelatedPosts] = useState([]);
     const [relatedResources, setRelatedResources] = useState([]);
+    const [resourceCards, setResourceCards] = useState([]);
+    useEffect(() => {
+        if (relatedResources.length === 0)
+            return;
+        relatedResources.forEach((curResource) => {
+            console.log('in useEffect', curResource);
+            setResourceCards(prev => [
+                ...prev,
+                <li className='resourceCard-list-item'>
+                    <div className='resourceCard-div'>
+                        <span className='resourceCard-title-font'>{curResource.title}</span>
+                        <br />
+                        <span className='resourceCard-link-font'>{curResource.link}</span>
+                        <br />
+                        <span className='resourceCard-body-font'>{curResource.snippet}</span>
+                        <br />
+                    </div>
+                </li>
+            ]);
+        })
+    }, [relatedResources])
     const getResourceData = async () => {
         if (retrieves === 1)
             return 0;
@@ -18,11 +39,24 @@ export default function FocusOnChapter(props) {
         )
             .then(res => {
                 console.log('in axios.get', res.data);
+                console.log('items in search result', res.data.items)
                 return res.data;
             })
             .catch(err => console.log(err));
-        setRelatedResources(curData.items);
+        if (curData.items != null) {
+            console.log(curData.items);
+            setRelatedResources(curData.items);
+        }
 
     };
-    getResourceData().then(() => console.log('related Resources', relatedResources));
+    getResourceData();
+    setTimeout(
+        console.log('length of resource cards', resourceCards), 1000)
+    return (
+        <div>
+            <ul className='resourceCard-list'>
+                {resourceCards}
+            </ul>
+        </div>
+    )
 }

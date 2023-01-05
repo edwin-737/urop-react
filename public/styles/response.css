@@ -20,7 +20,7 @@
 }
 .response-body{
 	margin:2rem;
-	font-size:2.5vh;
+	font-size:3vh;
 	color:white;
 }
 .response-username-font{
@@ -29,4 +29,18 @@
 	font-size:1.6vw;
 	color:white;
 	margin:20px;
+}
+.button-show-replies{
+    background-color:rgb(20, 90, 230);
+	border:solid rgb(0,0,0);
+	width:100%;
+	height:2.5vw;
+    margin-top:9%;
+}
+.button-add-reply{
+    background-color:rgb(20, 90, 230);
+	border:solid rgb(0,0,0);
+	width:100%;
+	height:2.5vw;
+    margin-top:9%;
 }

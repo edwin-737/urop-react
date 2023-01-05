@@ -46,7 +46,7 @@ export default function FocusOnTopic(props) {
                             </div>
                             <div className='topic-card-button-container'>
                                 <button id="show-replies"
-                                    className='button-add-question'
+                                    className='button-show-replies'
                                     style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
                                     onClick={
                                         (e) => {
@@ -67,10 +67,10 @@ export default function FocusOnTopic(props) {
                                             })
                                             setCardData(newArr);
                                         }}
-                                > <span className='chapter-dropdown-font'>replies</span>
+                                > <span className='button-text'>replies</span>
                                 </button>
                                 <button
-                                    className='button-add-question'
+                                    className='button-show-replies'
                                     style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
                                     onClick={
                                         (e) => {
@@ -92,7 +92,7 @@ export default function FocusOnTopic(props) {
                                             setCardData(newArr);
                                         }
                                     }
-                                ><span className='chapter-dropdown-font'>{(!curCardData.showReplyBox && 'add reply') || (curCardData.showReplyBox && 'cancel')}</span>
+                                ><span className='button-text'>{(!curCardData.showReplyBox && 'add reply') || (curCardData.showReplyBox && 'cancel')}</span>
                                 </button>
 
                             </div>

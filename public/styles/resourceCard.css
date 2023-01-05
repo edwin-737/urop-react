@@ -1,0 +1,28 @@
+.resourceCard-div{
+    background-color:rgb(20,20,20);
+    border-radius:5px;
+    width:80%;
+    height:30%;
+    padding:3%;
+
+    margin:2%;
+}
+.resourceCard-list{
+    list-style-type:none;
+}
+.resourceCard-list-item{
+    margin:2%;
+}
+.resourceCard-title-font{
+    color:rgb(64, 64, 201);
+    font:2%;
+
+}
+.resourceCard-link-font{
+    color:rgb(13, 126, 13);
+    font:2%;
+}
+.resourceCard-body-font{
+    color:white;
+    font-size:1.7vh;
+}

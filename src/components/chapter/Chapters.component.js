@@ -20,8 +20,8 @@ export default function Chapters() {
                 <div className='main'>
                     <ChapterList />
 
-                    <div className="gcse-search">
-                    </div>
+                    {/* <div className="gcse-search">
+                    </div> */}
                 </div>
                 <div className='search'>
                     <div className='searchbar-container'>

@@ -61,7 +61,7 @@ router.route('/update').post(async (req, res) => {
     if (req.body.url != null)
         update.$set.url = req.body.url;
     if (req.body.addToSubchapters != null) {
-        console.log(req.body.addToSubchapters);
+        // console.log(req.body.addToSubchapters);
         update.$push.subchapters = req.body.addToSubchapters;
     }
     if (req.body.addToQuestions != null)
