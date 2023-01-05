@@ -23,7 +23,7 @@ export default function FocusOnTopic(props) {
             console.log('in make response cards', curCardData.username);
             setResponseCards((prev) => [
                 ...prev,
-                <li className=".response-list-item" key={curCardData.key} >
+                <li className=".response-list-item" key={curCardData._id} >
                     <div className='response-card' >
                         <div className='topic-card-container' >
 
@@ -121,7 +121,6 @@ export default function FocusOnTopic(props) {
     const getResponseCardData = async () => {
         if (dataIsUpdated >= 1)
             return dataIsUpdated;
-        // setCardData([]);
         console.log('time at start of getResponseCardData', (new Date().getTime() / 1000) - itime);
         const processedResponseData = await Promise.all(forumPostPromiseArr)
             .then(forumPosts => {

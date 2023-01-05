@@ -7,6 +7,8 @@ const forumPostUrl = host + 'forumPost';
 export default function CreateResponse(props) {
     const [submitted, setSubmitted] = useState(false);
     const ref = useRef();
+    const refresh = () => window.location.reload(true)
+
     return (
         // <div className='createResponse-div'>
         <div>
@@ -22,7 +24,6 @@ export default function CreateResponse(props) {
                     className="button-createResponse-submit"
                     onClick={async (e) => {
                         e.preventDefault();
-
                         setSubmitted(true);
                         const responseBody = ref.current.value;
                         await axios.post(
@@ -40,12 +41,15 @@ export default function CreateResponse(props) {
                                 console.log('res.data', res.data);
                                 const id_of_new_reply = res.data._id;
                                 return axios.post(forumPostUrl + '/update', {
-                                    _id: props.rootCard.key,
+                                    _id: props.rootCard._id,
                                     addToResponses: id_of_new_reply,
                                 })
 
                             })
-                            .then(response => console.log('response after update', response))
+                            .then((res) => {
+                                console.log(res);
+                                refresh();
+                            })
                             .catch(err => console.log(err));
 
                     }}

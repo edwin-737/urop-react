@@ -28,7 +28,7 @@ export default class Forum extends Component {
             this.setState(previousState => ({
                 forumPostData: [...previousState.forumPostData,
                 {
-                    key: forumPost._id,
+                    _id: forumPost._id,
                     body: body,
                     username: username,
                     tags: forumPost.tags,
@@ -127,7 +127,7 @@ export default class Forum extends Component {
     render() {
         var cardToFocusOn = {};
         if (this.state.focusOn !== -1) {
-            cardToFocusOn = this.state.forumPostData.filter(card => (card.key === this.state.focusOn))[0];
+            cardToFocusOn = this.state.forumPostData.filter(card => (card._id === this.state.focusOn))[0];
             cardToFocusOn.layer = 0;
         }
         return (
