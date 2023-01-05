@@ -10,7 +10,10 @@ export default function FocusOnTopic(props) {
     const [responseCards, setResponseCards] = useState([]);
     const [dataIsUpdated, setDataIsUpdated] = useState(0);
     const [cardsAreUpdated, setCardsAreUpdated] = useState(false);
-
+    // const [topicCard, setTopicCard] = useState(<div></div>);
+    // useEffect(()=>{
+    //     setTopicCard
+    // },[]);
     useEffect(() => {
         if (cardData.length === 0)
             return;
@@ -105,7 +108,6 @@ export default function FocusOnTopic(props) {
         });
 
     }, [cardData])
-    const itime = new Date().getTime() / 1000;
     var forumPostPromiseArr = [];
     var userPromiseArr = [];
     console.log('rootCard body', props.rootCard.layer);
@@ -121,7 +123,6 @@ export default function FocusOnTopic(props) {
     const getResponseCardData = async () => {
         if (dataIsUpdated >= 1)
             return dataIsUpdated;
-        console.log('time at start of getResponseCardData', (new Date().getTime() / 1000) - itime);
         const processedResponseData = await Promise.all(forumPostPromiseArr)
             .then(forumPosts => {
                 var rawData = forumPosts.map(item => item.data);

@@ -25,7 +25,7 @@ export default function CreateTopic(props) {
             <input
 
                 type="submit"
-                className="btn btn-primary"
+                className="button-createResponse-submit"
                 onClick={async (e) => {
                     e.preventDefault();
                     const topicBody = refBody.current.value;
@@ -34,7 +34,7 @@ export default function CreateTopic(props) {
                         body: topicBody,
                         schema_version: 5,
                         isReply: false,
-                        postedBy: "38e21d6f9a3d5e98c5c8bb3", //replace with actual signed in user later
+                        postedBy: "63861e4f1ad80b98e92289f7", //replace with actual signed in user later
                         title: topicTitle,
                     })
                         .then((res) => {
