@@ -19,7 +19,7 @@ export default function FocusOnChapter(props) {
                 ...prev,
                 <li className='resourceCard-list-item'>
                     <div className='resourceCard-div'>
-                        <span className='resourceCard-title-font'>{curResource.title}</span>
+                        <a href={curResource.link}><span className='resourceCard-title-font'>{curResource.title}</span></a>
                         <br />
                         <span className='resourceCard-link-font'>{curResource.link}</span>
                         <br />
@@ -50,8 +50,6 @@ export default function FocusOnChapter(props) {
 
     };
     getResourceData();
-    setTimeout(
-        console.log('length of resource cards', resourceCards), 1000)
     return (
         <div>
             <ul className='resourceCard-list'>

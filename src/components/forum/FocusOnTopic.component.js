@@ -123,19 +123,21 @@ export default function FocusOnTopic(props) {
     const getResponseCardData = async () => {
         if (dataIsUpdated >= 1)
             return dataIsUpdated;
-        const processedResponseData = await Promise.all(forumPostPromiseArr)
-            .then(forumPosts => {
-                var rawData = forumPosts.map(item => item.data);
-                rawData.forEach(curRawData => {
-                    userPromiseArr.push(
-                        axios.post(userUrl + '/findOne', {
-                            _id: curRawData.postedBy
-                        })
-                    );
+
+        const processedResponseData = await
+            Promise.all(forumPostPromiseArr)
+                .then(forumPosts => {
+                    var rawData = forumPosts.map(item => item.data);
+                    rawData.forEach(curRawData => {
+                        userPromiseArr.push(
+                            axios.post(userUrl + '/findOne', {
+                                _id: curRawData.postedBy
+                            })
+                        );
+                    })
+                    return rawData;
                 })
-                return rawData;
-            })
-            .catch(err => console.log(err));
+                .catch(err => console.log(err));
         await Promise.all(userPromiseArr)
             .then(users => {
                 console.log('all users', users)
