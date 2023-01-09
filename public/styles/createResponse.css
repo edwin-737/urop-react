@@ -7,7 +7,7 @@
     grid-template-rows:80% 20%
 }
 .createResponse-body-textbox{
-    width:100%;
+    width:80%;
     margin-top:4px;
     background-color:black;
     color:white;

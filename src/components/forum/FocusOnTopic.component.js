@@ -10,12 +10,53 @@ export default function FocusOnTopic(props) {
     const [responseCards, setResponseCards] = useState([]);
     const [dataIsUpdated, setDataIsUpdated] = useState(0);
     const [cardsAreUpdated, setCardsAreUpdated] = useState(false);
-    // const [topicCard, setTopicCard] = useState(<div></div>);
-    // useEffect(()=>{
-    //     setTopicCard
-    // },[]);
+    const [topicCardData, setTopicCardData] = useState(props.rootCard);
+    const [topicCard, setTopicCard] = useState('');
     useEffect(() => {
-        if (cardData.length === 0)
+        setTopicCard(
+            <div className='topic-card' style={{ height: '70%', marginLeft: '4%', marginBottom: '5px' }}>
+                <div className='topic-card-container'>
+                    <div className='topic-card-text-container'>
+                        <div></div>
+                        <div>
+                            <p className='topic-body' >
+                                {props.rootCard.body}
+                                <br />
+                                <span className='topic-card-username'>
+                                    by: {props.rootCard.username}
+                                </span>
+                            </p>
+                        </div>
+                        <div className='vote-button-container'>
+                            <div></div>
+                            <div className='upvote-button'></div>
+                            <div></div>
+                            <div className='downvote-button'></div>
+                        </div>
+                    </div>
+                    <div className='topic-card-button-container'>
+                        <button
+                            className='focused-topic-add-reply-button'
+                            onClick={
+                                (e) => {
+                                    e.stopPropagation();
+                                    if (topicCardData.showReplyBox === false)
+                                        setTopicCardData({ ...topicCardData, showReplyBox: true });
+                                    else
+                                        setTopicCardData({ ...topicCardData, showReplyBox: false });
+                                }
+                            }
+                        ><span className='button-text'>{(!topicCard.showReplyBox && 'add reply') || (topicCard.showReplyBox && 'cancel')}</span>
+                        </button>
+                    </div>
+                </div>
+                {topicCardData.showReplyBox && <CreateResponse rootCard={topicCardData} />}
+
+            </div>
+        )
+    }, [topicCardData, props.rootCard, topicCard.showReplyBox]);
+    useEffect(() => {
+        if (cardData.length === 0 || cardData === [])
             return;
 
         setCardsAreUpdated(true);
@@ -29,8 +70,8 @@ export default function FocusOnTopic(props) {
                 <li className=".response-list-item" key={curCardData._id} >
                     <div className='response-card' >
                         <div className='topic-card-container' >
-
                             <div className='topic-card-text-container' >
+                                <div></div>
                                 <div>
                                     <p className='topic-body' >
                                         {curCardData.body}
@@ -48,9 +89,9 @@ export default function FocusOnTopic(props) {
                                 </div>
                             </div>
                             <div className='topic-card-button-container'>
-                                <button id="show-replies"
-                                    className='button-show-replies'
-                                    style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
+                                <button
+                                    className='focused-topic-add-reply-button'
+                                    // style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
                                     onClick={
                                         (e) => {
                                             e.stopPropagation();
@@ -73,8 +114,8 @@ export default function FocusOnTopic(props) {
                                 > <span className='button-text'>replies</span>
                                 </button>
                                 <button
-                                    className='button-show-replies'
-                                    style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
+                                    className='focused-topic-add-reply-button'
+                                    // style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
                                     onClick={
                                         (e) => {
                                             e.stopPropagation();
@@ -110,8 +151,13 @@ export default function FocusOnTopic(props) {
     }, [cardData])
     var forumPostPromiseArr = [];
     var userPromiseArr = [];
+
+    // if (topicCardData.responses.length === 0)
+    //     return (<div style={{ color: 'white' }} > nothing here</ div>);
     console.log('rootCard body', props.rootCard.layer);
     const getPromises = () => {
+        console.log('in getPromises', props.rootCard);
+        console.log('in getPromises responses', props.rootCard.responses);
         props.rootCard.responses.forEach((id) => {
             forumPostPromiseArr.push(
                 axios.post(
@@ -123,27 +169,26 @@ export default function FocusOnTopic(props) {
     const getResponseCardData = async () => {
         if (dataIsUpdated >= 1)
             return dataIsUpdated;
-
-        const processedResponseData = await
-            Promise.all(forumPostPromiseArr)
-                .then(forumPosts => {
-                    var rawData = forumPosts.map(item => item.data);
-                    rawData.forEach(curRawData => {
-                        userPromiseArr.push(
-                            axios.post(userUrl + '/findOne', {
-                                _id: curRawData.postedBy
-                            })
-                        );
-                    })
-                    return rawData;
+        var processedResponseData = await Promise.all(forumPostPromiseArr)
+            .then(forumPosts => {
+                var rawData = forumPosts.map(item => item.data);
+                rawData.forEach(curRawData => {
+                    userPromiseArr.push(
+                        axios.post(userUrl + '/findOne', {
+                            _id: curRawData.postedBy
+                        })
+                    );
                 })
-                .catch(err => console.log(err));
-        await Promise.all(userPromiseArr)
+                return rawData;
+            })
+            .catch(err => console.log(err));
+        await Promise.allSettled(userPromiseArr)
             .then(users => {
+
                 console.log('all users', users)
                 var rawUserData = users.map(item => {
                     console.log('each user data', item);
-                    return item.data;
+                    return item.value.data;
                 });
                 return rawUserData;
             })
@@ -170,25 +215,14 @@ export default function FocusOnTopic(props) {
                 <div className='focused-topic'>
 
                     <span className='focused-topic-title'>{props.rootCard.title}</span>
-                    {props.rootCard.cardToDisplayInfFocus}
+                    {topicCard}
                 </div>
-            }
-            {
-                //otherwise, don't highlight it
-                props.rootCard.layer > 0 &&
-                props.rootCard.cardToDisplay
             }
             <ul className='response-list'>
                 {responseCards}
             </ul>
         </div>
     );
-
-    // if (aReplyClicked)
-    //     setTimeout(updateCard, 100)
-    // setTimeout(console.log('cardData after 1s', cardData), 1000);
-    // if (!cardsAreUpdated)
-    //     setTimeout(makeResponseCards, 1800);
 
     // const myPromise = new Promise(function (myResolve, myReject) {
     //     setTimeout(() => { myReject("value was returned"); }, 3000);

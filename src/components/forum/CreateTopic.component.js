@@ -8,17 +8,18 @@ export default function CreateTopic(props) {
     const refTitle = useRef();
     const refBody = useRef();
     const refresh = () => window.location.reload(true)
-
     return (
-        <form>
+        <form style={{
+            marginTop: '1%'
+        }}>
             <textarea
                 placeholder='Title of topic'
-                style={{ width: "100%", height: "5rem" }}
+                style={{ marginLeft: '4%', width: "80%", height: "5rem" }}
                 ref={refTitle}
             ></textarea>
             <textarea
                 placeholder='Elaborate here'
-                style={{ width: "100%", height: "20rem" }}
+                style={{ marginLeft: '4%', width: "80%", height: "20rem" }}
                 ref={refBody}
             >
             </textarea>
@@ -26,6 +27,7 @@ export default function CreateTopic(props) {
 
                 type="submit"
                 className="button-createResponse-submit"
+                style={{ marginLeft: '4%' }}
                 onClick={async (e) => {
                     e.preventDefault();
                     const topicBody = refBody.current.value;
@@ -45,6 +47,6 @@ export default function CreateTopic(props) {
                 }}
             >
             </input>
-        </form>
+        </form >
     );
 }

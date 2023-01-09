@@ -44,3 +44,10 @@
 	height:2.5vw;
     margin-top:9%;
 }
+.response-card-button-container{
+	position:relative;
+	display:grid;
+	grid-template-columns:40% 40%;
+	grid-row-gap:30px;
+	margin:0;
+}

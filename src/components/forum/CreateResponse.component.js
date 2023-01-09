@@ -7,7 +7,7 @@ const forumPostUrl = host + 'forumPost';
 export default function CreateResponse(props) {
     const [submitted, setSubmitted] = useState(false);
     const ref = useRef();
-    const refresh = () => window.location.reload(true)
+    const refresh = () => window.location.reload(true);
 
     return (
         // <div className='createResponse-div'>
@@ -43,7 +43,7 @@ export default function CreateResponse(props) {
                                 return axios.post(forumPostUrl + '/update', {
                                     _id: props.rootCard._id,
                                     addToResponses: id_of_new_reply,
-                                })
+                                });
 
                             })
                             .then((res) => {
