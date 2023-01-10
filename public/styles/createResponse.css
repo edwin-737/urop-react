@@ -1,3 +1,7 @@
+.createResponse-tag-div{
+    background-color:black;
+    width:30vw;
+}
 .createResponse-div{
     width:100%;
     /* overflow:infinite; */

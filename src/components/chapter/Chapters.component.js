@@ -6,7 +6,6 @@ export default function Chapters() {
     if (renders < 1) {
         setRenders(1);
         // setTimeout(setShowSearchEngine(true), 3500);
-
     }
     return (
         <div>

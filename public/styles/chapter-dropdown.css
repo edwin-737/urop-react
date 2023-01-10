@@ -1,4 +1,7 @@
 
+.chapter-dropdown-ul{
+    position:absolute;
+}
 .chapter-dropdown-li{
 	width:100%;
 	height:3rem;
@@ -6,7 +9,7 @@
 	margin:0;
 	border-color:black;
 	border-width:3px;
-	z-index:1;
+
 	box-shadow: 3px 3px 3px black;
 }
 .chapter-dropdown{

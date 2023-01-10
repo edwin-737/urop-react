@@ -1,76 +1,50 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-const host = 'https://urop-react-backend.azurewebsites.net/';
-const chapterUrl = host + 'chapter';
+
+import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+import ChapterData from './ChapterData';
+// import ChapterMenu from './ChapterMenu.component';
 export default function ChapterMenu(props) {
-    const [cards, setCards] = useState([]);
-    const [uniqueCards, setUniqueCards] = useState([]);
-    const [retrieves, setRetrieves] = useState(0)
-    const [chapterData, setChapterData] = useState([]);
-    const [cardsMade, setCardsMade] = useState(0);
-    const getChapterData = async () => {
-        if (retrieves >= 1)
-            return 0;
-        setRetrieves(1);
-        await axios.get(chapterUrl)
-            .then((res) => {
-                res.data.map(item => {
-                    setChapterData(prev => [...prev, item]);
-                    return 0;
+    const [chapterData, setChapterData] = useState('')
+    const [retrieved, setRetrieved] = useState(false);
+    const [rendered, setRendered] = useState(false);
+    const [chapterCards, setChapterCards] = useState([]);
+
+    useEffect(() => {
+        if (retrieved)
+            return;
+        const fetchData = async () => {
+            await ChapterData()
+                .then(data => {
+                    setChapterData(data);
+                    setRetrieved(true);
                 })
-            })
-            .catch(err => console.log(err));
-    }
-    const makeChapterCards = () => {
-        if (cardsMade >= 1)
-            return 0;
-        setCardsMade(1);
-        console.log('makeChapterCards', chapterData);
-        chapterData.map((curChapterData) => {
-            if (curChapterData.isSubchapter === true)
-                return 0;
-            setCards(prev =>
-                [...prev, {
-                    key: curChapterData._id,
-                    card:
-                        <li key={curChapterData._id}>
-                            <div className='chapter-dropdown-li'>
-                                {curChapterData.name}
-                            </div>
-                        </li>
-                }]
-            )
-            return 0;
-        });
-    }
-    const ensureCardsUnique = () => {
-        setCardsMade(2);
-        var done = {}
+                .catch(err => console.log(err));
+        }
+        fetchData();
+
+    }, [retrieved, chapterData]);
+    useEffect(() => {
+        if (!retrieved || !chapterData.length)
+            return;
         var temp = [];
-        cards.map(card => {
-            if (card.key in done)
-                return 0;
-            done[card.key] = 1;
-            temp.push(card.card)
-            return 0
-        })
-        console.log('temp length', temp.length)
-        setUniqueCards(temp);
-    }
-    getChapterData();
-    if (cardsMade < 1)
-        setTimeout(makeChapterCards, 1400);
-    if (cardsMade === 1)
-        ensureCardsUnique();
-    setTimeout(() => console.log('uniqueCards', uniqueCards.length), 1400);
+        console.log('all chapterData', chapterData);
+        chapterData.forEach(curChapterData => {
+            temp.push(
+                <li key={curChapterData._id}>
+                    {curChapterData.name}
+                </li>
+            );
+        });
+        setChapterCards(temp);
+        setRendered(true);
+    }, [retrieved, chapterData, rendered]);
     return (
-        <div className='chapter-dropdown'>
-            <label htmlFor='touch'><p className='chapter-dropdown-font'>&nbsp;chapters&nbsp;&nbsp;<i className="arrow down"></i></p> </label>
-            <button id='touch' className='btn-transparent'>
-            </button>
-            <ul className="slide">
-                {uniqueCards}
+        <span className='dropdown dropdown-7'>
+            <ul className='dropdown_menu dropdown_menu--animated dropdown_menu-7'>
+                {chapterCards}
             </ul>
-        </div>
-    )
-}
+
+        </span>
+    );
+
+} 
