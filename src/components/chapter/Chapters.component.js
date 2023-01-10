@@ -12,9 +12,10 @@ export default function Chapters() {
         <div>
             <div className='component-container'>
                 <div className='header'>
-                    <div id="title-div">
-                        <p id="title-font">Chapters</p>
+                    <div className="title-div">
+                        <p className="title-font">Chapters</p>
                     </div>
+
                 </div>
                 <div className='main'>
                     <ChapterList />

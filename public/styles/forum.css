@@ -278,7 +278,7 @@
 	height:100%;
 	width:100%;
 	/* grid-template-columns:2fr 9fr 2fr; */
-	grid-template-rows:80% 20%;
+	grid-template-rows:77% 23%;
 	overflow:infinite;
 	
 }
@@ -311,7 +311,7 @@
 .topic-card-button-container{
 	position:relative;
 	display:grid;
-	grid-template-columns:16% 16% 52% 7% 7%;
+	grid-template-columns:12% 12% 60% 7% 7%;
 	overflow:infinite;
 }
 
