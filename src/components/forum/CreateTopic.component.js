@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import ChapterData from './ChapterData';
 // import ChapterMenu from './ChapterMenu.component';
-import ChapterMenu from './ChapterMenu.component';
+// import ChapterMenu from './ChapterMenu.component';
 const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
