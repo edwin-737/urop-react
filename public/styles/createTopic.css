@@ -1,0 +1,27 @@
+.createTopic-form{
+    margin-top:1%;
+    /* margin-left:4%; */
+}
+.createTopic-title-input
+{
+    margin-left: 4%;
+    width: 80%; 
+    height: 5rem;
+}
+.createTopic-body-input{
+    margin-left: 4%;
+    width: 80%; 
+    height: 20rem;
+}
+.createTopic-submit-button{
+    margin-left: 4%;
+    margin-top:4px;
+    margin-bottom:7px;
+    background-color:rgb(20, 90, 230);
+	border-radius: 8px;
+	border:0;
+	width:11.9vw;
+	height:3vw;
+    display:grid;
+    color:white;
+}

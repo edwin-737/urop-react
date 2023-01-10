@@ -10,7 +10,7 @@ export default function ListOfTopics(props) {
     const [creatingTopic, setCreatingTopic] = useState(false);
     const [selectMode, setSelectMode] = useState(false);
     const [cardData, setCardData] = useState(props.forumPostData);
-    const [cards, setCards] = useState(props.forumPostCards);
+    const [cards, setCards] = useState([]);
     const [focusOn, setFocusOn] = useState(-1);
     const [cardToFocusOn, setCardToFocusOn] = useState(-1);
     const [cardsToDelete, setCardsToDelete] = useState([]);
@@ -116,7 +116,7 @@ export default function ListOfTopics(props) {
             );
         });
         setCards(temp);
-    }, [selectMode, cardData]);
+    }, [selectMode, cardData, focusOn]);
     return (
         <div>
             <div className="forumPost-container">

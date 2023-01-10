@@ -9,44 +9,44 @@ export default function CreateTopic(props) {
     const refBody = useRef();
     const refresh = () => window.location.reload(true)
     return (
-        <form style={{
-            marginTop: '1%'
-        }}>
-            <textarea
-                placeholder='Title of topic'
-                style={{ marginLeft: '4%', width: "80%", height: "5rem" }}
-                ref={refTitle}
-            ></textarea>
-            <textarea
-                placeholder='Elaborate here'
-                style={{ marginLeft: '4%', width: "80%", height: "20rem" }}
-                ref={refBody}
-            >
-            </textarea>
-            <input
+        <div>
+            <form className='createTopic-form'>
+                <textarea
+                    placeholder='Title of topic'
+                    className='createTopic-title-input'
+                    ref={refTitle}
+                ></textarea>
+                <textarea
+                    placeholder='Elaborate here'
+                    className='createTopic-body-input'
+                    ref={refBody}
+                >
+                </textarea>
+                <input
 
-                type="submit"
-                className="button-createResponse-submit"
-                style={{ marginLeft: '4%' }}
-                onClick={async (e) => {
-                    e.preventDefault();
-                    const topicBody = refBody.current.value;
-                    const topicTitle = refTitle.current.value;
-                    await axios.post(forumPostUrl + '/add', {
-                        body: topicBody,
-                        schema_version: 5,
-                        isReply: false,
-                        postedBy: "63861e4f1ad80b98e92289f7", //replace with actual signed in user later
-                        title: topicTitle,
-                    })
-                        .then((res) => {
-                            console.log(res);
-                            refresh();
+                    type="submit"
+                    className="createTopic-submit-button"
+                    onClick={async (e) => {
+                        e.preventDefault();
+                        const topicBody = refBody.current.value;
+                        const topicTitle = refTitle.current.value;
+                        await axios.post(forumPostUrl + '/add', {
+                            body: topicBody,
+                            schema_version: 5,
+                            isReply: false,
+                            postedBy: "63861e4f1ad80b98e92289f7", //replace with actual signed in user later
+                            title: topicTitle,
                         })
-                        .catch(err => console.log(err));
-                }}
-            >
-            </input>
-        </form >
+                            .then((res) => {
+                                console.log(res);
+                                refresh();
+                            })
+                            .catch(err => console.log(err));
+                    }}
+                >
+                </input>
+            </form >
+            <div></div>
+        </div>
     );
 }

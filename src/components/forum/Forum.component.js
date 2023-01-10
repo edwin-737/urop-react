@@ -14,107 +14,113 @@ export default function Forum() {
     const [focusOn, setFocusOn] = useState(-1);
     const [retrieved, setRetrieved] = useState(false);
     const [listOfTopics, setListOfTopics] = useState('');
-    //create html cards to display the topics
-    const makeTopicCards = () => {
-        if (!retrieved)
-            return;
-        console.log('makeTopicCards length of forumPostData', forumPostData.length);
-        console.log('before making html cards forumPostData', forumPostData);
-        forumPostData.forEach((curForumPostData) => {
-            setForumPostCards(prev =>
-                [
-                    ...prev,
-                    <li key={curForumPostData._id}>
-                        <div className="topic-card">
-                            <div className='topic-card-container'>
-                                <div className='topic-card-text-container'>
-                                    <div>
-                                        <p className='topic-body' >
-                                            {curForumPostData.body}
-                                            <br />
-                                            <span className='topic-card-username'>
-                                                by: {curForumPostData.username}
-                                            </span>
-                                        </p>
+    const [rendered, setRendered] = useState(false);
+
+    useEffect(() => {
+        //create html cards to display the topics
+        const makeTopicCards = () => {
+            if (!retrieved || rendered)
+                return;
+            console.log('makeTopicCards length of forumPostData', forumPostData.length);
+            console.log('before making html cards forumPostData', forumPostData);
+            forumPostData.forEach((curForumPostData) => {
+                setForumPostCards(prev =>
+                    [
+                        ...prev,
+                        <li key={curForumPostData._id}>
+                            <div className="topic-card">
+                                <div className='topic-card-container'>
+                                    <div className='topic-card-text-container'>
+                                        <div>
+                                            <p className='topic-body' >
+                                                {curForumPostData.body}
+                                                <br />
+                                                <span className='topic-card-username'>
+                                                    by: {curForumPostData.username}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div className='vote-button-container'>
+                                            <div></div>
+                                            <div className='upvote-button'></div>
+                                            <div></div>
+                                            <div className='downvote-button'></div>
+                                        </div>
                                     </div>
-                                    <div className='vote-button-container'>
+                                    <div className='topic-card-button-container'>
+                                        <button className="topic-card-see-thread-button"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setFocusOn(curForumPostData._id);
+                                            }}> <span className='topic-card-see-thread-font'>see thread</span>
+                                        </button>
                                         <div></div>
-                                        <div className='upvote-button'></div>
                                         <div></div>
-                                        <div className='downvote-button'></div>
                                     </div>
-                                </div>
-                                <div className='topic-card-button-container'>
-                                    <button className="topic-card-see-thread-button"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setFocusOn(curForumPostData._id);
-                                        }}> <span className='topic-card-see-thread-font'>see thread</span>
-                                    </button>
-                                    <div></div>
-                                    <div></div>
                                 </div>
                             </div>
-                        </div>
-                    </li >
-                ]
-            )
+                        </li >
+                    ]
+                )
+            }
+            );
+            setListOfTopics(<ListOfTopics
+                forumPostCards={forumPostCards}
+                forumPostData={forumPostData}
+            />);
+            setRendered(true);
         }
-        );
-        setListOfTopics(<ListOfTopics
-            forumPostCards={forumPostCards}
-            forumPostData={forumPostData}
-        />);
-    }
-    //retrieve all userData using postedBy
-    const getUserData = async (topics) => {
-        var newTopics = topics;
-        var userPromiseArr = [];
-        topics.forEach((curTopic) => {
-            userPromiseArr.push(axios.post(userUrl + '/findOne', {
-                _id: curTopic.postedBy,
-            }));
-        });
-        await Promise.allSettled(userPromiseArr)
-            .then((usersPromiseResult) => {
-                usersPromiseResult.forEach((curUserPromiseResult, index) => {
-                    const curUser = curUserPromiseResult.value.data;
-                    if (curUserPromiseResult.status === 'fulfilled' && curUser !== null && curUser.username !== null)
-                        newTopics[index].username = curUser.username;
-                    else
-                        newTopics[index].username = 'Anonymous';
-                })
-            })
-            .catch(err => console.log(err));
 
-        setForumPostData(newTopics);
-        setRetrieved(true);
-
-        return newTopics;
-    }
-    //retrieve all forumPostData from mongodb
-    const getForumPostData = async () => {
-        await axios({
-            method: 'get',
-            url: forumPostUrl,
-        })
-            .then(response => {
-                var topics = response.data.filter((curForumPost) => {
-                    return !curForumPost.isReply
-                });
-                console.log('all forumPosts retrieved', topics);
-                getUserData(topics);
-            })
-            .catch(err => console.log(err));
-    }
-    //get Forum post data from mongodb and populate forumPostData
-    useEffect(() => {
         makeTopicCards();
-    }, [retrieved]);
+    }, [retrieved, rendered, forumPostData, forumPostCards]);
     //retrieve forumPostData
     useEffect(() => {
+        //retrieve all userData using postedBy
+        const getUserData = async (topics) => {
+            var newTopics = topics;
+            var userPromiseArr = [];
+            topics.forEach((curTopic) => {
+                userPromiseArr.push(axios.post(userUrl + '/findOne', {
+                    _id: curTopic.postedBy,
+                }));
+            });
+            await Promise.allSettled(userPromiseArr)
+                .then((usersPromiseResult) => {
+                    usersPromiseResult.forEach((curUserPromiseResult, index) => {
+                        const curUser = curUserPromiseResult.value.data;
+                        if (curUserPromiseResult.status === 'fulfilled' && curUser !== null && curUser.username !== null)
+                            newTopics[index].username = curUser.username;
+                        else
+                            newTopics[index].username = 'Anonymous';
+                    })
+                })
+                .catch(err => console.log(err));
+
+            setForumPostData(newTopics);
+            setRetrieved(true);
+
+            return newTopics;
+        }
+        //retrieve all forumPostData from mongodb
+        const getForumPostData = async () => {
+
+            if (retrieved)
+                return;
+            await axios({
+                method: 'get',
+                url: forumPostUrl,
+            })
+                .then(response => {
+                    var topics = response.data.filter((curForumPost) => {
+                        return !curForumPost.isReply
+                    });
+                    console.log('all forumPosts retrieved', topics);
+                    getUserData(topics);
+                })
+                .catch(err => console.log(err));
+        }
         getForumPostData();
-    }, []);
+    }, [retrieved]);
     return (
         <div className='component-container'>
             <div className='header'>

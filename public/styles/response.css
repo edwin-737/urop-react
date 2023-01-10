@@ -3,7 +3,8 @@
 	background-color:rgb(20, 20, 20);
 	overflow:infinite;
 	color:white;
-	width:85%;
+	width:99.9%;
+    border:solid rgb(60, 49, 49) 1px;
 }
 .response-list-div{
 	height:20vh;
