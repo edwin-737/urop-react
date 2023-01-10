@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const host = 'https://urop-react-backend.azurewebsites.net/';
 const chapterUrl = host + 'chapter';
@@ -17,22 +17,5 @@ export default async function ChapterData() {
         })
         .catch(err => console.log(err));
 
-    // useEffect(() => {
-    //     if (retrieved)
-    //         return;
-    //     const getChapterData = async () => {
-    //         await axios({
-    //             method: 'get',
-    //             url: chapterUrl,
-    //         })
-    //             .then(items => {
-    //                 console.log('in getChapterData items.data', items.data);
-    //                 setChapterData(items.data);
-    //                 setRetrieved(true);
-    //             })
-    //             .catch(err => console.log(err));
-    //     }
-    //     getChapterData();
-    // }, [retrieved]);
     return chapterData;
 }

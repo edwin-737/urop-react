@@ -306,7 +306,7 @@
 	display:grid;
 	position:relative;
 	overflow:infinite;
-	grid-template-columns:10px 85% 10%;
+	grid-template-columns:10px 93% 5%;
 }
 .topic-card-button-container{
 	position:relative;
@@ -314,7 +314,10 @@
 	grid-template-columns:12% 12% 60% 7% 7%;
 	overflow:infinite;
 }
-
+.topic-card-tags-div{
+	width:100%;
+	/* height: */
+}
 
 .l-header {
 	display: flex;
