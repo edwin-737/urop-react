@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Iframe from 'react-iframe';
 // const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 // const chapterUrl = host + 'chapter';
@@ -52,6 +53,13 @@ export default function FocusOnChapter(props) {
     getResourceData();
     return (
         <div>
+
+            <Iframe url="https://neo4j.com/developer/graph-data-science/graph-algorithms/"
+                width="640px"
+                height="320px"
+                id=""
+                display="block"
+                position="relative" />
             <ul className='resourceCard-list'>
                 {resourceCards}
             </ul>

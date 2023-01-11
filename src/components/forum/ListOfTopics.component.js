@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 // import ChapterMenu from './ChapterMenu.component';
+import ChapterData from './ChapterData';
 import CreateTopic from './CreateTopic.component';
 import FocusOnTopic from './FocusOnTopic.component';
 const host = 'https://urop-react-backend.azurewebsites.net/';
@@ -14,9 +15,24 @@ export default function ListOfTopics(props) {
     const [focusOn, setFocusOn] = useState(-1);
     const [cardToFocusOn, setCardToFocusOn] = useState(-1);
     const [cardsToDelete, setCardsToDelete] = useState([]);
+    const [chapterData, setChapterData] = useState([]);
+    const [retrievedChapterData, setRetrievedChapterData] = useState(false);
     // const signedIn = "63861e801ad80b98e92289fb";
     const refresh = () => window.location.reload(true);
 
+    useEffect(() => {
+        if (retrievedChapterData)
+            return;
+        const fetchData = async () => {
+            await ChapterData()
+                .then(data => {
+                    setChapterData(data);
+                    setRetrievedChapterData(true);
+                })
+                .catch(err => console.log(err));
+        }
+        fetchData();
+    }, [retrievedChapterData, chapterData]);
     useEffect(() => {
         if (cardsToDelete.length === 0)
             return;
@@ -41,86 +57,102 @@ export default function ListOfTopics(props) {
         });
     }, [focusOn, props]);
     useEffect(() => {
-        if (focusOn !== -1)
+        if (focusOn !== -1 || !chapterData.length)
             return;
         var topicCardStyle = selectMode ? "topic-card-selectMode" : "topic-card";
-        // topicCardStyle = (topicCardStyle === "topic-card-selectMode") ? "topic-card-selected" : "topic-card"
-        var temp = [];
-        cardData.forEach((curCardData) => {
-            var curTopicCardStyle = topicCardStyle;
-            // if (selectMode && curCardData.selected)
-            //     curTopicCardStyle = "topic-card-selected";
-            // else if (!selectMode)
-            //     curCardData.selected = false;
-            temp.push(
-                <li key={curCardData._id}>
-                    <div className={curTopicCardStyle}
-                        onClick={(e) => {
-                            if (!selectMode)
-                                return;
-                            e.stopPropagation();
-                            const newArr = cardData.map(curCard => {
-                                if (curCardData._id === curCard._id) {
-                                    if (!curCard.selected) {
-                                        curCard.selected = true;
-                                        return curCard
-                                    }
-                                    else {
-                                        curCard.selected = false;
-                                        return curCard
-                                    }
-                                }
-                                return curCard
-                            })
-                            setCardData(newArr);
-                        }}
-                    >
-                        <div className='topic-card-container'>
-                            <div className='topic-card-text-container'>
-                                <div>
-                                    {selectMode && <input type='checkbox' className='topic-card-select-box'></input>}
-                                </div>
-                                <div>
-                                    <p className='topic-body' >
-                                        {curCardData.body}
-                                        <br />
-                                        <span className='topic-card-username'>
-                                            by: {curCardData.username}
-                                        </span>
-                                    </p>
-                                </div>
-                                <div className='vote-button-container'>
-                                    <div></div>
-                                    <div className='upvote-button'></div>
-                                    <div></div>
-                                    <div className='downvote-button'></div>
-                                </div>
-                            </div>
-                            <div className='topic-card-button-container'>
-                                <button className="topic-card-see-thread-button"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setFocusOn(curCardData._id)
-                                    }}>
-                                    <span className='topic-card-see-thread-font'>
-                                        see thread
-                                    </span>
-                                </button>
-                                <div></div>
-                                <div className='topic-card-tags-container'>
-                                    <div className='topic-card-tag'>
-                                        <span className='topic-card-tag-font'>test</span>
-                                    </div>
-                                </div>
 
-                            </div>
+        const createTagCards = (tagArr) => {
+            const tagCards = tagArr.map(curTagData => {
+                var tagName = '';
+                chapterData.forEach(cur => {
+                    if (curTagData === cur._id)
+                        tagName = cur.name;
+                });
+                return (
+                    <div className='topic-card-tags-container'>
+                        <div className='topic-card-tag'>
+                            <span className='topic-card-tag-font'>{tagName}</span>
                         </div>
                     </div>
-                </li >
-            );
-        });
-        setCards(temp);
-    }, [selectMode, cardData, focusOn]);
+                )
+            });
+            return tagCards;
+        }
+        const createTopicCards = () => {
+
+            var createdCards = [];
+            cardData.forEach((curCardData) => {
+                var curTopicCardStyle = topicCardStyle;
+                const tagCards = createTagCards(curCardData.tags);
+                createdCards.push(
+                    <li key={curCardData._id}>
+                        <div className={curTopicCardStyle}
+                            onClick={(e) => {
+                                if (!selectMode)
+                                    return;
+                                e.stopPropagation();
+                                const newArr = cardData.map(curCard => {
+                                    if (curCardData._id === curCard._id) {
+                                        if (!curCard.selected) {
+                                            curCard.selected = true;
+                                            return curCard
+                                        }
+                                        else {
+                                            curCard.selected = false;
+                                            return curCard
+                                        }
+                                    }
+                                    return curCard
+                                })
+                                setCardData(newArr);
+                            }}
+                        >
+                            <div className='topic-card-container'>
+                                <div className='topic-card-text-container'>
+                                    <div>
+                                        {selectMode && <input type='checkbox' className='topic-card-select-box'></input>}
+                                    </div>
+                                    <div>
+                                        <p className='topic-body' >
+                                            {curCardData.body}
+                                            <br />
+                                            <span className='topic-card-username'>
+                                                by: {curCardData.username}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div className='vote-button-container'>
+                                        <div></div>
+                                        <div className='upvote-button'></div>
+                                        <div></div>
+                                        <div className='downvote-button'></div>
+                                    </div>
+                                </div>
+                                <div className='topic-card-button-container'>
+                                    <button className="topic-card-see-thread-button"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setFocusOn(curCardData._id)
+                                        }}>
+                                        <span className='topic-card-see-thread-font'>
+                                            see thread
+                                        </span>
+                                    </button>
+                                    <div></div>
+                                    <div className='topic-card-tags-container'>
+                                        {tagCards}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li >
+                );
+            });
+            return createdCards;
+        };
+        setCards(createTopicCards());
+    }, [selectMode, cardData, focusOn, chapterData]);
     return (
         <div>
             <div className="forumPost-container">

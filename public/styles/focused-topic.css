@@ -35,6 +35,13 @@
 	height:95%;
 	position:relative;
 }
+.focused-topic-no-reply-button{
+	background-color:rgb(49, 47, 47);
+	border:0;
+	width:80%;
+	height:95%;
+	position:relative;
+}
 .focused-topic-add-reply-button:hover{
     background-color:rgb(175, 48, 48);
 }

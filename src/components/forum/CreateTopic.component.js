@@ -85,7 +85,6 @@ export default function CreateTopic(props) {
                 >
                 </textarea>
                 <input
-
                     type="submit"
                     className="createTopic-submit-button"
                     onClick={async (e) => {
@@ -110,9 +109,6 @@ export default function CreateTopic(props) {
                 </input>
             </form >
             <div className='createTopic-tags-div'>
-                {/* <div>1</div>
-                <div>2</div>
-                <div>3</div> */}
                 <span className='createTopic-tags-font'>Tags:</span>
 
                 <div className='addedTag-container'>

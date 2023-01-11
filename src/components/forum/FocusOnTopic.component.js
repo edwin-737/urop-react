@@ -61,10 +61,10 @@ export default function FocusOnTopic(props) {
 
         setCardsAreUpdated(true);
         setResponseCards([]);
-        console.log('cardData updated here');
+        // console.log('cardData updated here');
         cardData.forEach((curCardData, index) => {
             const keyToMatch = curCardData._id;
-            console.log('in make response cards', curCardData.username);
+            // console.log('in make response cards', curCardData.username);
             setResponseCards((prev) => [
                 ...prev,
                 <li className=".response-list-item" key={curCardData._id} >
@@ -90,8 +90,8 @@ export default function FocusOnTopic(props) {
                             </div>
                             <div className='topic-card-button-container'>
                                 <button
-                                    className='focused-topic-add-reply-button'
-                                    // style={{ borderRadius: 0, border: "solid rgb(0,0,0)" }}
+                                    className={(curCardData.responses.length && 'focused-topic-add-reply-button')
+                                        || (!curCardData.responses.length && 'focused-topic-no-reply-button')}
                                     onClick={
                                         (e) => {
                                             e.stopPropagation();
@@ -152,9 +152,7 @@ export default function FocusOnTopic(props) {
     var forumPostPromiseArr = [];
     var userPromiseArr = [];
 
-    // if (topicCardData.responses.length === 0)
-    //     return (<div style={{ color: 'white' }} > nothing here</ div>);
-    console.log('rootCard body', props.rootCard.layer);
+    // console.log('rootCard body', props.rootCard.layer);
     const getPromises = () => {
         console.log('in getPromises', props.rootCard);
         console.log('in getPromises responses', props.rootCard.responses);
