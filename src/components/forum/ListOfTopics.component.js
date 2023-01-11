@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 // import ChapterMenu from './ChapterMenu.component';
-import ChapterData from './ChapterData';
+import ChapterData from '../helper-functions/data-retrieval/ChapterData';
 import CreateTopic from './CreateTopic.component';
 import FocusOnTopic from './FocusOnTopic.component';
 const host = 'https://urop-react-backend.azurewebsites.net/';

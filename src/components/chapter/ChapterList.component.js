@@ -1,108 +1,115 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+import * as microsoftTeams from "@microsoft/teams-js";
+
 import FocusOnChapter from './FocusOnChapter.compoenent';
-const host = 'https://urop-react-backend.azurewebsites.net/';
+import ChapterData from '../helper-functions/data-retrieval/ChapterData';
+// const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
-const chapterUrl = host + 'chapter';
+// const chapterUrl = host + 'chapter';
 // const userUrl = host + 'user';
 export default function ChapterList() {
     const [cards, setCards] = useState([]);
-    const [uniqueCards, setUniqueCards] = useState([]);
-    const [retrieves, setRetrieves] = useState(0)
+    // const [uniqueCards, setUniqueCards] = useState([]);
+    // const [retrieves, setRetrieves] = useState(0)
     const [chapterData, setChapterData] = useState([]);
-    const [cardsMade, setCardsMade] = useState(0);
-    const [cardToFocusOn, setCardToFocusOn] = useState(-1);
+    // const [cardsMade, setCardsMade] = useState(0);
+    // const [cardToFocusOn, setCardToFocusOn] = useState(-1);
     const [chapterPage, setChapterPage] = useState(0);
-    const getChapterData = async () => {
-        if (retrieves >= 1)
-            return 0;
-        setRetrieves(1);
-        await axios.get(chapterUrl)
-            .then((res) => {
-                res.data.map(item => {
-                    setChapterData(prev => [...prev, item]);
-                    return 0;
+    const [retrieved, setRetrieved] = useState(false);
+    const [focusOn, setFocusOn] = useState(-1);
+    useEffect(() => {
+        if (retrieved)
+            return;
+        const fetchData = async () => {
+            await ChapterData()
+                .then(data => {
+                    setChapterData(data);
+                    setRetrieved(true);
                 })
-            })
-            .catch(err => console.log(err));
-    }
-    const makeChapterCards = () => {
-        if (cardsMade >= 1)
-            return 0;
-        setCardsMade(1);
-        console.log('makeChapterCards', chapterData);
-        chapterData.map((curChapterData, index) => {
-            if (curChapterData.isSubchapter === true)
-                return 0;
-            setCards(prev =>
-                [...prev, {
-                    key: curChapterData._id,
-                    card:
-                        <li key={curChapterData._id} className='chapter-card-li'>
-                            <div className='chapter-card-div'>
-                                <div>
-                                    <span onClick={() => {
-                                        setCardToFocusOn(index);
-                                        makeChapterPage(index);
-                                    }} className='chapter-card-font'>{curChapterData.name}</span>
-                                </div>
-                                <div className='chapter-card-button'>
-                                    <label htmlFor='touch' ><i className="arrow down"></i></label>
-                                    <button id='touch' className='btn-transparent'>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                }]
-            )
-            return 0;
-        });
-    }
-    const makeChapterPage = (index) => {
-        setChapterPage(
-            <div>
-                <div className='chapter-page-title-div'>
-                    <span className='chapter-page-title-font'>
-                        {chapterData[index].name}
-                    </span>
-                </div>
-                <div className='chapter-page-post-container'>
+                .catch(err => console.log(err));
+        }
+        fetchData();
 
-                </div>
-                <div className='chapter-page-title-div'>
-                    <span className='chapter-page-title-font'>Related Resources</span>
-                </div>
-                <FocusOnChapter rootChapter={chapterData[index]} />
-            </div>
-        )
-    }
-    const ensureCardsUnique = () => {
-        setCardsMade(2);
-        var done = {}
-        var temp = [];
-        cards.map(card => {
-            if (card.key in done)
-                return 0;
-            done[card.key] = 1;
-            temp.push(card.card)
-            return 0
-        })
-        console.log('temp length', temp.length)
-        setUniqueCards(temp);
-    }
-    getChapterData();
-    if (cardsMade < 1)
-        setTimeout(makeChapterCards, 1400);
-    if (cardsMade === 1)
-        ensureCardsUnique();
-    setTimeout(() => console.log('uniqueCards', uniqueCards.length), 1400);
+    }, [retrieved, chapterData]);
+    useEffect(() => {
+        if (!retrieved || !chapterData.length)
+            return;
+        microsoftTeams.initialize();
+        var authTokenRequest = {
+            successCallback: function (result) { console.log("Success: " + result); },
+            failureCallback: function (error) { console.log("Error getting token: " + error); }
+        };
+        microsoftTeams.authentication.getAuthToken(authTokenRequest);
+        const createChapterCards = () => {
+
+            var createdCards = chapterData.map(curChapterData => {
+                return (
+                    <li key={curChapterData._id} className='chapter-card-li'>
+                        <div className='chapter-card-div'>
+                            <div>
+                                <span onClick={() => {
+                                    setFocusOn(curChapterData._id);
+                                    console.log(curChapterData._id);
+                                }} className='chapter-card-font'>{curChapterData.name}</span>
+                            </div>
+                            <div className='chapter-card-button'>
+                                <label htmlFor='touch' ><i className="arrow down"></i></label>
+                                <button id='touch' className='btn-transparent'>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                );
+            });
+            return createdCards;
+        };
+        setCards(createChapterCards());
+    }, [retrieved, chapterData]);
+    useEffect(() => {
+        if (!chapterData.length)
+            return;
+        const createChapterPage = () => {
+            chapterData.forEach(curChapterData => {
+                if (curChapterData._id === focusOn) {
+                    console.log('in if (curChapterData._id === focusOn): ', focusOn)
+                    setChapterPage(
+                        <div>
+                            <div className='chapter-page-title-div'>
+                                <span className='chapter-page-title-font'>
+                                    {curChapterData.name}
+                                </span>
+                            </div>
+                            <div className='chapter-page-post-container'>
+
+                            </div>
+                            <div className='chapter-page-title-div'>
+                                <span className='chapter-page-title-font'>Related Resources</span>
+                            </div>
+                            <FocusOnChapter rootChapter={curChapterData} />
+                        </div>
+                    );
+                }
+            });
+        };
+        createChapterPage();
+    }, [focusOn, chapterData]);
     return (
 
         <div className='chapter-card-container'>
-            {cardToFocusOn !== -1 && chapterPage}
-            {cardToFocusOn === -1 &&
+            {focusOn !== -1 &&
+                <div>
+                    <button className='btn btn-primary' style={{ marginLeft: "1%" }} onClick={(e) => {
+                        e.stopPropagation();
+                        setFocusOn(-1);
+                        // setCardToFocusOn(-1);
+                    }}>back to topics</button>
+                </div>
+            }
+            {focusOn !== -1 && chapterPage}
+            {focusOn === -1 &&
                 <ul className='chapter-card-ul'>
-                    {uniqueCards}
+                    {cards}
                 </ul>
             }
 

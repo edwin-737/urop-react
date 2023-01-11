@@ -4,6 +4,7 @@
   "proxy": "https://urop-react-backend.azurewebsites.net/student",
   "private": true,
   "dependencies": {
+    "@microsoft/teams-js": "^2.7.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

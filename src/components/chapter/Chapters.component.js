@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 // import axios from 'axios';
-import ChapterList from './ChapterList.component'
+import ChapterList from './ChapterList.component';
 export default function Chapters() {
     const [renders, setRenders] = useState(0);
-    if (renders < 1) {
+    if (renders < 1)
         setRenders(1);
-        // setTimeout(setShowSearchEngine(true), 3500);
-    }
     return (
         <div>
             <div className='component-container'>
@@ -17,10 +15,8 @@ export default function Chapters() {
 
                 </div>
                 <div className='main'>
-                    <ChapterList />
 
-                    {/* <div className="gcse-search">
-                    </div> */}
+                    <ChapterList />
                 </div>
                 <div className='search'>
                     <div className='searchbar-container'>

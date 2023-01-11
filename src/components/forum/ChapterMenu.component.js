@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
-import ChapterData from './ChapterData';
+import ChapterData from '../data-retrieval/ChapterData';
 // import ChapterMenu from './ChapterMenu.component';
 export default function ChapterMenu(props) {
     const [chapterData, setChapterData] = useState('')
@@ -21,7 +21,6 @@ export default function ChapterMenu(props) {
                 .catch(err => console.log(err));
         }
         fetchData();
-
     }, [retrieved, chapterData]);
     useEffect(() => {
         if (!retrieved || !chapterData.length)
