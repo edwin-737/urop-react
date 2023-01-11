@@ -55,7 +55,7 @@ export default function Forum() {
                                             }}> <span className='topic-card-see-thread-font'>see thread</span>
                                         </button>
                                         <div></div>
-                                        <div></div>
+
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +129,7 @@ export default function Forum() {
                 </div>
 
             </div>
+
             <div className='main'>
                 {
                     focusOn !== -1 &&
@@ -145,9 +146,8 @@ export default function Forum() {
                     listOfTopics
                 }
             </div>
+
             <div className='search'>
-                <div className="gcse-searchbox">
-                </div>
                 <div className='searchbar-container'>
                     <input className='searchbar' placeholder='Search Posts'>
                     </input>

@@ -107,7 +107,11 @@ export default function ListOfTopics(props) {
                                     </span>
                                 </button>
                                 <div></div>
-                                <div></div>
+                                <div className='topic-card-tags-container'>
+                                    <div className='topic-card-tag'>
+                                        <span className='topic-card-tag-font'>test</span>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
