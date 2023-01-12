@@ -4,6 +4,7 @@ import * as microsoftTeams from "@microsoft/teams-js";
 
 import FocusOnChapter from './FocusOnChapter.compoenent';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
+import initTeams from '../helper-functions/teamsInit';
 // const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 // const chapterUrl = host + 'chapter';
@@ -31,7 +32,7 @@ export default function ChapterList() {
                 .catch(err => console.log(err));
         }
         fetchData();
-
+        initTeams();
     }, [retrieved, chapterData]);
     useEffect(() => {
         if (!retrieved || !chapterData.length)
@@ -39,10 +40,6 @@ export default function ChapterList() {
         const getTeamsToken = async () => {
 
             microsoftTeams.app.initialize();
-            // var authTokenRequest = {
-            //     successCallback: function (result) { console.log("Success: " + result); },
-            //     failureCallback: function (error) { console.log("Error getting token: " + error); }
-            // };
 
             await microsoftTeams.authentication.getAuthToken()
                 .then(result => {
