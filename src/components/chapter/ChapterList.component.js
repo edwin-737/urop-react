@@ -4,7 +4,7 @@ import * as microsoftTeams from "@microsoft/teams-js";
 
 import FocusOnChapter from './FocusOnChapter.compoenent';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
-import initTeams from '../helper-functions/teamsInit';
+// import initTeams from '../helper-functions/teamsInit';
 // const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 // const chapterUrl = host + 'chapter';
@@ -32,7 +32,7 @@ export default function ChapterList() {
                 .catch(err => console.log(err));
         }
         fetchData();
-        initTeams();
+        // initTeams();
     }, [retrieved, chapterData]);
     useEffect(() => {
         if (!retrieved || !chapterData.length)
