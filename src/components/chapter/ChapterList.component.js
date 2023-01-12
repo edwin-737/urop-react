@@ -51,7 +51,6 @@ export default function ChapterList() {
                 });
 
         }
-        getTeamsToken();
         const createChapterCards = () => {
 
             var createdCards = chapterData.map(curChapterData => {
@@ -75,7 +74,10 @@ export default function ChapterList() {
             });
             return createdCards;
         };
+
+        getTeamsToken();
         setCards(createChapterCards());
+
     }, [retrieved, chapterData]);
     useEffect(() => {
         if (!chapterData.length)
@@ -122,6 +124,7 @@ export default function ChapterList() {
                 <ul className='chapter-card-ul'>
                     {cards}
                     {"our authToken"}
+                    <br />
                     {authToken}
                 </ul>
             }
