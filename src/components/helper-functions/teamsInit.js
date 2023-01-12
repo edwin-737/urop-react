@@ -1,13 +1,15 @@
 import * as microsoftTeams from "@microsoft/teams-js";
+
+var tabUrl = window.location.protocol +
+    '//' + window.location.host + '/ssoDemo/?inTeams=true';
 export default function initTeams() {
 
+    alert(tabUrl);
     microsoftTeams.app.initialize().then(() => {
         // Save configuration changes
         microsoftTeams.pages.config.registerOnSaveHandler(function (saveEvent) {
-            // alert('saveEvent:', saveEvent);
-            var tabUrl = window.location.protocol +
-                '//' + window.location.host + '/ssoDemo/?inTeams=true';
-
+            alert('saveEvent:', saveEvent);
+            // console.log('tabUrl', tabUrl);
             // const tabUrl = 'https://kind-cliff-037badd00.2.azurestaticapps.net/';
             // Let the Microsoft Teams platform know what you want to load based on
             // what the user configured on this page
