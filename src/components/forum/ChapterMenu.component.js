@@ -1,14 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
-import ChapterData from '../data-retrieval/ChapterData';
+import ChapterData from './ChapterData';
 // import ChapterMenu from './ChapterMenu.component';
 export default function ChapterMenu(props) {
     const [chapterData, setChapterData] = useState('')
     const [retrieved, setRetrieved] = useState(false);
     const [rendered, setRendered] = useState(false);
     const [chapterCards, setChapterCards] = useState([]);
-
     useEffect(() => {
         if (retrieved)
             return;
@@ -21,6 +20,7 @@ export default function ChapterMenu(props) {
                 .catch(err => console.log(err));
         }
         fetchData();
+
     }, [retrieved, chapterData]);
     useEffect(() => {
         if (!retrieved || !chapterData.length)
@@ -36,14 +36,14 @@ export default function ChapterMenu(props) {
         });
         setChapterCards(temp);
         setRendered(true);
-    }, [retrieved, chapterData, rendered]);
+    }, [retrieved, chapterData, rendered])
     return (
+
         <span className='dropdown dropdown-7'>
-            <ul className='dropdown_menu dropdown_menu--animated dropdown_menu-7'>
+            +
+            <ul className="dropdown_menu dropdown_menu--animated dropdown_menu-7">
                 {chapterCards}
             </ul>
-
         </span>
     );
-
-} 
+}

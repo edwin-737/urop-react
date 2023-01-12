@@ -18,6 +18,7 @@ export default function ChapterList() {
     const [chapterPage, setChapterPage] = useState(0);
     const [retrieved, setRetrieved] = useState(false);
     const [focusOn, setFocusOn] = useState(-1);
+    const [authToken, setAuthToken] = useState('havent gotten it');
     useEffect(() => {
         if (retrieved)
             return;
@@ -35,12 +36,25 @@ export default function ChapterList() {
     useEffect(() => {
         if (!retrieved || !chapterData.length)
             return;
-        microsoftTeams.initialize();
-        var authTokenRequest = {
-            successCallback: function (result) { console.log("Success: " + result); },
-            failureCallback: function (error) { console.log("Error getting token: " + error); }
-        };
-        microsoftTeams.authentication.getAuthToken(authTokenRequest);
+        const getTeamsToken = async () => {
+
+            microsoftTeams.app.initialize();
+            // var authTokenRequest = {
+            //     successCallback: function (result) { console.log("Success: " + result); },
+            //     failureCallback: function (error) { console.log("Error getting token: " + error); }
+            // };
+
+            await microsoftTeams.authentication.getAuthToken()
+                .then(result => {
+                    setAuthToken('successfully got token: ', result);
+                    setAuthToken(result);
+                })
+                .catch(err => {
+                    console.log('error, couldnt get token', err);
+                });
+
+        }
+        getTeamsToken();
         const createChapterCards = () => {
 
             var createdCards = chapterData.map(curChapterData => {
@@ -110,6 +124,8 @@ export default function ChapterList() {
             {focusOn === -1 &&
                 <ul className='chapter-card-ul'>
                     {cards}
+                    {"our authToken"}
+                    {authToken}
                 </ul>
             }
 
