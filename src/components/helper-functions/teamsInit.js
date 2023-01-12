@@ -4,7 +4,7 @@ export default function initTeams() {
     microsoftTeams.app.initialize().then(() => {
         // Save configuration changes
         microsoftTeams.pages.config.registerOnSaveHandler(function (saveEvent) {
-            alert('saveEvent:', saveEvent);
+            // alert('saveEvent:', saveEvent);
             var tabUrl = window.location.protocol +
                 '//' + window.location.host + '/ssoDemo/?inTeams=true';
 
