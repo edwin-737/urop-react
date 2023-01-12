@@ -32,7 +32,7 @@ export default function ChapterList() {
                 .catch(err => console.log(err));
         }
         fetchData();
-        initTeams();
+        // initTeams();
     }, [retrieved, chapterData]);
     useEffect(() => {
         if (!retrieved || !chapterData.length)
