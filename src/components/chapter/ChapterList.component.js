@@ -4,7 +4,7 @@ import * as microsoftTeams from "@microsoft/teams-js";
 
 import FocusOnChapter from './FocusOnChapter.compoenent';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
-import initTeams from '../helper-functions/teamsInit';
+// import initTeams from '../helper-functions/teamsInit';
 // const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 // const chapterUrl = host + 'chapter';
@@ -19,7 +19,7 @@ export default function ChapterList() {
     const [chapterPage, setChapterPage] = useState(0);
     const [retrieved, setRetrieved] = useState(false);
     const [focusOn, setFocusOn] = useState(-1);
-    const [authToken, setAuthToken] = useState('havent gotten it');
+    const [authToken, setAuthToken] = useState({ content: 'nothing' });
     useEffect(() => {
         if (retrieved)
             return;
@@ -32,7 +32,7 @@ export default function ChapterList() {
                 .catch(err => console.log(err));
         }
         fetchData();
-        initTeams();
+        // initTeams();
     }, [retrieved, chapterData]);
     useEffect(() => {
         if (!retrieved || !chapterData.length)
@@ -43,7 +43,7 @@ export default function ChapterList() {
 
             microsoftTeams.authentication.getAuthToken()
                 .then(result => {
-                    alert('authtoken', result);
+                    // alert('authtoken', result);
                     setAuthToken(result);
                 })
                 .catch(err => {
@@ -53,6 +53,16 @@ export default function ChapterList() {
         }
 
         getTeamsToken();
+        // microsoftTeams.initialize();
+        // var authTokenRequest = {
+        //     successCallback: function (result) {
+
+
+        //         setAuthToken(result);
+        //     },
+        //     failureCallback: function (error) { console.log("Failure: " + error); },
+        // };
+        // microsoftTeams.authentication.getAuthToken(authTokenRequest);
         const createChapterCards = () => {
 
             var createdCards = chapterData.map(curChapterData => {
@@ -123,10 +133,11 @@ export default function ChapterList() {
             {focusOn !== -1 && chapterPage}
             {focusOn === -1 &&
                 <ul className='chapter-card-ul'>
-                    {cards}
-                    {"our authToken"}
-                    <br />
-                    {authToken}
+                    <span style={{ color: 'rgb(255,255,255)' }}>
+                        {cards}
+                        {"our authToken"}
+                        <br />
+                        {JSON.stringify(authToken)}</span>
                 </ul>
             }
 
