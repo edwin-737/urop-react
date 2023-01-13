@@ -45,20 +45,6 @@
 <body id='question-body'>
   <script>
 
-    microsoftTeams.initialize();
-    var authTokenRequest = {
-      successCallback: function (result) {
-        //call server side to exchange the  token from teams with access token & used it to call graph
-        // fetch("/token?token=" + result)
-        //   .then(json => json.json()).then(result => {
-        //     document.getElementById("jsonData").textContent = JSON.stringify(result, undefined, 2);
-        //   });
-        alert(JSON.stringify(result));
-
-      },
-      failureCallback: function (error) { console.log("Failure: " + error); },
-    };
-    microsoftTeams.authentication.getAuthToken(authTokenRequest);
 
   </script>
   <noscript>You need to enable JavaScript to run this app.</noscript>

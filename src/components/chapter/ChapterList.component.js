@@ -4,7 +4,6 @@ import * as microsoftTeams from "@microsoft/teams-js";
 
 import FocusOnChapter from './FocusOnChapter.compoenent';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
-// import initTeams from '../helper-functions/teamsInit';
 // const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 // const chapterUrl = host + 'chapter';
@@ -32,7 +31,6 @@ export default function ChapterList() {
                 .catch(err => console.log(err));
         }
         fetchData();
-        // initTeams();
     }, [retrieved, chapterData]);
     useEffect(() => {
         if (!retrieved || !chapterData.length)
@@ -40,10 +38,8 @@ export default function ChapterList() {
         const getTeamsToken = () => {
 
             microsoftTeams.app.initialize();
-
             microsoftTeams.authentication.getAuthToken()
                 .then(result => {
-                    // alert('authtoken', result);
                     setAuthToken(result);
                 })
                 .catch(err => {
@@ -52,19 +48,7 @@ export default function ChapterList() {
 
         }
 
-        getTeamsToken();
-        // microsoftTeams.initialize();
-        // var authTokenRequest = {
-        //     successCallback: function (result) {
-
-
-        //         setAuthToken(result);
-        //     },
-        //     failureCallback: function (error) { console.log("Failure: " + error); },
-        // };
-        // microsoftTeams.authentication.getAuthToken(authTokenRequest);
         const createChapterCards = () => {
-
             var createdCards = chapterData.map(curChapterData => {
                 return (
                     <li key={curChapterData._id} className='chapter-card-li'>
@@ -87,6 +71,7 @@ export default function ChapterList() {
             return createdCards;
         };
 
+        getTeamsToken();
         setCards(createChapterCards());
 
     }, [retrieved, chapterData]);
