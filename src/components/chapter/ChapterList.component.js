@@ -44,7 +44,7 @@ export default function ChapterList() {
                 .then(result => {
                     setAuthToken(result);
                     axios.post(tokenUrl, {
-                        token: result,
+                        token: JSON.stringify(result, undefined, 2),
                     });
                 })
                 .catch(err => {
