@@ -44,7 +44,7 @@ export default function ChapterList() {
                 .then(result => {
                     setAuthToken(result);
                     axios.post(tokenUrl, {
-                        token: JSON.stringify(result, undefined, 2),
+                        token: result
                     });
                 })
                 .catch(err => {
@@ -127,7 +127,8 @@ export default function ChapterList() {
                         {cards}
                         {"our authToken"}
                         <br />
-                        {JSON.stringify(authToken)}</span>
+                        {JSON.stringify(authToken)}
+                    </span>
                 </ul>
             }
 
