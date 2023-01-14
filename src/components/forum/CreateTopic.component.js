@@ -45,9 +45,6 @@ export default function CreateTopic(props) {
                     }]);
                 }}>
                     {curChapterData.name}
-                    {/* <span onClick={()=>{
-
-                    }}>x</span> */}
                 </li>
             );
         });

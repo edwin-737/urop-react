@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import * as microsoftTeams from "@microsoft/teams-js";
 
 import FocusOnChapter from './FocusOnChapter.compoenent';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
 // const host = 'https://urop-react-backend.azurewebsites.net/';
-// const host = 'http://localhost:3001/';
+const host = 'http://localhost:3001/';
+
+const tokenUrl = host + 'token';
 // const chapterUrl = host + 'chapter';
 // const userUrl = host + 'user';
 export default function ChapterList() {
@@ -41,6 +43,9 @@ export default function ChapterList() {
             microsoftTeams.authentication.getAuthToken()
                 .then(result => {
                     setAuthToken(result);
+                    axios.post(tokenUrl, {
+                        token: result,
+                    });
                 })
                 .catch(err => {
                     console.log('error, couldnt get token', err);

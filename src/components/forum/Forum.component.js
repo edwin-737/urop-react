@@ -131,12 +131,12 @@ export default function Forum() {
             </div>
 
             <div className='main'>
-                <button className='btn btn-primary'
+                {/* <button className='btn btn-primary'
                     onClick={() => {
                         alert('here is a test alert');
                     }}>
                     test alert
-                </button>
+                </button> */}
                 {
                     focusOn !== -1 &&
                     <div style={{ width: '87%' }}>
