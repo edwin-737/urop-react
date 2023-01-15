@@ -34,10 +34,22 @@
 }
 .title-div{
 	background-color:rgb(144, 28, 28);
-	width:100%;
+	/* width:95vw; */
 	height:98%;
 	color:white;
 	box-shadow:3px 3px 3px black
+}
+.username-title{
+	background-color:rgb(0, 0, 0);
+	width:30vw;
+	height:100%;
+	left:96vw;
+	text-align:center;
+}
+.username-title-font{
+	color:white;
+	font-size:50%;
+	text-decoration: underline;
 }
 .button-add-question{
 	background-color:rgb(20, 90, 230);

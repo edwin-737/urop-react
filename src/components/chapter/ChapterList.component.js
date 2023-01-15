@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import * as microsoftTeams from "@microsoft/teams-js";
+
 import FocusOnChapter from './FocusOnChapter.compoenent';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
 // const host = 'https://urop-react-backend.azurewebsites.net/';
-const host = 'http://localhost:3001/';
+// const host = 'http://localhost:3001/';
 
-const tokenUrl = host + 'token';
+// const tokenUrl = host + 'token';
 // const chapterUrl = host + 'chapter';
 // const userUrl = host + 'user';
 export default function ChapterList() {
@@ -19,8 +18,6 @@ export default function ChapterList() {
     const [chapterPage, setChapterPage] = useState(0);
     const [retrieved, setRetrieved] = useState(false);
     const [focusOn, setFocusOn] = useState(-1);
-    const [authToken, setAuthToken] = useState({ content: 'nothing' });
-    const [username, setUsername] = useState('');
     useEffect(() => {
         if (retrieved)
             return;
@@ -37,25 +34,25 @@ export default function ChapterList() {
     useEffect(() => {
         if (!retrieved || !chapterData.length)
             return;
-        const getTeamsToken = () => {
-            microsoftTeams.app.initialize();
-            microsoftTeams.authentication.getAuthToken()
-                .then(result => {
-                    setAuthToken(result);
-                    return axios.post(tokenUrl, {
-                        token: result,
-                    });
-                })
-                .then(result => {
-                    // alert('username returned', result.data)
-                    setUsername(result.data.displayName);
-                    // setUsername(name.data);
-                })
-                .catch(err => {
-                    console.log('error, couldnt get token', err);
-                });
+        // const getTeamsToken = () => {
+        //     microsoftTeams.app.initialize();
+        //     microsoftTeams.authentication.getAuthToken()
+        //         .then(result => {
+        //             setAuthToken(result);
+        //             return axios.post(tokenUrl, {
+        //                 token: result,
+        //             });
+        //         })
+        //         .then(result => {
+        //             // alert('username returned', result.data)
+        //             setUsername(result.data.displayName);
+        //             // setUsername(name.data);
+        //         })
+        //         .catch(err => {
+        //             console.log('error, couldnt get token', err);
+        //         });
 
-        }
+        // }
         const createChapterCards = () => {
             var createdCards = chapterData.map(curChapterData => {
                 return (
@@ -79,7 +76,7 @@ export default function ChapterList() {
             return createdCards;
         };
 
-        getTeamsToken();
+        // getTeamsToken();
         setCards(createChapterCards());
 
     }, [retrieved, chapterData]);
@@ -128,11 +125,11 @@ export default function ChapterList() {
                 <ul className='chapter-card-ul'>
                     <span style={{ color: 'rgb(255,255,255)' }}>
                         {cards}
-                        {"our authToken"}
-                        <br />
+                        {/* {"our authToken"} */}
+                        {/* <br />
                         {JSON.stringify(authToken)}
                         <br />
-                        {JSON.stringify(username)}
+                        {JSON.stringify(username)} */}
                     </span>
                 </ul>
             }

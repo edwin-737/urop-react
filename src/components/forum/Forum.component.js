@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import * as microsoftTeams from "@microsoft/teams-js";
 import ListOfTopics from './ListOfTopics.component';
 // import FocusOnTopic from './FocusOnTopic.component';
 // import CreateResponse from './CreateResponse.component';
@@ -17,6 +18,8 @@ export default function Forum() {
     const [listOfTopics, setListOfTopics] = useState('');
     const [rendered, setRendered] = useState(false);
 
+    // const [authToken, setAuthToken] = useState({ content: 'nothing' });
+    const [username, setUsername] = useState('');
     useEffect(() => {
         //create html cards to display the topics
         const makeTopicCards = () => {
@@ -81,7 +84,7 @@ export default function Forum() {
             microsoftTeams.app.initialize();
             microsoftTeams.authentication.getAuthToken()
                 .then(result => {
-                    setAuthToken(result);
+                    // setAuthToken(result);
                     return axios.post(tokenUrl, {
                         token: result,
                     });
@@ -149,11 +152,16 @@ export default function Forum() {
             <div className='header'>
                 <div className="title-div">
                     <p className="title-font">Forum</p>
+
+                    {username}
                 </div>
 
+                {/* <div className='username-title'>
+                    <span className='username-title-font'>
+                    </span>
+                </div> */}
             </div>
             <div className='main'>
-
                 {
                     focusOn !== -1 &&
                     <div style={{ width: '87%' }}>
