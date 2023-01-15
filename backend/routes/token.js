@@ -2,7 +2,7 @@ const crossFetch = require('cross-fetch');
 const router = require('express').Router();
 
 // import fetch from "node-fetch";
-router.route('/').post((req, res) => {
+router.route('/').post(async (req, res) => {
     const clientId = 'c337eec4-4d39-4907-93cc-50c5e564a0f4';
     const clientSecret = 'rqT8Q~DYlYbRGqW.m-hENEPFABjX0~vOd879zdog';
     // const appScope = [];
@@ -45,7 +45,7 @@ router.route('/').post((req, res) => {
             }
         });
     });
-    oboPromise.then((result) => {
+    await oboPromise.then((result) => {
         console.log('The access token');
         console.log("\x1b[32m", "-----------------------------------------");
         console.log(result["access_token"]);
