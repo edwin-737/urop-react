@@ -1,4 +1,4 @@
-const fetch = require('cross-fetch');
+const crossFetch = require('cross-fetch');
 const router = require('express').Router();
 
 // import fetch from "node-fetch";
@@ -24,7 +24,7 @@ router.route('/').post((req, res) => {
             "requested_token_use": "on_behalf_of",
             "assertion": token
         };
-        fetch.fetch(url, {
+        crossFetch.fetch(url, {
             method: "POST",
             body: toQueryString(params),
             headers: {
@@ -46,8 +46,8 @@ router.route('/').post((req, res) => {
         });
     });
     oboPromise.then((result) => {
-        console.log('\x1b[36m%s\x1b[0m', ' Oh my heavens, it is the access token! ');
-        console.log("-----------------------------------------");
+        console.log('The access token');
+        console.log("\x1b[32m", "-----------------------------------------");
         console.log(result["access_token"]);
         console.log("\x1b[32m", "-----------------------------------------");
 
@@ -64,6 +64,7 @@ router.route('/').post((req, res) => {
             })
             .then(res => res.json())
             .then(json => {
+                console.log('user data: ', json);
                 res.send(json);
             });
 
