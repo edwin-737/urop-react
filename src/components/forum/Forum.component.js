@@ -8,6 +8,7 @@ const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
 const userUrl = host + 'user';
+const tokenUrl = host + 'token';
 export default function Forum() {
     const [forumPostCards, setForumPostCards] = useState([]);
     const [forumPostData, setForumPostData] = useState([]);
@@ -75,6 +76,26 @@ export default function Forum() {
     }, [retrieved, rendered, forumPostData, forumPostCards]);
     //retrieve forumPostData
     useEffect(() => {
+        //retrieve username from azure ad
+        const getTeamsToken = () => {
+            microsoftTeams.app.initialize();
+            microsoftTeams.authentication.getAuthToken()
+                .then(result => {
+                    setAuthToken(result);
+                    return axios.post(tokenUrl, {
+                        token: result,
+                    });
+                })
+                .then(result => {
+                    // alert('username returned', result.data)
+                    setUsername(result.data.displayName);
+                    // setUsername(name.data);
+                })
+                .catch(err => {
+                    console.log('error, couldnt get token', err);
+                });
+
+        }
         //retrieve all userData using postedBy
         const getUserData = async (topics) => {
             var newTopics = topics;
@@ -106,6 +127,7 @@ export default function Forum() {
 
             if (retrieved)
                 return;
+
             await axios({
                 method: 'get',
                 url: forumPostUrl,
@@ -119,6 +141,7 @@ export default function Forum() {
                 })
                 .catch(err => console.log(err));
         }
+        getTeamsToken();
         getForumPostData();
     }, [retrieved]);
     return (
@@ -129,14 +152,8 @@ export default function Forum() {
                 </div>
 
             </div>
-
             <div className='main'>
-                {/* <button className='btn btn-primary'
-                    onClick={() => {
-                        alert('here is a test alert');
-                    }}>
-                    test alert
-                </button> */}
+
                 {
                     focusOn !== -1 &&
                     <div style={{ width: '87%' }}>
