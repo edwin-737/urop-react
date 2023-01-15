@@ -90,7 +90,7 @@ export default function Forum() {
                     });
                 })
                 .then(result => {
-                    alert('username returned', result.data.displayName);
+                    // alert('username returned', result.data.displayName);
                     setUsername(result.data.displayName);
                     // setUsername(name.data);
                 })
@@ -130,7 +130,6 @@ export default function Forum() {
 
             if (retrieved)
                 return;
-
             await axios({
                 method: 'get',
                 url: forumPostUrl,
