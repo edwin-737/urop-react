@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as microsoftTeams from "@microsoft/teams-js";
-
 import FocusOnChapter from './FocusOnChapter.compoenent';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
 const host = 'https://urop-react-backend.azurewebsites.net/';
@@ -48,7 +47,8 @@ export default function ChapterList() {
                     });
                 })
                 .then(name => {
-                    setUsername(name.data);
+                    alert('username returned', name)
+                    // setUsername(name.data);
                 })
                 .catch(err => {
                     console.log('error, couldnt get token', err);
