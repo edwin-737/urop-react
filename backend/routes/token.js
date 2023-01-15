@@ -64,8 +64,8 @@ router.route('/').post(async (req, res) => {
             })
             .then(res => res.json())
             .then(json => {
-                console.log('user data: ', json['displayName']);
-                res.send(json['displayName']);
+                console.log('user data: ', json);
+                res.send(json);
             });
 
     }, (err) => {

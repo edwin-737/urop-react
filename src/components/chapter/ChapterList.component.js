@@ -47,8 +47,8 @@ export default function ChapterList() {
                     });
                 })
                 .then(result => {
-                    alert('username returned', result.data)
-                    setUsername(result.data);
+                    // alert('username returned', result.data)
+                    setUsername(result.data.displayName);
                     // setUsername(name.data);
                 })
                 .catch(err => {
