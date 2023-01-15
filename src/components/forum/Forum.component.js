@@ -90,7 +90,7 @@ export default function Forum() {
                     });
                 })
                 .then(result => {
-                    // alert('username returned', result.data)
+                    alert('username returned', result.data.displayName);
                     setUsername(result.data.displayName);
                     // setUsername(name.data);
                 })
@@ -151,9 +151,14 @@ export default function Forum() {
         <div className='component-container'>
             <div className='header'>
                 <div className="title-div">
-                    <p className="title-font">Forum</p>
+                    <div className='title-text-container'>
 
-                    {username}
+                        <span className="title-font">Forum</span>
+                        <div className='username-title'>
+
+                            <span className='username-title-font'>the text:{username}</span>
+                        </div>
+                    </div>
                 </div>
 
                 {/* <div className='username-title'>
