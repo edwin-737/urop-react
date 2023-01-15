@@ -52,7 +52,7 @@ router.route('/').post(async (req, res) => {
         console.log("\x1b[32m", "-----------------------------------------");
 
         //graph call using the access token
-        fetch("https://graph.microsoft.com/v1.0/me/",
+        crossFetch.fetch("https://graph.microsoft.com/v1.0/me/",
             {
                 method: 'GET',
                 headers: {
@@ -64,8 +64,8 @@ router.route('/').post(async (req, res) => {
             })
             .then(res => res.json())
             .then(json => {
-                console.log('user data: ', json);
-                res.send(json);
+                console.log('user data: ', json['displayName']);
+                res.send(json['displayName']);
             });
 
     }, (err) => {

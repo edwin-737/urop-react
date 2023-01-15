@@ -47,8 +47,8 @@ export default function ChapterList() {
                     });
                 })
                 .then(result => {
-                    alert('username returned', result.displayName)
-                    setUsername(result.displayName);
+                    alert('username returned', result)
+                    setUsername(result);
                     // setUsername(name.data);
                 })
                 .catch(err => {
@@ -132,7 +132,7 @@ export default function ChapterList() {
                         <br />
                         {JSON.stringify(authToken)}
                         <br />
-                        {username}
+                        {JSON.stringify(username)}
                     </span>
                 </ul>
             }
