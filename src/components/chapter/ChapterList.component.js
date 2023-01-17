@@ -66,8 +66,8 @@ export default function ChapterList() {
                             </div>
                             <div className='chapter-card-button'>
                                 <label htmlFor='touch' ><i className="arrow down"></i></label>
-                                <button id='touch' className='btn-transparent'>
-                                </button>
+                                {/* <button id='touch' className='btn-transparent'>
+                                </button> */}
                             </div>
                         </div>
                     </li>

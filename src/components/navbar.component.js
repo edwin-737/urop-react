@@ -1,10 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import Forum from './forum/Forum.component';
 import Chapters from './chapter/Chapters.component';
+import axios from 'axios';
+import * as microsoftTeams from "@microsoft/teams-js";
+const host = 'https://urop-react-backend.azurewebsites.net/';
+
+// const forumPostUrl = host + 'forumPost';
+// const userUrl = host + 'user';
+const tokenUrl = host + 'token';
 export default function Navbar() {
     const [selectForum, setSelectForum] = useState(true);
     const [selectChapters, setSelectChapters] = useState(false);
+    const [graphData, setGraphData] = useState({});
+    useEffect(() => {
+        //retrieve username from azure ad
+        const getTeamsToken = () => {
+            microsoftTeams.app.initialize();
+            microsoftTeams.authentication.getAuthToken()
+                .then(tokenFromTeams => {
+                    return axios.post(tokenUrl, {
+                        token: tokenFromTeams,
+                    });
+                })
+                .then(result => {
+                    console.log('result.data.id', result.data.id)
+                    setGraphData(result.data);
+                })
+                .catch(err => {
+                    console.log('error, couldnt get token', err);
+                });
+
+        }
+        getTeamsToken();
+    }, [graphData]);
     return (
         <div>
             <div className="nav">
@@ -35,35 +64,18 @@ export default function Navbar() {
                 </div>
             </div>
             <div>
-                {selectForum && <Forum />}
+                {selectForum && <Forum userGraphData={graphData} />}
                 {selectChapters && <Chapters />}
             </div>
+
+            {/* <div className='component-container'>
+                <div className='header'>
+                </div>
+                <div className='main'>
+                </div>
+                <div className='search'>
+                </div>
+            </div> */}
         </div>
     );
 }
-// export default class Navbar extends Component {
-//     render() {
-//         return (
-//             <div class="nav">
-//                 <input type="checkbox" id="nav-check" />
-//                 <div class="nav-header">
-//                     <div class="nav-title">
-//                         SUTD Portal
-//                     </div>
-//                 </div>
-//                 <div class="nav-btn">
-//                     <label for="nav-check">
-//                         <span></span>
-//                         <span></span>
-//                         <span></span>
-//                     </label>
-//                 </div>
-
-//                 <div class="nav-links">
-//                     <div >Forum</div>
-//                     <div>Chapter</div>
-//                 </div>
-//             </div>
-//         );
-//     }
-// }

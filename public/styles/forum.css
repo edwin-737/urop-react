@@ -95,7 +95,7 @@
 	/* overflow:auto; */
 	box-shadow:3px 3px 3px black;
 	overflow:infinite;
-	background-color: #3f0606;
+	background-color: #43111D;
 
 }
 /*for list of topics*/
@@ -127,7 +127,11 @@
 	margin:10px;
 	box-shadow: 3px 3px 3px black;
 	width:91.8%;
-	height:10%;
+	height:1%;
+	/* height:300px; */
+	/* height:10%; */
+	/* min-height:760%; */
+
 	/* overflow-y:infinite; */
 }
 .topic-card-selectMode{
@@ -245,14 +249,20 @@
 	height: 0; 
 	border-left: 0.9vw solid transparent;
 	border-right: 0.9vw solid transparent;
-	border-bottom:1.35vw solid green;
+	border-bottom:1.35vw solid rgb(255, 36, 36);
 }
 .downvote-button {
 	width: 0; 
 	height: 0; 
 	border-left: 0.9vw solid transparent;
 	border-right: 0.9vw solid transparent;
-	border-top: 1.35vw solid #f00;
+	border-top: 1.35vw solid rgb(255, 36, 36);
+	/* border: solid #ffffff;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 3px;
+	cursor : pointer; */
+  
 }
 .right {
 	transform: rotate(-45deg);
@@ -337,16 +347,15 @@
 	display:flex;
 	background-color:rgb(0,0,0);
 	color:white;
+	/* min-height:40px; */
 }
 .topic-card-tag{
-	/* width:10%;
-	height:45%; */
 	border-radius:2px;
 	background-color:rgb(20, 90, 230);
-	/* margin:4px; */
-	padding:0;
+	padding-top:5px;
 	display:flex;
-	flex-wrap:wrap;
+	min-width:90px;
+	min-height:20px;
 	margin:9px;
 	justify-content: center;
 }

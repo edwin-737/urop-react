@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import * as microsoftTeams from "@microsoft/teams-js";
 import ListOfTopics from './ListOfTopics.component';
 // import FocusOnTopic from './FocusOnTopic.component';
 // import CreateResponse from './CreateResponse.component';
@@ -9,15 +8,15 @@ const host = 'https://urop-react-backend.azurewebsites.net/';
 // const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
 const userUrl = host + 'user';
-const tokenUrl = host + 'token';
-export default function Forum() {
+// const tokenUrl = host + 'token';
+export default function Forum(props) {
     const [forumPostCards, setForumPostCards] = useState([]);
     const [forumPostData, setForumPostData] = useState([]);
     const [focusOn, setFocusOn] = useState(-1);
     const [retrieved, setRetrieved] = useState(false);
     const [listOfTopics, setListOfTopics] = useState('');
     const [rendered, setRendered] = useState(false);
-    const [userGraphData, setUserGraphData] = useState({});
+    // const [userGraphData, setUserGraphData] = useState({});
     // const [username, setUsername] = useState('');
     useEffect(() => {
         //create html cards to display the topics
@@ -78,27 +77,25 @@ export default function Forum() {
     }, [retrieved, rendered, forumPostData, forumPostCards]);
     //retrieve forumPostData
     useEffect(() => {
-        //retrieve username from azure ad
-        const getTeamsToken = () => {
-            microsoftTeams.app.initialize();
-            microsoftTeams.authentication.getAuthToken()
-                .then(result => {
-                    // setAuthToken(result);
-                    return axios.post(tokenUrl, {
-                        token: result,
-                    });
-                })
-                .then(result => {
-                    // alert('username returned', result.data.displayName);
-                    // setUsername(result.data.displayName);
-                    console.log('result.data.id', result.data.id)
-                    setUserGraphData(result.data);
-                })
-                .catch(err => {
-                    console.log('error, couldnt get token', err);
-                });
+        // //retrieve username from azure ad
+        // const getTeamsToken = () => {
+        //     microsoftTeams.app.initialize();
+        //     microsoftTeams.authentication.getAuthToken()
+        //         .then(result => {
+        //             // setAuthToken(result);
+        //             return axios.post(tokenUrl, {
+        //                 token: result,
+        //             });
+        //         })
+        //         .then(result => {
+        //             console.log('result.data.id', result.data.id)
+        //             setUserGraphData(result.data);
+        //         })
+        //         .catch(err => {
+        //             console.log('error, couldnt get token', err);
+        //         });
 
-        }
+        // }
         //retrieve all userData using postedBy
         const getUserData = async (topics) => {
             var newTopics = topics;
@@ -143,7 +140,7 @@ export default function Forum() {
                 })
                 .catch(err => console.log(err));
         }
-        getTeamsToken();
+        // getTeamsToken();
         getForumPostData();
     }, [retrieved]);
     return (
@@ -155,15 +152,10 @@ export default function Forum() {
                         <span className="title-font">Forum</span>
                         <div className='username-title'>
 
-                            <span className='username-title-font'>{userGraphData.displayName}</span>
+                            <span className='username-title-font'>{props.userGraphData.displayName}</span>
                         </div>
                     </div>
                 </div>
-
-                {/* <div className='username-title'>
-                    <span className='username-title-font'>
-                    </span>
-                </div> */}
             </div>
             <div className='main'>
                 {
