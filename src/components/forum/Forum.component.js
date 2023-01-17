@@ -17,9 +17,8 @@ export default function Forum() {
     const [retrieved, setRetrieved] = useState(false);
     const [listOfTopics, setListOfTopics] = useState('');
     const [rendered, setRendered] = useState(false);
-
-    // const [authToken, setAuthToken] = useState({ content: 'nothing' });
-    const [username, setUsername] = useState('');
+    const [userGraphData, setUserGraphData] = useState({});
+    // const [username, setUsername] = useState('');
     useEffect(() => {
         //create html cards to display the topics
         const makeTopicCards = () => {
@@ -91,8 +90,9 @@ export default function Forum() {
                 })
                 .then(result => {
                     // alert('username returned', result.data.displayName);
-                    setUsername(result.data.displayName);
-                    // setUsername(name.data);
+                    // setUsername(result.data.displayName);
+                    console.log('result.data.id', result.data.id)
+                    setUserGraphData(result.data);
                 })
                 .catch(err => {
                     console.log('error, couldnt get token', err);
@@ -155,7 +155,7 @@ export default function Forum() {
                         <span className="title-font">Forum</span>
                         <div className='username-title'>
 
-                            <span className='username-title-font'>the text:{username}</span>
+                            <span className='username-title-font'>{userGraphData.displayName}</span>
                         </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@ export default function Forum() {
                     </div>
                 }
                 {
-                    focusOn === -1 && /*this.state.forumPostData.length > 0 &&*/
+                    focusOn === -1 &&
                     listOfTopics
                 }
             </div>

@@ -1,30 +1,69 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-export default class Navbar extends Component {
-    render() {
-        return (
-            <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-                {/* <button type="button" className="btn shadow-none" data-toggle="collapse" data-target=".collapse navbar-collapse">
-                    <span className='icon-bar'></span>
-                    <span className='icon-bar'></span>
-                    <span className='icon-bar'></span>
+import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
+import Forum from './forum/Forum.component';
+import Chapters from './chapter/Chapters.component';
+export default function Navbar() {
+    const [selectForum, setSelectForum] = useState(true);
+    const [selectChapters, setSelectChapters] = useState(false);
+    return (
+        <div>
+            <div className="nav">
+                <input type="checkbox" id="nav-check" />
 
-                </button> */}
-                <Link to='/' className="navbar-brand" >SUTD Portal</Link>
-                {/* <div style={{ backgroundColor: 'black' }}> */}
-
-                {/* </div > */}
-                <div className="collapse navbar-collapse" >
-                    <ul className="navbar-nav mr-auto">
-                        <li className="navbar-item">
-                            <Link to="/" className="nav-link">Forum</Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/chapter" className="nav-link">Chapters</Link>
-                        </li>
-                    </ul>
+                <div className="nav-btn">
+                    <label for="nav-check">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
                 </div>
-            </nav >
-        );
-    }
+                <div className="nav-header">
+                    <div className="nav-title">
+                        SUTD Portal
+                    </div>
+                </div>
+
+                <div className='nav-links'>
+                    <span onClick={() => {
+                        setSelectForum(true);
+                        setSelectChapters(false);
+                    }}>Forum</span>
+                    <span onClick={() => {
+                        setSelectForum(false);
+                        setSelectChapters(true);
+                    }}>Chapter</span>
+                </div>
+            </div>
+            <div>
+                {selectForum && <Forum />}
+                {selectChapters && <Chapters />}
+            </div>
+        </div>
+    );
 }
+// export default class Navbar extends Component {
+//     render() {
+//         return (
+//             <div class="nav">
+//                 <input type="checkbox" id="nav-check" />
+//                 <div class="nav-header">
+//                     <div class="nav-title">
+//                         SUTD Portal
+//                     </div>
+//                 </div>
+//                 <div class="nav-btn">
+//                     <label for="nav-check">
+//                         <span></span>
+//                         <span></span>
+//                         <span></span>
+//                     </label>
+//                 </div>
+
+//                 <div class="nav-links">
+//                     <div >Forum</div>
+//                     <div>Chapter</div>
+//                 </div>
+//             </div>
+//         );
+//     }
+// }

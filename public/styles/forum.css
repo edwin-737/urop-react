@@ -62,7 +62,7 @@
 	border:0;
 	width:8vw;
 	height:4.5vh;
-	position:relative;
+	/* position:relative; */
 	margin-top:8px;
 }
 .button-add-question:hover{
@@ -79,7 +79,7 @@
 	border:0;
 	width:8vw;
 	height:4.5vh;
-	position:relative;
+	/* position:relative; */
 	margin-top:8px;
 }
 .button-delete:hover{
@@ -88,7 +88,7 @@
 .forumPost-container{
 	/* width:87%; */
 	height:100%;
-	position:relative;
+	/* position:relative; */
 	right:1rem;
 	/* margin-top:3rem; */
 	/* margin-bottom:3rem; */
@@ -167,7 +167,7 @@
 	border:0;
 	width:90%;
 	height:100%;
-	position:relative;
+	/* position:relative; */
 }
 .topic-card-see-thread-button:hover{
 	background-color:rgb(175, 48, 48);
@@ -281,23 +281,23 @@
 	margin-left:4%;
 }
 .vote-container{
-	position:relative;
+	/* position:relative; */
 	width:100%;
 	height:100%;
 	display:grid;
 	/* grid-template-columns: 1fr 1fr 6fr; */
 	grid-template-columns:40% 40%;
 	grid-column-gap:10px;
+	/* z-index:0; */
 }
 .topic-card-container{
 	position:relative;
-	display:grid;
+	/* display:grid; */
 	height:100%;
 	width:100%;
 	/* grid-template-columns:2fr 9fr 2fr; */
 	grid-template-rows:73% 27%;
 	overflow:infinite;
-	
 }
 .topic-card-select-box:after{
 	position:relative;
@@ -312,7 +312,7 @@
 	background:rgba(0,0,0,0);
 }
 .topic-card-select-box{
-	position:relative;
+	/* position:relative; */
 	top:50%;
 	left:5px;
 	width:20px;
@@ -321,15 +321,15 @@
 }
 .topic-card-text-container{
 	display:grid;
-	position:relative;
+	/* position:relative; */
 	overflow:infinite;
 	grid-template-columns:10px 93% 5%;
 }
 .topic-card-button-container{
-	position:relative;
+	/* position:relative; */
 	display:grid;
 	grid-template-columns:12% 12% 76%;
-	overflow:infinite;
+	/* overflow:infinite; */
 }
 .topic-card-tags-container{
 	/* width:100%;
