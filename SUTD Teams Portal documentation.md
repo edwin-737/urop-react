@@ -26,7 +26,7 @@ On the side-panel in teams, click on the **'Apps'** tab and search for
 
 ## **Built Using**
 
-[**[Azure static web apps]**](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github):
+[**Azure static web apps**](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github):
 Hosting react frontend
 
 [**Azure app service**](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-vscode):
@@ -48,8 +48,7 @@ Frontend Framework
 [**NodeJS**](https://nodejs.org/en/docs/): Javascript
 runtime environment for server
 
-[[Azure
-Tools]{.underline}](https://code.visualstudio.com/docs/azure/extensions):
+[Azure Tools](https://code.visualstudio.com/docs/azure/extensions):
 Visual studio code extension for deploying frontend to Azure Static Web
 Apps and Backend to Azure App Services for continuous
 integration/continuous deployment CI/CD.
@@ -57,7 +56,7 @@ integration/continuous deployment CI/CD.
 ### **Azure Static Web Apps**
 
 We followed the first page of
-[[this]{.underline}](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github)
+[this](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github)
 guide to create a github repository with build instructions
 
 Our app uses the following settings:
@@ -172,6 +171,8 @@ The collections are:
 Each file in the models directory creates an instance of the Mongoose
 `Schema` object, using
 
-`const mongoose = require('mongoose');
+```
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;`
+const Schema = mongoose.Schema;
+```
