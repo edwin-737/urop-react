@@ -74,7 +74,7 @@ on azure app services.
 ### **Azure App Services**
 
 We will utilise this azure resource to host a NodeJS server. We followed
-[[this]{.underline}](https://www.youtube.com/watch?v=P4vt-OmUM8E&list=PLLasX02E8BPADO_R-D6ctSoV4EeE8ow9B)
+[this](https://www.youtube.com/watch?v=P4vt-OmUM8E&list=PLLasX02E8BPADO_R-D6ctSoV4EeE8ow9B)
 video guide from Microsoft azure's youtube channel.
 
 When creating the app in VS code, when prompted, we used NodeJS 14, and
@@ -172,10 +172,6 @@ The collections are:
 Each file in the models directory creates an instance of the Mongoose
 `Schema` object, using
 
-`
+`const mongoose = require('mongoose');
 
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
-
-`
+const Schema = mongoose.Schema;`
