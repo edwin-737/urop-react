@@ -65,7 +65,7 @@ export default function Navbar() {
             </div>
             <div>
                 {selectForum && <Forum userGraphData={graphData} />}
-                {selectChapters && <Chapters />}
+                {selectChapters && <Chapters userGraphData={graphData} />}
             </div>
 
             {/* <div className='component-container'>
