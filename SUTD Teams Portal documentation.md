@@ -26,29 +26,26 @@ On the side-panel in teams, click on the **'Apps'** tab and search for
 
 ## **Built Using**
 
-[**[Azure static web
-apps]{.underline}**](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github):
+[**[Azure static web apps]**](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github):
 Hosting react frontend
 
-[**[Azure app
-service]{.underline}**](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-vscode):
+[**Azure app service**](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-vscode):
 Hosting express Backend
 
-[**[Azure active
-directory]{.underline}**](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-access-create-new-tenant):
+[**Azure active directory**](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-access-create-new-tenant):
 Microsoft graph functionality, integrating with user email, teams data,
 single sign on functionality.
 
-[**[MongoDB]{.underline}**](https://www.mongodb.com/): NoSQL database to
+[**MongoDB**](https://www.mongodb.com/): NoSQL database to
 store all data of the app
 
-[**[Express]{.underline}**](https://expressjs.com/): Javascript library
+[**Express**](https://expressjs.com/): Javascript library
 for backend API
 
-[**[React]{.underline}**](https://reactjs.org/docs/getting-started.html):
+[**React**](https://reactjs.org/docs/getting-started.html):
 Frontend Framework
 
-[**[NodeJS]{.underline}**](https://nodejs.org/en/docs/): Javascript
+[**NodeJS**](https://nodejs.org/en/docs/): Javascript
 runtime environment for server
 
 [[Azure
@@ -85,7 +82,7 @@ free tier of the resource was used.
 
 We have the basic structure of the app now, storing it in
 
-\`\`\`backend\`\`\` folder.
+`backend` folder.
 
 ### **Backend**
 
@@ -173,12 +170,12 @@ The collections are:
 6.  **Users**
 
 Each file in the models directory creates an instance of the Mongoose
-\`\`\`Schema\`\`\` object, using
+`Schema` object, using
 
-\`\`\`
+`
 
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-\`\`\`
+`
