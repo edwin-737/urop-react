@@ -16,7 +16,8 @@ export default function Navbar() {
             microsoftTeams.app.initialize();
             microsoftTeams.authentication.getAuthToken()
                 .then(tokenFromTeams => {
-                    alert(tokenFromTeams);
+                    // alert(tokenFromTeams);
+                    console.log(tokenFromTeams);
                     return axios.post(tokenUrl, {
                         token: tokenFromTeams,
                     });
