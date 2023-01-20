@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
 import FocusOnChapter from './FocusOnChapter.compoenent';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
-// const host = 'https://urop-react-backend.azurewebsites.net/';
-// const host = 'http://localhost:3001/';
-
-// const tokenUrl = host + 'token';
-// const chapterUrl = host + 'chapter';
-// const userUrl = host + 'user';
 export default function ChapterList() {
     const [cards, setCards] = useState([]);
-    // const [uniqueCards, setUniqueCards] = useState([]);
-    // const [retrieves, setRetrieves] = useState(0)
     const [chapterData, setChapterData] = useState([]);
-    // const [cardsMade, setCardsMade] = useState(0);
-    // const [cardToFocusOn, setCardToFocusOn] = useState(-1);
     const [chapterPage, setChapterPage] = useState(0);
     const [retrieved, setRetrieved] = useState(false);
     const [focusOn, setFocusOn] = useState(-1);
@@ -105,11 +94,6 @@ export default function ChapterList() {
                 <ul className='chapter-card-ul'>
                     <span style={{ color: 'rgb(255,255,255)' }}>
                         {cards}
-                        {/* {"our authToken"} */}
-                        {/* <br />
-                        {JSON.stringify(authToken)}
-                        <br />
-                        {JSON.stringify(username)} */}
                     </span>
                 </ul>
             }

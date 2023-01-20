@@ -8,7 +8,6 @@ const googleSearchUrl = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyDN
 // const userUrl = host + 'user';
 export default function FocusOnChapter(props) {
     const [retrieves, setRetrieves] = useState(0);
-    // const [relatedPosts, setRelatedPosts] = useState([]);
     const [relatedResources, setRelatedResources] = useState([]);
     const [resourceCards, setResourceCards] = useState([]);
     useEffect(() => {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CreateResponse from './CreateResponse.component';
 const host = 'https://urop-react-backend.azurewebsites.net/';
-// const host = 'http://localhost:3001/';
 const forumPostUrl = host + 'forumPost';
 const userUrl = host + 'user';
 export default function FocusOnTopic(props) {

@@ -5,20 +5,18 @@ import Chapters from './chapter/Chapters.component';
 import axios from 'axios';
 import * as microsoftTeams from "@microsoft/teams-js";
 const host = 'https://urop-react-backend.azurewebsites.net/';
-
-// const forumPostUrl = host + 'forumPost';
-// const userUrl = host + 'user';
 const tokenUrl = host + 'token';
 export default function Navbar() {
     const [selectForum, setSelectForum] = useState(true);
     const [selectChapters, setSelectChapters] = useState(false);
     const [graphData, setGraphData] = useState({});
     useEffect(() => {
-        //retrieve username from azure ad
+        //retrieve username from azure AD
         const getTeamsToken = () => {
             microsoftTeams.app.initialize();
             microsoftTeams.authentication.getAuthToken()
                 .then(tokenFromTeams => {
+                    alert(tokenFromTeams);
                     return axios.post(tokenUrl, {
                         token: tokenFromTeams,
                     });

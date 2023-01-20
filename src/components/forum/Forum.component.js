@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import ListOfTopics from './ListOfTopics.component';
 import ChapterData from '../helper-functions/data-retrieval/ChapterData';
-
-// import FocusOnTopic from './FocusOnTopic.component';
-// import CreateResponse from './CreateResponse.component';
 import 'bootstrap/dist/css/bootstrap.min.css';
-const host = 'https://urop-react-backend.azurewebsites.net/';
-// const host = 'http://localhost:3001/';
-const forumPostUrl = host + 'forumPost';
-const userUrl = host + 'user';
-// const tokenUrl = host + 'token';
+import ForumPostData from '../helper-functions/data-retrieval/ForumData';
 export default function Forum(props) {
     const [forumPostCards, setForumPostCards] = useState([]);
     const [forumPostData, setForumPostData] = useState([]);
     const [focusOn, setFocusOn] = useState(-1);
-    const [retrieved, setRetrieved] = useState(false);
+    const [retrievedForumPostData, setRetrievedForumPostData] = useState(false);
     const [listOfTopics, setListOfTopics] = useState('');
     const [rendered, setRendered] = useState(false);
     const [chapterData, setChapterData] = useState([]);
     const [retrievedChapterData, setRetrievedChapterData] = useState(false);
-    const [chapterOptions, setChapterOptions] = useState([]);
     const [chapterCards, setChapterCards] = useState([]);
     const [addedTags, setAddedTags] = useState([]);
     const [tagCards, setTagCards] = useState([]);
@@ -30,7 +21,6 @@ export default function Forum(props) {
             return;
         }
         var temp = [];
-        // setAddedTags([]);
         console.log('all addedTags in useEffect', addedTags);
         addedTags.forEach((curTag, index) => {
             temp.push(
@@ -58,7 +48,7 @@ export default function Forum(props) {
         setTagCards(temp);
     }, [addedTags]);
     useEffect(() => {
-        if (!retrieved || !chapterData.length)
+        if (!retrievedForumPostData || !chapterData.length)
             return;
         var temp = [];
         console.log('all chapterData', chapterData);
@@ -76,12 +66,14 @@ export default function Forum(props) {
         });
         setChapterCards(temp);
         setRendered(true);
-    }, [retrieved, chapterData, rendered]);
+    }, [retrievedForumPostData, chapterData]);
     useEffect(() => {
         //create html cards to display the topics
         const makeTopicCards = () => {
-            if (!retrieved || rendered)
+            if (!retrievedForumPostData || rendered)
                 return;
+            setForumPostData([]);
+            setListOfTopics('');
             forumPostData.forEach((curForumPostData) => {
                 setForumPostCards(prev =>
                     [
@@ -129,20 +121,9 @@ export default function Forum(props) {
             />);
             setRendered(true);
         }
-
         makeTopicCards();
-    }, [retrieved, rendered, forumPostData, forumPostCards]);
-    useEffect(() => {
-        if (!chapterData.length || !retrievedChapterData)
-            return;
-        var temp = [];
-        chapterData.forEach(curChapterData => {
-            temp.push(<option>
-                {curChapterData.name}
-            </option>);
-        })
-        setChapterOptions(temp);
-    }, [retrievedChapterData, chapterOptions, chapterData]);
+    }, [retrievedForumPostData, rendered, forumPostData, forumPostCards]);
+
     //retrieve chapter data
     useEffect(() => {
         if (retrievedChapterData)
@@ -159,54 +140,19 @@ export default function Forum(props) {
     }, [retrievedChapterData, chapterData]);
     //retrieve forumPostData
     useEffect(() => {
-        //retrieve all userData using postedBy
-        const getUserData = async (topics) => {
-            var newTopics = topics;
-            var userPromiseArr = [];
-            topics.forEach((curTopic) => {
-                userPromiseArr.push(axios.post(userUrl + '/findOne', {
-                    _id: curTopic.postedBy,
-                }));
-            });
-            await Promise.allSettled(userPromiseArr)
-                .then((usersPromiseResult) => {
-                    usersPromiseResult.forEach((curUserPromiseResult, index) => {
-                        const curUser = curUserPromiseResult.value.data;
-                        if (curUserPromiseResult.status === 'fulfilled' && curUser !== null && curUser.username !== null)
-                            newTopics[index].username = curUser.username;
-                        else
-                            newTopics[index].username = 'Anonymous';
-                        newTopics[index].hidden = false;
-                    })
-                })
-                .catch(err => console.log(err));
-
-            setForumPostData(newTopics);
-            setRetrieved(true);
-
-            return newTopics;
-        }
-        //retrieve all forumPostData from mongodb
-        const getForumPostData = async () => {
-
-            if (retrieved)
-                return;
-            await axios({
-                method: 'get',
-                url: forumPostUrl,
-            })
-                .then(response => {
-                    var topics = response.data.filter((curForumPost) => {
-                        return !curForumPost.isReply
-                    });
-                    console.log('all forumPosts retrieved', topics);
-                    getUserData(topics);
+        if (retrievedForumPostData)
+            return;
+        const retrieveForumPostData = async () => {
+            await ForumPostData()
+                .then(data => {
+                    setForumPostData(data);
+                    setRetrievedForumPostData(true);
                 })
                 .catch(err => console.log(err));
         }
-        // getTeamsToken();
-        getForumPostData();
-    }, [retrieved]);
+        retrieveForumPostData();
+
+    }, [retrievedForumPostData]);
     return (
         <div className='component-container'>
             <div className='header'>
@@ -255,9 +201,32 @@ export default function Forum(props) {
                             </ul>
                         </span>
                     </div>
-
-
                 </div>
+                <button
+                    onClick={() => {
+                        // var newForumPostData = [];
+                        console.log('forumPostCards', forumPostCards);
+                        // addedTags.forEach((curTag) => {
+                        //     forumPostData.forEach(curForumPostData => {
+                        //         console.log('curForumPostData.tags', curForumPostData.tags)
+                        //         curForumPostData.tags.forEach(curForumPostTag => {
+                        //             console.log('curTag', curTag);
+                        //             console.log('nested curForumPostData.tags', curForumPostData.tags)
+                        //             if (curTag._id === curForumPostTag) {
+                        //                 newForumPostData.push(curForumPostData);
+                        //                 console.log('curForumPostData', curForumPostData);
+                        //             }
+                        //         });
+                        //     })
+                        // }
+                        // );
+                        // setRendered(false);
+                        // // setForumPostData(newForumPostData);
+                        // setForumPostCards([]);
+                    }}
+                >
+                    search
+                </button>
 
             </div>
         </div >
