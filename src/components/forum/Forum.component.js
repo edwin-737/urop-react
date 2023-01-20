@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ListOfTopics from './ListOfTopics.component';
+import ChapterData from '../helper-functions/data-retrieval/ChapterData';
+
 // import FocusOnTopic from './FocusOnTopic.component';
 // import CreateResponse from './CreateResponse.component';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,15 +18,70 @@ export default function Forum(props) {
     const [retrieved, setRetrieved] = useState(false);
     const [listOfTopics, setListOfTopics] = useState('');
     const [rendered, setRendered] = useState(false);
-    // const [userGraphData, setUserGraphData] = useState({});
-    // const [username, setUsername] = useState('');
+    const [chapterData, setChapterData] = useState([]);
+    const [retrievedChapterData, setRetrievedChapterData] = useState(false);
+    const [chapterOptions, setChapterOptions] = useState([]);
+    const [chapterCards, setChapterCards] = useState([]);
+    const [addedTags, setAddedTags] = useState([]);
+    const [tagCards, setTagCards] = useState([]);
+    useEffect(() => {
+        if (!addedTags.length) {
+            console.log(addedTags.length);
+            return;
+        }
+        var temp = [];
+        // setAddedTags([]);
+        console.log('all addedTags in useEffect', addedTags);
+        addedTags.forEach((curTag, index) => {
+            temp.push(
+                <div className='searcbar-addedTag-item'>
+                    <span className='addedTag-font'>{curTag.name}</span>
+                    <span className='eraseTag' onClick={(e) => {
+                        e.stopPropagation();
+                        var newAddedTags = [];
+                        addedTags.forEach((nestedCurTag, nestedIndex) => {
+                            if (nestedIndex === index) {
+                                console.log('nestedIndex', nestedIndex);
+                                return;
+                            }
+                            newAddedTags.push(nestedCurTag);
+                        });
+                        console.log('newAddedTags', newAddedTags);
+                        setAddedTags(newAddedTags);
+                    }}>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        X
+                    </span>
+                </div>
+            )
+        })
+        setTagCards(temp);
+    }, [addedTags]);
+    useEffect(() => {
+        if (!retrieved || !chapterData.length)
+            return;
+        var temp = [];
+        console.log('all chapterData', chapterData);
+        chapterData.forEach(curChapterData => {
+            temp.push(
+                <li key={curChapterData._id} onClick={() => {
+                    setAddedTags(prev => [...prev, {
+                        _id: curChapterData._id,
+                        name: curChapterData.name
+                    }]);
+                }}>
+                    {curChapterData.name}
+                </li>
+            );
+        });
+        setChapterCards(temp);
+        setRendered(true);
+    }, [retrieved, chapterData, rendered]);
     useEffect(() => {
         //create html cards to display the topics
         const makeTopicCards = () => {
             if (!retrieved || rendered)
                 return;
-            console.log('makeTopicCards length of forumPostData', forumPostData.length);
-            console.log('before making html cards forumPostData', forumPostData);
             forumPostData.forEach((curForumPostData) => {
                 setForumPostCards(prev =>
                     [
@@ -75,27 +132,33 @@ export default function Forum(props) {
 
         makeTopicCards();
     }, [retrieved, rendered, forumPostData, forumPostCards]);
+    useEffect(() => {
+        if (!chapterData.length || !retrievedChapterData)
+            return;
+        var temp = [];
+        chapterData.forEach(curChapterData => {
+            temp.push(<option>
+                {curChapterData.name}
+            </option>);
+        })
+        setChapterOptions(temp);
+    }, [retrievedChapterData, chapterOptions, chapterData]);
+    //retrieve chapter data
+    useEffect(() => {
+        if (retrievedChapterData)
+            return;
+        const retrieveChapterData = async () => {
+            await ChapterData()
+                .then(data => {
+                    setChapterData(data);
+                    setRetrievedChapterData(true);
+                })
+                .catch(err => console.log(err));
+        }
+        retrieveChapterData();
+    }, [retrievedChapterData, chapterData]);
     //retrieve forumPostData
     useEffect(() => {
-        // //retrieve username from azure ad
-        // const getTeamsToken = () => {
-        //     microsoftTeams.app.initialize();
-        //     microsoftTeams.authentication.getAuthToken()
-        //         .then(result => {
-        //             // setAuthToken(result);
-        //             return axios.post(tokenUrl, {
-        //                 token: result,
-        //             });
-        //         })
-        //         .then(result => {
-        //             console.log('result.data.id', result.data.id)
-        //             setUserGraphData(result.data);
-        //         })
-        //         .catch(err => {
-        //             console.log('error, couldnt get token', err);
-        //         });
-
-        // }
         //retrieve all userData using postedBy
         const getUserData = async (topics) => {
             var newTopics = topics;
@@ -113,6 +176,7 @@ export default function Forum(props) {
                             newTopics[index].username = curUser.username;
                         else
                             newTopics[index].username = 'Anonymous';
+                        newTopics[index].hidden = false;
                     })
                 })
                 .catch(err => console.log(err));
@@ -146,6 +210,7 @@ export default function Forum(props) {
     return (
         <div className='component-container'>
             <div className='header'>
+
                 <div className="title-div">
                     <div className='title-text-container'>
 
@@ -178,6 +243,20 @@ export default function Forum(props) {
                 <div className='searchbar-container'>
                     <input className='searchbar' placeholder='Search Posts'>
                     </input>
+                    <div className='searcbar-tags-div'>
+                        <span className='createTopic-tags-font'>Tags:</span>
+                        <div className='searchbar-addedTag-container'>
+                            {tagCards}
+                        </div>
+                        <span className='dropdown dropdown-7'>
+                            <span>&nbsp;+</span>
+                            <ul className='dropdown_menu dropdown_menu--animated dropdown_menu-7'>
+                                {chapterCards}
+                            </ul>
+                        </span>
+                    </div>
+
+
                 </div>
 
             </div>

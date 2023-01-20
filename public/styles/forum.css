@@ -64,6 +64,7 @@
 	height:4.5vh;
 	/* position:relative; */
 	margin-top:8px;
+	z-index:0;
 }
 .button-add-question:hover{
 	background-color:rgb(75, 75, 218);
@@ -119,6 +120,8 @@
 	font-size:4vw;
 	color:white;
 	margin-top:0;
+
+	z-index:0;
 }
 .topic-card{
 	background-color:rgb(55,49,49);
@@ -128,6 +131,7 @@
 	box-shadow: 3px 3px 3px black;
 	width:91.8%;
 	height:1%;
+	z-index:0;
 	/* height:300px; */
 	/* height:10%; */
 	/* min-height:760%; */
@@ -165,12 +169,16 @@
 	box-shadow: 3px 3px 3px black;
 	width:91.8%;
 	overflow-y:infinite;
+
+	z-index:0;
 }
 .topic-card-see-thread-button{
 	background-color:rgb(174, 25, 25);
 	border:0;
 	width:90%;
 	height:100%;
+
+	z-index:0;
 	/* position:relative; */
 }
 .topic-card-see-thread-button:hover{

@@ -1,57 +1,3 @@
-## **Description**
-
-The following application consists of two parts, a tab application in
-microsoft teams, as well as a teams chatbot.
-
-The purpose of this application is to allow students to post queries
-they may have about course material on microsoft teams, and professors
-can answer them conveniently. Students can categorise their questions
-and professors can sort based forum posts based on those tags. Students
-can view which posts have the most upvotes and content from previous
-years. Professors can add content they find useful and students can view
-them through the app.
-
-Although edimension has a forum page, it may not be very convenient to
-open during a teams meeting, whereas if the forum was built into teams,
-user experience may improve as students will likely be logged into teams
-anyway, and it may reduce the need to switch tabs. In addition,
-edimension does not currently interact with student email inboxes or
-microsoft calendar, but this app would add those functionalities through
-the Microsoft Graph API
-
-## **Installation**
-
-On the side-panel in teams, click on the **'Apps'** tab and search for
-'**urop 1.0'**, then click add.
-
-## **Built Using**
-
-[**Azure static web apps**](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github):
-Hosting react frontend
-
-[**Azure app service**](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-vscode):
-Hosting express Backend
-
-[**Azure active directory**](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-access-create-new-tenant):
-Microsoft graph functionality, integrating with user email, teams data,
-single sign on functionality.
-
-[**MongoDB**](https://www.mongodb.com/): NoSQL database to
-store all data of the app
-
-[**Express**](https://expressjs.com/): Javascript library
-for backend API
-
-[**React**](https://reactjs.org/docs/getting-started.html):
-Frontend Framework
-
-[**NodeJS**](https://nodejs.org/en/docs/): Javascript
-runtime environment for server
-
-[Azure Tools](https://code.visualstudio.com/docs/azure/extensions):
-Visual studio code extension for deploying frontend to Azure Static Web
-Apps and Backend to Azure App Services for continuous
-integration/continuous deployment CI/CD.
 
 ### **Azure Static Web Apps**
 
@@ -84,68 +30,37 @@ We have the basic structure of the app now, storing it in
 `backend` folder.
 
 ### **Backend**
-
-Our folder structure
-
-\|\_\_\_\_bin
-
-\| \|\_\_\_\_www
-
-\|\_\_\_\_.deployment
-
-\|\_\_\_\_models
-
-\| \|\_\_\_\_chapter.model.js
-
-\| \|\_\_\_\_option.model.js
-
-\| \|\_\_\_\_user.model.js
-
-\| \|\_\_\_\_course.model.js
-
-\| \|\_\_\_\_email.model.js
-
-\| \|\_\_\_\_question.model.js
-
-\| \|\_\_\_\_forumPost.model.js
-
-\|\_\_\_\_public
-
-\| \|\_\_\_\_images
-
-\| \|\_\_\_\_javascripts
-
-\| \|\_\_\_\_stylesheets
-
-\|\_\_\_\_package-lock.json
-
-\|\_\_\_\_package.json
-
-\|\_\_\_\_views
-
-\| \|\_\_\_\_index.ejs
-
-\| \|\_\_\_\_error.ejs
-
-\|\_\_\_\_routes
-
-\| \|\_\_\_\_question.js
-
-\| \|\_\_\_\_user.js
-
-\| \|\_\_\_\_chapter.js
-
-\| \|\_\_\_\_option.js
-
-\| \|\_\_\_\_index.js
-
-\| \|\_\_\_\_course.js
-
-\| \|\_\_\_\_token.js
-
-\| \|\_\_\_\_forumPost.js
-
-\|\_\_\_\_app.js
+Folder structure
+|____bin
+| |____www
+|____.deployment
+|____models
+| |____chapter.model.js
+| |____option.model.js
+| |____user.model.js
+| |____course.model.js
+| |____email.model.js
+| |____question.model.js
+| |____forumPost.model.js
+|____public
+| |____images
+| |____javascripts
+| |____stylesheets
+|____package-lock.json
+|____package.json
+|____views
+| |____index.ejs
+| |____error.ejs
+|____routes
+| |____question.js
+| |____user.js
+| |____chapter.js
+| |____option.js
+| |____index.js
+| |____course.js
+| |____token.js
+| |____forumPost.js
+|____app.js
 
 Entry point: app.js
 

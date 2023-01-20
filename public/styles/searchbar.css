@@ -1,5 +1,5 @@
 .searchbar-container{
-	background-color:#3d3f45;
+	background-color:rgb(0,0,0);
 	width:100%;
 	/* height:50vmax; */
 }
@@ -10,4 +10,80 @@
 	height:7%;
 	/* position:relative; */
 
+}
+
+.searchbar-tags-div{
+    margin-left:1%;
+    background-color:rgb(0,0,0);
+    /* height:3rem;
+    padding:1%; */
+    display:flex;
+    flex-direction: column;
+    width:95%;
+    /* flex-wrap:wrap; */
+}
+.searchbar-tags-font{
+    color:white;
+    size:80%;
+}
+.searchbar-add-tags-button{
+    background-color:transparent;
+    border:0;
+    color:white;
+}
+.slide{
+	clear:both;
+	width:100%;
+	height:0%;
+	overflow:hidden;
+	text-align: center;
+	transition: height 0.3s;
+	color:white;
+	justify-content: center;
+	list-style-type:none;
+	/* pointer-events: none; */
+}
+  
+.tags-dropdown{
+	position: absolute; 
+	opacity: 1;
+	height: 0px;
+	/* pointer-events:none; */
+}    
+.tags-dropdown:focus +.slide {
+	height:600px;
+	pointer-events:none;
+}
+.slide:hover{
+	height:600px;
+}
+.searchbar-addedTag-container{
+    display:flex;
+    flex-direction: column;
+    /* flex-wrap:wrap; */
+	background-color: rgb(0,0,0);
+}
+.searcbar-addedTag-item{
+	border-radius:2px;
+	background-color:rgb(20, 90, 230);
+	padding-top:5px;
+	display:flex;
+	min-width:90px;
+	min-height:20px;
+	margin:9px;
+	justify-content: center;
+
+}
+.searchbar-addedTag-font{
+	color:white;
+	font-size:70%;
+	/* margin-top:10px; */
+}
+.eraseTag{
+	color:white;
+	font-size:80%;
+
+}
+.eraseTag:hover{
+	cursor:pointer;
 }

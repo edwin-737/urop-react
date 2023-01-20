@@ -105,7 +105,6 @@ export default function CreateTopic(props) {
             </form >
             <div className='createTopic-tags-div'>
                 <span className='createTopic-tags-font'>Tags:</span>
-
                 <div className='addedTag-container'>
                     {tagCards}
                 </div>
@@ -115,8 +114,6 @@ export default function CreateTopic(props) {
                         {chapterCards}
                     </ul>
                 </span>
-
-
             </div>
         </div>
     );

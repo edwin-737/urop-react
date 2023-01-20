@@ -63,19 +63,13 @@ export default function Navbar() {
                     }}>Chapter</span>
                 </div>
             </div>
+
             <div>
                 {selectForum && <Forum userGraphData={graphData} />}
                 {selectChapters && <Chapters userGraphData={graphData} />}
             </div>
 
-            {/* <div className='component-container'>
-                <div className='header'>
-                </div>
-                <div className='main'>
-                </div>
-                <div className='search'>
-                </div>
-            </div> */}
+
         </div>
     );
 }

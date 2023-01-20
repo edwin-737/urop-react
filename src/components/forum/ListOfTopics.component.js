@@ -16,9 +16,37 @@ export default function ListOfTopics(props) {
     const [cardToFocusOn, setCardToFocusOn] = useState(-1);
     const [cardsToDelete, setCardsToDelete] = useState([]);
     const [chapterData, setChapterData] = useState([]);
+    const [sidemenu, setSidemenu] = useState('');
     const [retrievedChapterData, setRetrievedChapterData] = useState(false);
-    // const signedIn = "63861e801ad80b98e92289fb";
     const refresh = () => window.location.reload(true);
+    useEffect(() => {
+        if (!retrievedChapterData || sidemenu !== '' || !cards.length)
+            return;
+        var temp = []
+        chapterData.forEach(curChapterData => {
+            temp.push(
+                <span key={curChapterData._id}>
+                    {curChapterData.name}
+                </span>
+            );
+        });
+        setSidemenu(
+            <div className="sidemenu">
+                <input type="checkbox" id="sidemenu-check" />
+                <div className="sidemenu-btn">
+                    <label for="sidemenu-check">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                </div>
+
+                <div className='sidemenu-links'>
+                    {temp}
+                </div>
+            </div>
+        );
+    }, [chapterData, retrievedChapterData, cards, sidemenu])
 
     useEffect(() => {
         if (retrievedChapterData)
@@ -155,6 +183,7 @@ export default function ListOfTopics(props) {
     }, [selectMode, cardData, focusOn, chapterData]);
     return (
         <div>
+            {sidemenu}
             <div className="forumPost-container">
                 {cardToFocusOn !== -1 &&
                     <div>
@@ -207,7 +236,6 @@ export default function ListOfTopics(props) {
                                 <span className='button-text'>Delete</span>
                             </button>
                         }
-                        {/* {<ChapterMenu />} */}
                     </div>
                 }
                 {creatingTopic &&

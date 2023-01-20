@@ -34,25 +34,6 @@ export default function ChapterList() {
     useEffect(() => {
         if (!retrieved || !chapterData.length)
             return;
-        // const getTeamsToken = () => {
-        //     microsoftTeams.app.initialize();
-        //     microsoftTeams.authentication.getAuthToken()
-        //         .then(result => {
-        //             setAuthToken(result);
-        //             return axios.post(tokenUrl, {
-        //                 token: result,
-        //             });
-        //         })
-        //         .then(result => {
-        //             // alert('username returned', result.data)
-        //             setUsername(result.data.displayName);
-        //             // setUsername(name.data);
-        //         })
-        //         .catch(err => {
-        //             console.log('error, couldnt get token', err);
-        //         });
-
-        // }
         const createChapterCards = () => {
             var createdCards = chapterData.map(curChapterData => {
                 return (
@@ -76,7 +57,6 @@ export default function ChapterList() {
             return createdCards;
         };
 
-        // getTeamsToken();
         setCards(createChapterCards());
 
     }, [retrieved, chapterData]);

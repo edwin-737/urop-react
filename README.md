@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+## **Description**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The following application consists of two parts, a tab application in
+microsoft teams, as well as a teams chatbot.
 
-## Available Scripts
+The purpose of this application is to allow students to post queries
+they may have about course material on microsoft teams, and professors
+can answer them conveniently. Students can categorise their questions
+and professors can sort based forum posts based on those tags. Students
+can view which posts have the most upvotes and content from previous
+years. Professors can add content they find useful and students can view
+them through the app.
 
-In the project directory, you can run:
+Although edimension has a forum page, it may not be very convenient to
+open during a teams meeting, whereas if the forum was built into teams,
+user experience may improve as students will likely be logged into teams
+anyway, and it may reduce the need to switch tabs. In addition,
+edimension does not currently interact with student email inboxes or
+microsoft calendar, but this app would add those functionalities through
+the Microsoft Graph API
 
-### `npm start`
+## **Installation**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+On the side-panel in Microsoft teams, click on the **'Apps'** tab and search for
+**'urop 1.0'**, then click add.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## **Built Using**
 
-### `npm test`
+[**Azure static web apps**](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github):
+Hosting react frontend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[**Azure app service**](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-vscode):
+Hosting express Backend
 
-### `npm run build`
+[**Azure active directory**](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-access-create-new-tenant):
+Microsoft graph functionality, integrating with user email, teams data,
+single sign on functionality.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[**MongoDB**](https://www.mongodb.com/): NoSQL database to
+store all data of the app
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[**Express**](https://expressjs.com/): Javascript library
+for backend API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[**React**](https://reactjs.org/docs/getting-started.html):
+Frontend Framework
 
-### `npm run eject`
+[**NodeJS**](https://nodejs.org/en/docs/): Javascript
+runtime environment for server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Azure Tools](https://code.visualstudio.com/docs/azure/extensions):
+Visual studio code extension for deploying frontend to Azure Static Web
+Apps and Backend to Azure App Services for continuous
+integration/continuous deployment CI/CD.
