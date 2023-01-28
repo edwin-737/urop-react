@@ -61,6 +61,7 @@ export default function ListOfTopics(props) {
         }
         fetchData();
     }, [retrievedChapterData, chapterData]);
+    
     useEffect(() => {
         if (cardsToDelete.length === 0)
             return;

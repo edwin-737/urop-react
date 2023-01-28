@@ -1,22 +1,67 @@
 
-### **Azure Static Web Apps**
+## **Azure Static Web Apps**
+### **Creating the github repo locally**
 The first component of the application is the static frontend, hosted on **Azure Static Web Apps**
-We followed the first page of
-[this](https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-portal?tabs=react&pivots=github)
-guide to create a github repository with build instructions from azure.
+1. Open Visual Studio Code.
+2. In the VS code terminal `npx create-react-app "name of your app"`
+3. `cd "name of your app"`
+4. `git init`
+5. `gh repo create`
+6.  **? What would you like to do?** Push an existing local repository to GitHub
+    **? Path to local repository** .
+    **? Repository name** "Choose an app name"
+    **? Description** "write an app description"
+    **? Visibility** Public
+    **✓ Created repository edwin-737/demo-urop-react on GitHub**
+    **? Add a remote?** Yes
+    **? What should the new remote be called?** origin
+### Configuring azure CI/CD workflow.
+When creating the resource on azure, our app used the following settings:
 
-Our app uses the following settings:
+#### **Build Preset**:
+React
+#### **Hosting Platform**:
+Github
+#### **Subscription**: 
+Name of your azure subscription
+#### **Resource Group**:
+(New) Resource Group
+#### **Plan Type**:
+Free
+#### **Azure Functions and Staging Details**: 
+East Asia
+#### **Deployment Details**
+**Source**: Github
+**Github Account**: "Your Github account name"
+**Organization**:Choose your organization name
 
-**Build Preset**:React
+Then click **review + create**.
 
-**Hosting Platform**:Github
+After azure validates the form, you click **create**.
 
-After following the first page of the guide, you will have a github
-repository containing the frontend of the site, we will not be using
-azure functions portion of the guide, because our backend API is hosted
-on azure app services.
+Now you can view the resource you just created and click the "Github Actions Link" in your resource overview.
 
-### **Azure App Services**
+At the github actions page, you see a CI/CD workflow from github. This may take 2-3 minutes
+
+Now return to your azure resource overview page, click the "URL" to view your site, you will see the default react page when you use the npx create-react-app command.
+
+### Pushing Changes to Github
+
+Now that we azure created build instructions in the form of a file called azure-static-web-apps-someName-givenByAzure.yml,
+you can push changes to the repo, and those changes are automatically deployed by github actions.
+
+To test this, go to VS code where your local repo is. Naviagate to src/app.js. change the text displayed from "Learn React" to "Testing Azure Deployment", save your file, open VS code's terminal, and type
+`git add .`
+`git commit -m 'second deployment to azure'`
+`git push`
+Then go to the github repo of your app, and click the Actions tab, wait for the latest deployment, and after its done, go back to your site's link from earlier. You should see the text "Testing Azure Deployment" now.
+
+**Possible error**
+If your deployment is unsuccessful, in the actions tab, the symbol next to the commit message of that deployment will be a red cross, click on that deployment, and then click the "Build and deploy" dropdown to view the error. It will likely be a mistake in your frontend code. Common causes include:
+1. Importing an unused file in a react.js file
+2. Not passing a return statement to a `Array.map()` function.
+3. Other react errors.
+## **Azure App Services**
 
 We will utilise this azure resource to host a NodeJS server. We followed
 [this](https://www.youtube.com/watch?v=P4vt-OmUM8E&list=PLLasX02E8BPADO_R-D6ctSoV4EeE8ow9B)
@@ -29,42 +74,71 @@ We have the basic structure of the app now, storing it in
 
 `backend` folder.
 
-### **Backend**
+## **Backend**
 Folder structure
-|____bin 
-|_|____www
-|____.deployment
-|____models
-|_|____chapter.model.js
-|_|____option.model.js
-|_|____user.model.js
-|_|____course.model.js
-|_|____email.model.js
-|_|____question.model.js
-|_|____forumPost.model.js
-|____public
-|_|____images
-|_|____javascripts
-|_|____stylesheets
-|____package-lock.json
-|____package.json
-|____views
-|_|____index.ejs
-|_|____error.ejs
-|____routes
-|_|____question.js
-|_|____user.js
-|_|____chapter.js
-|_|____option.js
-|_|____index.js
-|_|____course.js
-|_|____token.js
-|_|____forumPost.js
-|____app.js
+\|\_\_\_\_bin
+
+\| \|\_\_\_\_www
+
+\|\_\_\_\_.deployment
+
+\|\_\_\_\_models
+
+\| \|\_\_\_\_chapter.model.js
+
+\| \|\_\_\_\_option.model.js
+
+\| \|\_\_\_\_user.model.js
+
+\| \|\_\_\_\_course.model.js
+
+\| \|\_\_\_\_email.model.js
+
+\| \|\_\_\_\_question.model.js
+
+\| \|\_\_\_\_forumPost.model.js
+
+\|\_\_\_\_public
+
+\| \|\_\_\_\_images
+
+\| \|\_\_\_\_javascripts
+
+\| \|\_\_\_\_stylesheets
+
+\|\_\_\_\_package-lock.json
+
+\|\_\_\_\_package.json
+
+\|\_\_\_\_views
+
+\| \|\_\_\_\_index.ejs
+
+\| \|\_\_\_\_error.ejs
+
+\|\_\_\_\_routes
+
+\| \|\_\_\_\_question.js
+
+\| \|\_\_\_\_user.js
+
+\| \|\_\_\_\_chapter.js
+
+\| \|\_\_\_\_option.js
+
+\| \|\_\_\_\_index.js
+
+\| \|\_\_\_\_course.js
+
+\| \|\_\_\_\_token.js
+
+\| \|\_\_\_\_forumPost.js
+
+\|\_\_\_\_app.js
 
 Entry point: app.js
 
-### ** Models **
+## ** Models **
 
 This folder contains schema for the different collections in the
 teams-web-app namespace in MongoDB.

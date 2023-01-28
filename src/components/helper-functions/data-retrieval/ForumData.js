@@ -12,7 +12,6 @@ export default async function ForumPostData() {
                 return !curForumPost.isReply
             });
             console.log('all forumPosts retrieved', topics);
-            // return topics;
             return UserData(topics);
         })
         .catch(err => console.log(err));
