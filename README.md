@@ -49,6 +49,5 @@ Frontend Framework
 runtime environment for server
 
 [Azure Tools](https://code.visualstudio.com/docs/azure/extensions):
-Visual studio code extension for deploying frontend to Azure Static Web
-Apps and Backend to Azure App Services for continuous
-integration/continuous deployment CI/CD.
+Visual studio code extension for deploying Backend to Azure App Services for continuous
+integration/continuous deployment (CI/CD).

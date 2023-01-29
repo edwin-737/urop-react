@@ -1,20 +1,21 @@
 
 ## **Azure Static Web Apps**
-### **Creating the github repo locally**
+#### **Creating the github repo locally**
 The first component of the application is the static frontend, hosted on **Azure Static Web Apps**
-1. Open Visual Studio Code.
-2. In the VS code terminal `npx create-react-app "name of your app"`
-3. `cd "name of your app"`
+1. Open Visual Studio Code.  
+2. In the VS code terminal `npx create-react-app <name of your frontend static web app>`
+3. `cd <name of your frontend static web app>`
 4. `git init`
 5. `gh repo create`
-6.  **? What would you like to do?** Push an existing local repository to GitHub
-    **? Path to local repository** .
-    **? Repository name** "Choose an app name"
-    **? Description** "write an app description"
-    **? Visibility** Public
-    **✓ Created repository edwin-737/demo-urop-react on GitHub**
-    **? Add a remote?** Yes
-    **? What should the new remote be called?** origin
+6.  **? What would you like to do?** Push an existing local repository to GitHub  
+    **? Path to local repository** .  
+    **? Repository name** "Choose an app name"  
+    **? Description** "write an app description"  
+    **? Visibility** Public  
+    **✓ Created repository edwin-737/demo-urop-react on GitHub**  
+    **? Add a remote?** Yes  
+    **? What should the new remote be called?** origin  
+
 ### Configuring azure CI/CD workflow.
 When creating the resource on azure, our app used the following settings:
 
@@ -32,7 +33,7 @@ Free
 East Asia
 #### **Deployment Details**
 **Source**: Github
-**Github Account**: "Your Github account name"
+**Github Account**: `<Your Github account name>`
 **Organization**:Choose your organization name
 
 Then click **review + create**.
@@ -61,13 +62,34 @@ If your deployment is unsuccessful, in the actions tab, the symbol next to the c
 1. Importing an unused file in a react.js file
 2. Not passing a return statement to a `Array.map()` function.
 3. Other react errors.
+
 ## **Azure App Services**
 
-We will utilise this azure resource to host a NodeJS server. We followed
-[this](https://www.youtube.com/watch?v=P4vt-OmUM8E&list=PLLasX02E8BPADO_R-D6ctSoV4EeE8ow9B)
-video guide from Microsoft azure's youtube channel.
+We will utilise the azure app service resource to host a NodeJS server. 
 
-When creating the app in VS code, when prompted, we used NodeJS 14, and
+
+### Creating the Resource on Azure
+First we must create the azure app service on azure. 
+**1**. Go to [this](https://azure.microsoft.com/en-us/get-started/azure-portal)
+**2**. Click sign in, and enter your azure admin credentials
+**3**. Once logged in, in the home page you should see a row of icons, click on the 'App Services' icon.
+**4**. Click '+ Create' button.
+<img src="/azure-app-services-tutorial" alt="create">
+
+
+
+To give a more detailed overview of the process, as some details were changed
+**1**. inside the frontend directory used to store our azure static web app, in the VS code terminal, perform 
+`npx express-generator backend --view ejs`, this will create a NodeJS web app in a directory named "backend".
+**2**. Navigate to the Azure extension on your VS code sidepanel, if it isn't there, try check the extensions store in VS code to see wether you have installed it or not.
+**3**. Click 'sign in' to sign in to you azure tenant admin account.
+**4**. Click on the azure subscription you want to use for your app service resource, if you want to only use the free tier then it doesn't matter which subscription you choose.
+**5**. A dropdown should appear, Right click Azure app service.
+**6**. Click Create new web app.
+**7**. A prompt will appear at the top of your screen, type the name you want for your app.
+**8**. For runtime stack, we chose NodeJS 16, so it would be best if you followed it to ensure consistent behaviour of the app service.
+**9**. For Pricing tier, we chose free tier.
+When creating the app in VS code, when prompted, we used NodeJS 16, and
 free tier of the resource was used.
 
 We have the basic structure of the app now, storing it in
@@ -84,27 +106,27 @@ Folder structure
 
 \|\_\_\_\_models
 
-\| \|\_\_\_\_chapter.model.js
+\  \|\_\_\_\_chapter.model.js
 
-\| \|\_\_\_\_option.model.js
+\ \|\_\_\_\_option.model.js
 
-\| \|\_\_\_\_user.model.js
+\ \|\_\_\_\_user.model.js
 
-\| \|\_\_\_\_course.model.js
+\ \|\_\_\_\_course.model.js
 
-\| \|\_\_\_\_email.model.js
+\ \|\_\_\_\_email.model.js
 
-\| \|\_\_\_\_question.model.js
+\ \|\_\_\_\_question.model.js
 
 \| \|\_\_\_\_forumPost.model.js
 
 \|\_\_\_\_public
 
-\| \|\_\_\_\_images
+\ \|\_\_\_\_images
 
-\| \|\_\_\_\_javascripts
+\ \|\_\_\_\_javascripts
 
-\| \|\_\_\_\_stylesheets
+\ \|\_\_\_\_stylesheets
 
 \|\_\_\_\_package-lock.json
 
@@ -112,27 +134,27 @@ Folder structure
 
 \|\_\_\_\_views
 
-\| \|\_\_\_\_index.ejs
+\ \|\_\_\_\_index.ejs
 
-\| \|\_\_\_\_error.ejs
+\ \|\_\_\_\_error.ejs
 
 \|\_\_\_\_routes
 
-\| \|\_\_\_\_question.js
+\ \|\_\_\_\_question.js
 
-\| \|\_\_\_\_user.js
+\ \|\_\_\_\_user.js
 
-\| \|\_\_\_\_chapter.js
+\ \|\_\_\_\_chapter.js
 
-\| \|\_\_\_\_option.js
+\ \|\_\_\_\_option.js
 
-\| \|\_\_\_\_index.js
+\ \|\_\_\_\_index.js
 
-\| \|\_\_\_\_course.js
+\ \|\_\_\_\_course.js
 
-\| \|\_\_\_\_token.js
+\ \|\_\_\_\_token.js
 
-\| \|\_\_\_\_forumPost.js
+\ \|\_\_\_\_forumPost.js
 
 \|\_\_\_\_app.js
 
