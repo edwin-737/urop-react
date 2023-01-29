@@ -74,7 +74,7 @@ First we must create the azure app service on azure.
 **2**. Click sign in, and enter your azure admin credentials
 **3**. Once logged in, in the home page you should see a row of icons, click on the 'App Services' icon.
 **4**. Click '+ Create' button.
-<img src="/azure-app-services-tutorial" alt="create">
+<img src="/azure-app-services-tutorial/create.png" alt="create">
 
 
 
