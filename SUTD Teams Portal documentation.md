@@ -201,7 +201,7 @@ To test the CI/CD process,
 ```
 **3**. Save the `index.ejs` file and navigate to the Azure tools extension on the VS code sidepanel as shown below.
 
-<img src="/public/images/changed_landing_page.png" alt="created_page"
+<img src="https://github.com/edwin-737/urop-react/blob/master/public/images/app-services-tutorial/deploy_vid.mp4" alt="created_page"
      style="width:120%;height:120%"></img>   
 **4**. Repeat steps 4-11 of the [deploying backend to azure app service for the first time](https://github.com/edwin-737/urop-react/blob/master/SUTD%20Teams%20Portal%20documentation.md#creating-the-resource-on-azure)
 **5**. Once deployment is successful in the output window, reopen the url of your azure app service, you should see the following image.
