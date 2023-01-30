@@ -7,13 +7,13 @@ The first component of the application is the static frontend, hosted on **Azure
 3. `cd <name of your frontend static web app>`
 4. `git init`
 5. `gh repo create`
-6.  **? What would you like to do?** Push an existing local repository to GitHub  
-    **? Path to local repository** .  
-    **? Repository name** "Choose an app name"  
-    **? Description** "write an app description"  
-    **? Visibility** Public  
+6.  **? What would you like to do?**   Push an existing local repository to GitHub  
+    **? Path to local repository**  .  
+    **? Repository name**  "Choose an app name"  
+    **? Description**  "write an app description"  
+    **? Visibility**  Public  
     **✓ Created repository edwin-737/demo-urop-react on GitHub**  
-    **? Add a remote?** Yes  
+    **? Add a remote?**  Yes  
     **? What should the new remote be called?** origin  
 
 ### Configuring azure CI/CD workflow.
@@ -55,13 +55,13 @@ To test this, go to VS code where your local repo is. Naviagate to src/app.js. c
 `git add .`
 `git commit -m 'second deployment to azure'`
 `git push`
-Then go to the github repo of your app, and click the Actions tab, wait for the latest deployment, and after its done, go back to your site's link from earlier. You should see the text "Testing Azure Deployment" now.
+Then go to the github repo of your app, and click the "Actions" tab, wait for the latest deployment, and after its done, go back to your site's link from earlier. You should see the text "Testing Azure Deployment" now.
 
 **Possible error**
 If your deployment is unsuccessful, in the actions tab, the symbol next to the commit message of that deployment will be a red cross, click on that deployment, and then click the "Build and deploy" dropdown to view the error. It will likely be a mistake in your frontend code. Common causes include:
 1. Importing an unused file in a react.js file
-2. Not passing a return statement to a `Array.map()` function.
-3. Other react errors.
+2. Not passing a return statement to an `Array.map()` function.
+3. Other ReactJS errors.
 
 ## **Azure App Services**
 
@@ -70,27 +70,143 @@ We will utilise the azure app service resource to host a NodeJS server.
 
 ### Creating the Resource on Azure
 First we must create the azure app service on azure. 
-**1**. Go to [this](https://azure.microsoft.com/en-us/get-started/azure-portal)
-**2**. Click sign in, and enter your azure admin credentials
-**3**. Once logged in, in the home page you should see a row of icons, click on the 'App Services' icon.
-**4**. Click '+ Create' button.
-<img src="/public/images/app-services-tutorial/create.png" alt="create">
+**1**. Go to [this](https://azure.microsoft.com/en-us/get-started/azure-portal)  
+**2**. Click sign in, and enter your azure admin credentials  
+**3**. Once logged in, in the home page you should see a row of icons, click on the 'App Services' icon.  
+<img src="/public/images/app-services-tutorial/create0.png" alt="create"
+     style="width:120%;height:120%"></img>   
+
+**4**. Click '+ Create' button.  
+<img src="/public/images/app-services-tutorial/create1.png" alt="create"
+     style="width:120%;height:120%"></img>   
+**5**. Azure will direct you to a form page as shown below  
+<img src="/public/images/app-services-tutorial/create2.png" alt="create"
+     style="width:120%;height:120%"></img>   
+<img src="/public/images/app-services-tutorial/create2_1.png" alt="create"
+     style="width:120%;height:120%"></img>   
+
+### **1. Azure Subscription**:  
+Choose one of your azure subscriptions  
+### **2. Resource Group**:  
+Use the same resource group that your frontend static web app used  
+### **3. Name**:  
+Choose a name for your app services resource  
+### **4. Publish:  
+code  
+### **5. Runitme stack**:  
+Use the NodeJS version your backend uses, to check this, in VS code terminal, travel to your backend directory, and use `npm --version`.  
+### **6. Operating System**:  
+Linux **(this part is very important if we want to make the CI/CD process simpler)**
+### **7. Region**:  
+East Asia  
+### **8. Linux Plan (East Asia)**:  
+Click "new" and name your linux plan  
+### **9. Pricing Plan**:
+Click Change size, and choose "Free" tier
+### **10. Zone Redundancy**:  
+Disabled  
+
+### **11. Now Click "Next:Deployment" button at the bottom of the page**  
+
+Now the following form appears  
+<img src="/public/images/deployment.png" alt="deployment"
+     style="width:120%;height:120%"></img>   
+
+### **1. Continuous deployment**  
+Disable
+
+### **2. Click Next:Networking  
+
+Now the following form appears
+<img src="/public/images/networking.png" alt="networking"></img>  
+
+### **1. Enable public access**  
+On
+### **2. Click Next:Monitoring
+Now the following form appears
+<img src="/public/images/monitoring.png" alt="monitoring"
+     style="width:120%;height:120%"></img>   
+
+### **1. Enable Application Insights**
+Yes  
+### **2. Application insights**
+Use whatever azure put in the box, if the box is empty, click "create new"  
+### **3. Click Next:Tags
+
+**Now another form appears, but just skip this one, and directly click Next:Review+Create**
+
+**Now a summary of all the information appears, read it and if everything seems correct, click the blue Create button on the bottom right of the screen.**
+
+<img src="/public/images/Review_create.png" alt="Review+create"
+     style="width:120%;height:120%"></img>   
+
+**Wait until azure finishes deploying, if deployment was successful, the page should look like the following**
+
+<img src="/public/images/post_deployed.png" alt="post_deployed"
+     style="width:120%;height:120%"></img>   
 
 
+## Creating the backend starter code
 
-To give a more detailed overview of the process, as some details were changed
-**1**. inside the frontend directory used to store our azure static web app, in the VS code terminal, perform 
-`npx express-generator backend --view ejs`, this will create a NodeJS web app in a directory named "backend".
-**2**. Navigate to the Azure extension on your VS code sidepanel, if it isn't there, try check the extensions store in VS code to see wether you have installed it or not.
-**3**. Click 'sign in' to sign in to you azure tenant admin account.
-**4**. Click on the azure subscription you want to use for your app service resource, if you want to only use the free tier then it doesn't matter which subscription you choose.
-**5**. A dropdown should appear, Right click Azure app service.
-**6**. Click Create new web app.
-**7**. A prompt will appear at the top of your screen, type the name you want for your app.
-**8**. For runtime stack, we chose NodeJS 16, so it would be best if you followed it to ensure consistent behaviour of the app service.
-**9**. For Pricing tier, we chose free tier.
-When creating the app in VS code, when prompted, we used NodeJS 16, and
-free tier of the resource was used.
+As specified in our README, we will utilise a NodeJS server for the backend, to speed up the process, you can use the express-generator package in npx.
+
+To give a more detailed overview of the process
+**1**. Enter VS code, navigate to the frontend directory used to store our azure static web app, in the VS code terminal, perform 
+`npx express-generator backend --view ejs`, this will create a NodeJS web app in a directory named `backend`.
+## Deploying backend to azure app service for the first time
+**1**. If you haven't downloaded it, go to the extensions store on VS code, and install "azure app service", **the following steps depend on this**
+**2**. In addition if you haven't downloaded it, go to the extensions store on VS code, and install "azure tools", **the following steps depend on this**
+**3**. If there is a 'sign in' button Click 'sign in' to sign in to you azure tenant admin account.  
+**4**. Click on the azure subscription which you used to host your app service in the previous steps.
+**5**. A dropdown should appear, click "Azure app service".  
+**6**. Another dropdown should appear, and the list that appears is a list of azure app services created using the subscription you selected.
+**7**. Right click the app service you created in the previous steps, and click deploy to web app.
+**8**. A text box should appear at the top of the page for you to select the backend directory you want to deploy. Click 'Browse' and search your computer for the directory you used to host your backend server, if you followed our tutorial, then the backend folder should be `/<name of your frontend static web app>/backend`.
+**9**. An alert should appear. Click deploy
+**10**. After about 50 secconds, open your browser and go to the url of your app service, the following starter page should be shown.
+**11**. On the bottom right of your screen a notification from VS code appears, telling you to check your output window, click the blue text which says "output window". This will show the deployment progress from azure app service. After about 40s, you should see "Deployment Successful" as shown in our gif below.
+Steps 1-11 of the deployment are shown in the gif below.
+<video controls width="320" height="240" autoplay>
+  <source src="/public/images/deploy_vid.mov" type="video/mov">
+  our
+</video>
+<img src="/public/images/created_page.png" alt="created_page"
+     style="width:120%;height:120%"></img>   
+
+## Test CI/CD
+
+Similar to our frontend, azure has allowed us to CI/CD an azure app service, and since we chose a linux OS earlier, the CI/CD process for our app service backend is even simpler compared to our frontend.
+ 
+To test the CI/CD process, 
+**1**. navigate to `/<name of your frontend static web app>/backend/views/index.ejs`    
+**2**. Replace the html code in that file to the following:
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>demo</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>
+    starter page
+  </h1>
+  <p>Welcome to our app
+  </p>
+</body>
+
+</html>
+```
+**3**. Save the `index.ejs` file and navigate to the Azure tools extension on the VS code sidepanel as shown below.
+
+<img src="/public/images/changed_landing_page.png" alt="created_page"
+     style="width:120%;height:120%"></img>   
+**4**. Repeat steps 4-11 of the [deploying backend to azure app service for the first time](https://github.com/edwin-737/urop-react/blob/master/SUTD%20Teams%20Portal%20documentation.md#creating-the-resource-on-azure)
+**5**. Once deployment is successful in the output window, reopen the url of your azure app service, you should see the following image.
+<img src="/public/images/edited_page.png" alt="edited_page"
+     style="width:120%;height:120%"></img>   
 
 We have the basic structure of the app now, storing it in
 
