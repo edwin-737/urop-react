@@ -165,10 +165,10 @@ To give a more detailed overview of the process
 **9**. An alert should appear. Click deploy
 **10**. After about 50 secconds, open your browser and go to the url of your app service, the following starter page should be shown.
 **11**. On the bottom right of your screen a notification from VS code appears, telling you to check your output window, click the blue text which says "output window". This will show the deployment progress from azure app service. After about 40s, you should see "Deployment Successful" as shown in our gif below.
-Steps 1-11 of the deployment are shown in the gif below.
+Steps 1-11 of the deployment are shown in the video below.
 <video controls width="320" height="240" autoplay>
-  <source src="/public/images/app-services-tutorial/deploy_vid.mov" type="video/mov">
-  our
+  <source src="/public/images/app-services-tutorial/deploy_vid.mp4" type="video/mp4">
+  our video
 </video>
 <img src="/public/images/app-services-tutorial/created_page.png" alt="created_page"
      style="width:120%;height:120%"></img>   
