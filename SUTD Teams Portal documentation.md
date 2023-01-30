@@ -109,7 +109,7 @@ Disabled
 ### **11. Now Click "Next:Deployment" button at the bottom of the page**  
 
 Now the following form appears  
-<img src="/public/images/deployment.png" alt="deployment"
+<img src="/public/images/app-services-tutorial/deployment.png" alt="deployment"
      style="width:120%;height:120%"></img>   
 
 ### **1. Continuous deployment**  
@@ -118,13 +118,13 @@ Disable
 ### **2. Click Next:Networking  
 
 Now the following form appears
-<img src="/public/images/networking.png" alt="networking"></img>  
+<img src="/public/images/app-services-tutorial/networking.png" alt="networking"></img>  
 
 ### **1. Enable public access**  
 On
 ### **2. Click Next:Monitoring
 Now the following form appears
-<img src="/public/images/monitoring.png" alt="monitoring"
+<img src="/public/images/app-services-tutorial/monitoring.png" alt="monitoring"
      style="width:120%;height:120%"></img>   
 
 ### **1. Enable Application Insights**
@@ -137,12 +137,12 @@ Use whatever azure put in the box, if the box is empty, click "create new"
 
 **Now a summary of all the information appears, read it and if everything seems correct, click the blue Create button on the bottom right of the screen.**
 
-<img src="/public/images/Review_create.png" alt="Review+create"
+<img src="/public/images/app-services-tutorial/Review_create.png" alt="Review+create"
      style="width:120%;height:120%"></img>   
 
 **Wait until azure finishes deploying, if deployment was successful, the page should look like the following**
 
-<img src="/public/images/post_deployed.png" alt="post_deployed"
+<img src="/public/images/app-services-tutorial/post_deployed.png" alt="post_deployed"
      style="width:120%;height:120%"></img>   
 
 
@@ -167,10 +167,10 @@ To give a more detailed overview of the process
 **11**. On the bottom right of your screen a notification from VS code appears, telling you to check your output window, click the blue text which says "output window". This will show the deployment progress from azure app service. After about 40s, you should see "Deployment Successful" as shown in our gif below.
 Steps 1-11 of the deployment are shown in the gif below.
 <video controls width="320" height="240" autoplay>
-  <source src="/public/images/deploy_vid.mov" type="video/mov">
+  <source src="/public/images/app-services-tutorial/deploy_vid.mov" type="video/mov">
   our
 </video>
-<img src="/public/images/created_page.png" alt="created_page"
+<img src="/public/images/app-services-tutorial/created_page.png" alt="created_page"
      style="width:120%;height:120%"></img>   
 
 ## Test CI/CD
