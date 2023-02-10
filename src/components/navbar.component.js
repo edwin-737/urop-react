@@ -36,7 +36,7 @@ export default function Navbar() {
 
         }
         getTeamsToken();
-    }, [graphData]);
+    }, [graphData, retrieved]);
     return (
         <div>
             <div className="nav">
