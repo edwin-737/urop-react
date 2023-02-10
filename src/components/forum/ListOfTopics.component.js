@@ -170,7 +170,7 @@ export default function ListOfTopics(props) {
                                         edit
                                     </span>}
                                 </div>
-                                {isCreatedBySignedInUser(cardData[index]) && !cardData[index].editing && <div className='topic-card-button-container'>
+                                {!cardData[index].editing && <div className='topic-card-button-container'>
                                     <button className="topic-card-see-thread-button"
                                         onClick={(e) => {
                                             e.stopPropagation();
