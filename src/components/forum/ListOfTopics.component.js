@@ -107,9 +107,9 @@ export default function ListOfTopics(props) {
             });
             return tagCards;
         }
-        // const isCreatedBySignedInUser = (card) => {
-        //     return props.userGraphData.id === card.postedBy;
-        // }
+        const isCreatedBySignedInUser = (card) => {
+            return props.userGraphData.id === card.postedBy;
+        }
         const togglePropertyOfCardData = (propertyToToggle, idToMatch) => {
             const newArr = cardData.map(curCard => {
                 if (curCard._id === idToMatch) {
@@ -162,7 +162,7 @@ export default function ListOfTopics(props) {
                                         <div></div>
                                         <div className='downvote-button'></div>
                                     </div>
-                                    {<span className="material-symbols-outlined"
+                                    {isCreatedBySignedInUser() && <span className="material-symbols-outlined"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             togglePropertyOfCardData("editing", curCardData._id);
