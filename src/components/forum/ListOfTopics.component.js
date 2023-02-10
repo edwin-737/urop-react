@@ -61,7 +61,7 @@ export default function ListOfTopics(props) {
         }
         fetchData();
     }, [retrievedChapterData, chapterData]);
-    
+
     useEffect(() => {
         if (cardsToDelete.length === 0)
             return;
@@ -107,10 +107,29 @@ export default function ListOfTopics(props) {
             });
             return tagCards;
         }
+        const isCreatedBySignedInUser = (card) => {
+            return props.userGraphData.id === card.postedBy;
+        }
+        const togglePropertyOfCardData = (propertyToToggle, idToMatch) => {
+            const newArr = cardData.map(curCard => {
+                if (curCard._id === idToMatch) {
+                    if (!curCard[propertyToToggle]) {
+                        curCard[propertyToToggle] = true;
+                        return curCard
+                    }
+                    else {
+                        curCard[propertyToToggle] = false;
+                        return curCard
+                    }
+                }
+                return curCard
+            })
+            setCardData(newArr);
+        }
         const createTopicCards = () => {
 
             var createdCards = [];
-            cardData.forEach((curCardData) => {
+            cardData.forEach((curCardData, index) => {
                 var curTopicCardStyle = topicCardStyle;
                 const tagCards = createTagCards(curCardData.tags);
                 createdCards.push(
@@ -120,20 +139,7 @@ export default function ListOfTopics(props) {
                                 if (!selectMode)
                                     return;
                                 e.stopPropagation();
-                                const newArr = cardData.map(curCard => {
-                                    if (curCardData._id === curCard._id) {
-                                        if (!curCard.selected) {
-                                            curCard.selected = true;
-                                            return curCard
-                                        }
-                                        else {
-                                            curCard.selected = false;
-                                            return curCard
-                                        }
-                                    }
-                                    return curCard
-                                })
-                                setCardData(newArr);
+                                togglePropertyOfCardData("selectMode", curCardData._id);
                             }}
                         >
                             <div className='topic-card-container'>
@@ -156,8 +162,15 @@ export default function ListOfTopics(props) {
                                         <div></div>
                                         <div className='downvote-button'></div>
                                     </div>
+                                    {<span className="material-symbols-outlined"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            togglePropertyOfCardData("editing", curCardData._id);
+                                        }}>
+                                        edit
+                                    </span>}
                                 </div>
-                                <div className='topic-card-button-container'>
+                                {isCreatedBySignedInUser(cardData[index]) && !cardData[index].editing && <div className='topic-card-button-container'>
                                     <button className="topic-card-see-thread-button"
                                         onClick={(e) => {
                                             e.stopPropagation();
@@ -172,8 +185,9 @@ export default function ListOfTopics(props) {
                                         {tagCards}
                                     </div>
 
-                                </div>
+                                </div>}
                             </div>
+                            {cardData[index].editing && <CreateTopic userGraphData={props.userGraphData} />}
                         </div>
                     </li >
                 );
@@ -181,7 +195,7 @@ export default function ListOfTopics(props) {
             return createdCards;
         };
         setCards(createTopicCards());
-    }, [selectMode, cardData, focusOn, chapterData]);
+    }, [selectMode, cardData, focusOn, chapterData, props.userGraphData]);
     return (
         <div>
             {sidemenu}
@@ -229,7 +243,6 @@ export default function ListOfTopics(props) {
                                         else
                                             newCardsToDelete.push(curCardData._id);
                                     });
-                                    // setSelectMode(false);
                                     setCardData(newCardData);
                                     setCardsToDelete(newCardsToDelete);
 
@@ -240,7 +253,7 @@ export default function ListOfTopics(props) {
                     </div>
                 }
                 {creatingTopic &&
-                    <CreateTopic />
+                    <CreateTopic userGraphData={props.userGraphData} />
                 }
                 {cardToFocusOn !== -1 &&
                     <FocusOnTopic

@@ -341,7 +341,7 @@
 	display:grid;
 	/* position:relative; */
 	overflow:infinite;
-	grid-template-columns:10px 93% 5%;
+	grid-template-columns:10px 90% 5% 4%;
 }
 .topic-card-button-container{
 	/* position:relative; */
@@ -397,4 +397,20 @@ img.logo {
 	width: 100%;
 	min-width: 76px;
 	height: auto;
+}
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48;
+
+}
+.material-symbols-outlined:hover {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48;
+	cursor:pointer;
 }

@@ -90,7 +90,7 @@ export default function CreateTopic(props) {
                             body: topicBody,
                             schema_version: 5,
                             isReply: false,
-                            postedBy: "63861e4f1ad80b98e92289f7", //replace with actual signed in user later
+                            postedBy: "a495e614-3794-4de3-847e-d2b6d4856c0b", //replace with actual signed in user later
                             title: topicTitle,
                             tags: addedTags,
                         })

@@ -18,6 +18,7 @@ export default async function UserData(topics) {
                 else
                     newTopics[index].username = 'Anonymous';
                 newTopics[index].hidden = false;
+                newTopics[index].editing = false;
             })
         })
         .catch(err => console.log(err));
