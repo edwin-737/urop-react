@@ -11,7 +11,6 @@ const userSchema = new Schema({
     forumPosts: [{
         type: Schema.Types.ObjectId,
         ref: "forumPost",
-        required: true,
     }],
     schema_version: { type: Number }
 });
