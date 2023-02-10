@@ -11,6 +11,8 @@ export default function Navbar() {
     const [selectChapters, setSelectChapters] = useState(false);
     const [graphData, setGraphData] = useState({});
     useEffect(() => {
+        if (graphData !== {})
+            return;
         //retrieve username from azure AD
         const getTeamsToken = () => {
             microsoftTeams.app.initialize();
@@ -23,7 +25,7 @@ export default function Navbar() {
                     });
                 })
                 .then(result => {
-                    console.log('result.data.id', result.data.id)
+                    console.log('result.data.id', result.data)
                     setGraphData(result.data);
                 })
                 .catch(err => {
