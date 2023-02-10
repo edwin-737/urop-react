@@ -10,8 +10,9 @@ export default function Navbar() {
     const [selectForum, setSelectForum] = useState(true);
     const [selectChapters, setSelectChapters] = useState(false);
     const [graphData, setGraphData] = useState({});
+    const [retrieved, setRetrieved] = useState(false);
     useEffect(() => {
-        if (graphData !== {})
+        if (retrieved)
             return;
         //retrieve username from azure AD
         const getTeamsToken = () => {
@@ -27,6 +28,7 @@ export default function Navbar() {
                 .then(result => {
                     console.log('result.data.id', result.data)
                     setGraphData(result.data);
+                    setRetrieved(true);
                 })
                 .catch(err => {
                     console.log('error, couldnt get token', err);
