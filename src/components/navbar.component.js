@@ -11,11 +11,35 @@ export default function Navbar() {
     const [selectChapters, setSelectChapters] = useState(false);
     const [graphData, setGraphData] = useState({});
     const [retrieved, setRetrieved] = useState(false);
-    const [navbar, setNavbar] = useState('');
     useEffect(() => {
-        if (!retrieved)
+        if (retrieved)
             return;
-        setNavbar(<div>
+        //retrieve username from azure AD
+        const getTeamsToken = () => {
+            microsoftTeams.app.initialize();
+            microsoftTeams.authentication.getAuthToken()
+                .then(tokenFromTeams => {
+                    // alert(tokenFromTeams);
+                    console.log(tokenFromTeams);
+                    return axios.post(tokenUrl, {
+                        token: tokenFromTeams,
+                    });
+                })
+                .then(result => {
+                    console.log('result.data.id', result.data)
+                    setGraphData(result.data);
+                    setRetrieved(true)
+                    setRetrieved(true);
+                })
+                .catch(err => {
+                    console.log('error, couldnt get token', err);
+                });
+
+        }
+        getTeamsToken();
+    }, [graphData, retrieved]);
+    return (
+        <div>
             <div className="nav">
                 <input type="checkbox" id="nav-check" />
 
@@ -50,39 +74,8 @@ export default function Navbar() {
             </div>
 
 
-        </div>);
-    }, [retrieved]);
-    useEffect(() => {
-        if (retrieved)
-            return;
-        //retrieve username from azure AD
-        const getTeamsToken = () => {
-            microsoftTeams.app.initialize();
-            microsoftTeams.authentication.getAuthToken()
-                .then(tokenFromTeams => {
-                    // alert(tokenFromTeams);
-                    console.log(tokenFromTeams);
-                    return axios.post(tokenUrl, {
-                        token: tokenFromTeams,
-                    });
-                })
-                .then(result => {
-                    console.log('result.data.id', result.data)
-                    setGraphData(result.data);
-                    setRetrieved(true);
-                })
-                .catch(err => {
-                    console.log('error, couldnt get token', err);
-                });
-
-        }
-        getTeamsToken();
-    }, [graphData, retrieved]);
-    return (
-        <div>
-            {navbar}
-
-
         </div>
+
+
     );
 }
