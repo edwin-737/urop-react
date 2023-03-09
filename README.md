@@ -20,9 +20,15 @@ microsoft calendar, but this app would add those functionalities through
 the Microsoft Graph API
 
 ## **Installation**
+To run tab app on browser
+URL: https://kind-cliff-037badd00.2.azurestaticapps.net/
 
-On the side-panel in Microsoft teams, click on the **'Apps'** tab and search for
-**'urop 1.0'**, then click add.
+To run tab app on teams
+1. Open [teams in browser](https://www.microsoft.com/en-sg/microsoft-teams/log-in)
+2. Click sign in
+3. in the email field type **conard_samlu@urop01572.onmicrosoft.com** (this is an email used for testing the app within teams)
+4. in the password field type **Olsen1245678**
+5. Once signed in, on the side-panel click **Apps**, then search for **urop 1.0** and open.
 
 ## **Built Using**
 
