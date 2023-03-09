@@ -5,50 +5,46 @@ const axios = require('axios');
 const graphServerUrl = 'http://localhost:3002/'
 const usersToUpload = []
 router.route('/').get(async (req, res) => {
-
-    const usersFromGraph = await axios.get(
-        graphServerUrl + 'users'
-    )
-        .then((users) => {
-            console.log('users from graph', users.data);
-            return users.data;
-        })
-        .catch(err => console.log(err));
+    var usersFromGraph = null;
+    await axios.get(graphServerUrl + 'users')
+        .then((users) => { usersFromGraph = users.data; });
     for (let i = 0; i < usersFromGraph.length; i++) {
         curUser = {}
         retrievedUser = usersFromGraph[i];
-        curUser.forumPosts = [];
         curUser.username = retrievedUser.displayName;
-        curUser.email = retrievedUser.mail !== null ? retrievedUser.mail : curUser.username.split(' ').join('_') + '@urop01572.onmicrosoft.com';
-        curUser.schema_version = 5;
-        curUser.type = 0;
-        curUser.index = i + 1;
-        curUser.graph_id = retrievedUser.id;
+        curUser.email = curUser.username.split(' ').join('_') + '@urop01572.onmicrosoft.com';
+        curUser.schema_version = 3;
+        if (i < 20)
+            curUser.type = 0;
+        else
+            curUser.type = 2;
+        curUser.user_id = 10 + i;
         curUser.enrollmentPeriod = 'sep-2022';
-        // console.log(curUser);
+        console.log(curUser);
         usersToUpload.push(curUser);
     }
-    console.log('usersToUpload-----------');
-    console.log(usersToUpload);
     // .then(() => res.send(usersToUpload));
     res.send(usersToUpload);
 
 });
 router.route('/add').get((req, res) => {
-    usersToUpload.forEach(async (user) => {
+    usersToUpload.map(async (user) => {
+        var username = user.username;
+        var user_id = user.user_id;
+        var email = user.email;
+        var type = user.type;
+        var enrollmentPeriod = user.enrollmentPeriod;
+        var schema_version = user.schema_version;
         const newUser = new User({
-            username: user.username,
-            index: user.index,
-            email: user.email,
-            type: user.type,
-            graph_id: user.graph_id,
-            enrollmentPeriod: user.enrollmentPeriod,
-            schema_version: user.schema_version,
+            username,
+            user_id,
+            email,
+            type,
+            enrollmentPeriod,
+            schema_version,
         });
         await newUser.save()
-            .then((user) => {
-                console.log(user);
-            })
+            .then(() => 1)
             .catch((err) => (res.status(400).json(`Error:${err}`)));
     });
 });

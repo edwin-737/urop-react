@@ -22,9 +22,6 @@ const questionSchema = new Schema({
         required: true,
     },
     schema_version: { type: Number }
-},
-    {
-        timestamps: true
-    });
-const question = mongoose.model('question', questionSchema);
-module.exports = question;
+});
+const problem = mongoose.model('question', questionSchema);
+module.exports = problem;

@@ -15,6 +15,8 @@ export default function Forum(props) {
     const [chapterCards, setChapterCards] = useState([]);
     const [addedTags, setAddedTags] = useState([]);
     const [tagCards, setTagCards] = useState([]);
+
+
     useEffect(() => {
         if (!addedTags.length) {
             console.log(addedTags.length);
@@ -118,6 +120,7 @@ export default function Forum(props) {
             setListOfTopics(<ListOfTopics
                 forumPostCards={forumPostCards}
                 forumPostData={forumPostData}
+                userGraphData={props.userGraphData}
             />);
             setRendered(true);
         }
@@ -206,7 +209,23 @@ export default function Forum(props) {
                     onClick={() => {
                         // var newForumPostData = [];
                         console.log('forumPostCards', forumPostCards);
-
+                        // addedTags.forEach((curTag) => {
+                        //     forumPostData.forEach(curForumPostData => {
+                        //         console.log('curForumPostData.tags', curForumPostData.tags)
+                        //         curForumPostData.tags.forEach(curForumPostTag => {
+                        //             console.log('curTag', curTag);
+                        //             console.log('nested curForumPostData.tags', curForumPostData.tags)
+                        //             if (curTag._id === curForumPostTag) {
+                        //                 newForumPostData.push(curForumPostData);
+                        //                 console.log('curForumPostData', curForumPostData);
+                        //             }
+                        //         });
+                        //     })
+                        // }
+                        // );
+                        // setRendered(false);
+                        // // setForumPostData(newForumPostData);
+                        // setForumPostCards([]);
                     }}
                 >
                     search
