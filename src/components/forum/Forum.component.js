@@ -125,7 +125,7 @@ export default function Forum(props) {
             setRendered(true);
         }
         makeTopicCards();
-    }, [retrievedForumPostData, rendered, forumPostData, forumPostCards]);
+    }, [retrievedForumPostData, rendered, forumPostData, forumPostCards, props.userGraphData]);
 
     //retrieve chapter data
     useEffect(() => {

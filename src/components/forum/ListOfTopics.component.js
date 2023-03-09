@@ -54,6 +54,7 @@ export default function ListOfTopics(props) {
         const fetchData = async () => {
             await ChapterData()
                 .then(data => {
+                    console.log(data);
                     setChapterData(data);
                     setRetrievedChapterData(true);
                 })
